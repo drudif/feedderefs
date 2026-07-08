@@ -11,7 +11,9 @@ import { exec } from "node:child_process";
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 4177;
 const HOST = process.env.PORT ? "0.0.0.0" : "127.0.0.1"; // Railway define PORT
-const READONLY = process.env.PUBLIC === "1";             // no deploy: sem escrita
+// Read-only por PADRÃO em qualquer host que define PORT (Railway etc.) — não depende
+// de config manual. Local (sem PORT) é gravável. ALLOW_WRITE=1 força escrita se precisar.
+const READONLY = process.env.ALLOW_WRITE !== "1" && (!!process.env.PORT || process.env.PUBLIC === "1");
 const TYPES = {
   ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8",
   ".json": "application/json", ".css": "text/css", ".svg": "image/svg+xml",
