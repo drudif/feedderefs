@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REFS — Catálogo de Referências</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://api.fontshare.com">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+  @import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap');
+
+  :root{
+    --paper:#f4efe6;        /* off-white quente */
+    --paper-2:#faf6ee;      /* superfície de card no hover */
+    --ink:#191512;          /* quase-preto quente */
+    --ink-2:#4c463d;        /* secundário */
+    --ink-3:#8a8272;        /* meta / faint */
+    --line:#191512;         /* borda brutalista */
+    --hair:#d8d0c0;         /* hairline suave */
+    /* categorias: hues bem separados — vermelho, laranja, âmbar, esmeralda, lima, ciano, violeta, magenta */
+    --ai:#7c3aed;      --design:#e8551e;  --type:#d61f2b;   --assets:#1f9d54;
+    --av:#0e8ba0;      --self:#c07d0a;     --sec:#b0208f;    --culture:#5b8c00;
+    --serif:"DM Serif Display",Georgia,"Times New Roman",serif;
+    --sans:"Satoshi","Helvetica Neue",system-ui,Arial,sans-serif;
+    --maxw:1240px;
+    --r:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:500;line-height:1.5;
+    -webkit-font-smoothing:antialiased;font-feature-settings:"ss01";}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--ink);color:var(--paper)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,4vw,44px)}
+  .mono{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+
+  /* ---------- HEADER ---------- */
+  header{padding:clamp(44px,6vw,80px) 0 26px;border-bottom:1.5px solid var(--line)}
+  .head-row{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(64px,15vw,190px);line-height:.86;letter-spacing:-.02em}
+  h1 .dot{color:var(--design)}
+  .meta{text-align:right;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);line-height:1.9}
+  .meta b{color:var(--ink);font-weight:700}
+  .meta .live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--self);margin-right:6px;vertical-align:middle}
+
+  /* ---------- FILTROS ---------- */
+  .filters{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1.5px solid var(--line)}
+  .filters .wrap{padding:14px clamp(20px,4vw,44px);display:flex;flex-direction:column;gap:11px}
+  .frow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .frow .flbl{width:58px;flex-shrink:0;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{border:1.5px solid var(--line);background:transparent;color:var(--ink);padding:7px 14px;border-radius:999px;
+    font-size:12px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;cursor:pointer;font-family:inherit;
+    display:inline-flex;align-items:center;gap:8px;transition:background .15s,color .15s}
+  .chip .n{font-weight:500;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .chip:hover{background:var(--ink);color:var(--paper)}
+  .chip:hover .n{color:rgba(244,239,230,.65)}
+  .chip.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .chip.cat.active{background:var(--cc);border-color:var(--cc);color:var(--paper)}
+  .chip.active .n{color:rgba(244,239,230,.7)}
+  .swatch{width:9px;height:9px;display:inline-block;background:var(--cc);border-radius:50%}
+  .search{display:flex;align-items:center;gap:9px;border:1.5px solid var(--line);background:transparent;
+    padding:7px 15px;min-width:210px;flex:1;max-width:320px;border-radius:999px}
+  .search svg{stroke:var(--ink-3);fill:none;stroke-width:1.7;flex-shrink:0}
+  .search input{border:none;outline:none;background:transparent;color:var(--ink);font-family:inherit;font-size:13px;
+    font-weight:500;flex:1;min-width:0;letter-spacing:.02em}
+  .search input::placeholder{color:var(--ink-3);text-transform:uppercase;letter-spacing:.14em;font-size:11px;font-weight:700}
+  .search .clear{display:none;border:none;background:none;color:var(--ink-3);cursor:pointer;font-size:17px;line-height:1}
+  .search.has .clear{display:block}
+  .rc{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:700;white-space:nowrap}
+  .hint{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:700;opacity:.75}
+
+  /* ---------- SEÇÕES ---------- */
+  main{padding:20px 0 60px}
+  .section{padding-top:clamp(46px,6vw,74px)}
+  .section-head{display:flex;align-items:baseline;gap:16px;padding-bottom:16px;margin-bottom:24px;
+    border-bottom:1.5px solid var(--line)}
+  .section-head .ix{font-family:var(--serif);font-size:clamp(24px,3vw,40px);line-height:.9;color:var(--cc)}
+  .section-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3.4vw,44px);line-height:.95;
+    letter-spacing:-.01em;flex:1}
+  .section-head .count{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+  .card{background:transparent;border:1.5px solid var(--line);padding:0;display:flex;flex-direction:column;
+    position:relative;border-radius:var(--r);overflow:hidden;
+    transition:transform .18s cubic-bezier(.2,.9,.3,1),box-shadow .18s,background .18s}
+  .card .bar{height:5px;background:var(--cc)}
+  .card .pad{padding:20px 20px 18px;display:flex;flex-direction:column;gap:11px;flex:1}
+  .card:hover{background:var(--paper-2);transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--cc)}
+  .card-top{display:flex;flex-direction:column;align-items:flex-start;gap:9px}
+  .card-top h3{min-width:0}
+  .card-tags{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+  .card h3{font-family:var(--serif);font-weight:400;font-size:23px;line-height:1.04;letter-spacing:-.01em}
+  .card h3 a:hover{color:var(--cc)}
+  .tag{font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--cc);
+    border:1.5px solid var(--cc);padding:3px 8px;white-space:nowrap;flex-shrink:0;line-height:1;border-radius:999px}
+  .card p{font-size:14px;line-height:1.5;color:var(--ink-2);font-weight:500;letter-spacing:-.002em}
+  .card .list{list-style:none;margin-top:2px;display:flex;flex-direction:column;gap:5px;font-size:13.5px;color:var(--ink-2)}
+  .card .list li{padding-left:16px;position:relative}
+  .card .list li::before{content:"—";position:absolute;left:0;color:var(--cc)}
+  .card .list b{color:var(--ink);font-weight:700}
+  .ttags{display:flex;flex-wrap:wrap;gap:6px}
+  .ttag{font-size:8.5px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:var(--ink-3);
+    border:1.5px solid var(--hair);padding:3px 8px;line-height:1;border-radius:999px}
+  .card-foot{margin-top:auto;padding-top:12px;border-top:1.5px solid var(--hair);display:flex;align-items:center;
+    justify-content:space-between;gap:10px}
+  .date{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+  .go{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);font-weight:700;
+    display:inline-flex;align-items:center;gap:6px}
+  .go:hover{color:var(--cc)}
+  .go .arw{transition:transform .25s}
+  .card:hover .go .arw{transform:translateX(4px)}
+  .local{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+
+  .empty{padding:80px 0;text-align:center;color:var(--ink-3);font-family:var(--serif);font-size:28px}
+  footer{border-top:1.5px solid var(--line);margin-top:60px}
+  footer .wrap{padding:34px clamp(20px,4vw,44px) 64px;font-size:12px;letter-spacing:.04em;color:var(--ink-3);font-weight:600}
+  footer b{color:var(--ink-2)}
+
+  /* exclusão de cards */
+  .foot-right{display:inline-flex;align-items:center;gap:11px}
+  .del{border:1.5px solid var(--hair);background:transparent;color:var(--ink-3);width:22px;height:22px;border-radius:999px;
+    font-size:15px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
+    padding:0;opacity:0;transition:opacity .15s,color .15s,border-color .15s;font-family:var(--sans);flex-shrink:0}
+  .card:hover .del{opacity:.65}
+  .del:hover{opacity:1;color:#d61f2b;border-color:#d61f2b}
+  #delinfo{color:var(--ink-3)}
+  #delinfo b{color:var(--ink)}
+  .restore{color:var(--ink);text-decoration:underline;cursor:pointer}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,120%);z-index:80;display:flex;align-items:center;gap:16px;
+    background:var(--ink);color:var(--paper);border-radius:999px;padding:12px 14px 12px 22px;font-size:13px;letter-spacing:.01em;
+    box-shadow:0 8px 24px -8px rgba(0,0,0,.4);opacity:0;transition:transform .3s cubic-bezier(.2,.9,.3,1),opacity .3s}
+  .toast.show{transform:translate(-50%,0);opacity:1}
+  .toast button{border:1.5px solid rgba(244,239,230,.4);background:transparent;color:var(--paper);border-radius:999px;
+    padding:6px 15px;font-family:var(--sans);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+  .toast button:hover{background:rgba(244,239,230,.12)}
+
+  /* drag & drop de recategorização */
+  .card[draggable="true"]{cursor:grab}
+  .card.dragging{opacity:.4;cursor:grabbing}
+  .chip.drop-hover{outline:2px dashed var(--ink);outline-offset:3px;background:var(--paper-2)}
+
+  /* adicionar referência (Gemini) */
+  .adder{border-bottom:1.5px solid var(--line);background:var(--paper)}
+  .adder .wrap{padding:clamp(20px,2.6vw,30px) clamp(20px,4vw,44px)}
+  .adder-head{font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.4vw,30px);letter-spacing:-.02em;
+    margin-bottom:14px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .adder-sub{font-family:var(--sans);font-weight:500;font-size:12px;letter-spacing:0;color:var(--ink-3)}
+  .adder-head .add-btn{font-size:11px;padding:8px 15px;flex-shrink:0}
+  .adder-row,.key-row{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
+  .key-row{margin-top:10px}
+  .add-input{flex:1;min-width:220px;border:1.5px solid var(--line);border-radius:999px;padding:11px 20px;background:transparent;
+    font-family:var(--sans);font-weight:500;font-size:14px;letter-spacing:-.01em;color:var(--ink);outline:none}
+  .add-input::placeholder{color:var(--ink-3)}
+  .add-btn{border:1.5px solid var(--line);background:var(--ink);color:var(--paper);border-radius:999px;padding:11px 22px;
+    font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+  .add-btn.ghost{background:transparent;color:var(--ink)}
+  .dropzone{display:inline-flex;align-items:center;gap:8px;border:1.5px dashed var(--ink-3);border-radius:999px;padding:11px 22px;
+    cursor:pointer;color:var(--ink-3);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;transition:.15s;white-space:nowrap}
+  .dropzone:hover{border-color:var(--ink);color:var(--ink)}
+  .dropzone.over{border-color:var(--ink);color:var(--ink);background:var(--paper-2);border-style:solid}
+  .adder-status{margin-top:13px;font-size:13px;color:var(--ink-2);min-height:18px;display:flex;align-items:center}
+  .adder-status b{color:var(--ink)}
+  .spin{display:inline-block;width:13px;height:13px;border:2px solid var(--hair);border-top-color:var(--ink);border-radius:50%;
+    animation:refspin .7s linear infinite;margin-right:9px;flex-shrink:0}
+  @keyframes refspin{to{transform:rotate(360deg)}}
+
+  @media(max-width:640px){.grid{grid-template-columns:1fr}.frow .flbl{width:auto}.meta{text-align:left}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap head-row">
+    <h1>REFS<span class="dot">.</span></h1>
+    <div class="meta">
+      <div><span class="live"></span>Último scan <b id="pubdate" class="mono">—</b></div>
+      <div><b id="total" class="mono">0</b> referências</div>
+      <div id="delinfo"></div>
+    </div>
+  </div>
+</header>
+
+<section class="adder">
+  <div class="wrap">
+    <div class="adder-head">
+      <span>Adicionar referência <span class="adder-sub">imagem ou URL — o Gemini lê, categoriza e cria o card</span></span>
+      <button id="exportBtn" class="add-btn ghost" title="Baixar refs-data.js com adições, edições e exclusões aplicadas">Exportar refs-data.js</button>
+    </div>
+    <div class="adder-row">
+      <input id="addUrl" class="add-input" placeholder="Cole uma URL…" autocomplete="off">
+      <button id="addUrlBtn" class="add-btn">Analisar URL</button>
+      <label id="dropZone" class="dropzone"><input type="file" id="addImg" accept="image/*" hidden><span>Solte uma imagem ou clique</span></label>
+    </div>
+    <div id="keyRow" class="key-row" style="display:none">
+      <input id="gkey" class="add-input" type="password" placeholder="Cole sua GEMINI_API_KEY (a mesma do portal-inputs) — fica só no seu navegador">
+      <button id="gkeyBtn" class="add-btn ghost">Salvar chave</button>
+    </div>
+    <div id="addStatus" class="adder-status"></div>
+  </div>
+</section>
+
+<nav class="filters">
+  <div class="wrap">
+    <div class="frow"><span class="flbl">Categoria</span><div class="chips" id="catbar"></div><span class="hint">⇧ shift = somar · arraste um card p/ um chip = recategoriza</span></div>
+    <div class="frow">
+      <span class="flbl">Tipo</span><div class="chips" id="typebar"></div>
+      <label class="search" id="searchbox">
+        <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+        <input type="search" id="search" placeholder="Buscar" autocomplete="off" spellcheck="false">
+        <button class="clear" id="clear" aria-label="Limpar">&times;</button>
+      </label>
+      <span class="rc" id="resultCount"></span>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap" id="content"></main>
+
+<div id="toast" class="toast"></div>
+
+<footer>
+  <div class="wrap">Catálogo curado de sites, repositórios, skills e ferramentas. Dados em <b>refs-data.js</b>. Funciona offline — abra o <b>index.html</b> direto.</div>
+</footer>
+
+<script src="gemini-config.js" onerror="window.__noGemCfg=1"></script>
+<script src="refs-data.js"></script>
+<script>
+/* ============================================================
+   VIEW — cards. Categoria: clique = seleção única; shift = somar.
+   Tipo: múltiplo. + Busca. Descrição analítica sempre visível.
+   ============================================================ */
+const DATA=(window.REFS_DATA)||{scanDate:"",sources:{videos:0,images:0},refs:[]};
+const SCAN_DATE=DATA.scanDate||"";
+const REFS=DATA.refs||[];
+
+const CATS={
+  ai:     {label:"IA & Agentes",               c:"var(--ai)"},
+  design: {label:"Design & UI",                c:"var(--design)"},
+  type:   {label:"Tipografia",                 c:"var(--type)"},
+  assets: {label:"Assets & Inspiração",        c:"var(--assets)"},
+  av:     {label:"Produção Audiovisual",       c:"var(--av)"},
+  self:   {label:"Produtividade & Self-hosted",c:"var(--self)"},
+  sec:    {label:"OSINT & Segurança",          c:"var(--sec)"},
+  culture:{label:"Referências Culturais",      c:"var(--culture)"},
+};
+const CATKEYS=Object.keys(CATS);
+const TYPES={repo:"Repos do Git",skill:"Skills do Claude",site:"Sites",installed:"Skills instaladas"};
+const TTAG={repo:"Repo Git",skill:"Skill",site:"Site",installed:"Skill instalada"};
+
+const norm=s=>(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+function fmtDate(iso){if(!iso)return"—";const m=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];const[y,mo,d]=iso.split("-");return `${(+d)} ${m[+mo-1]} ${y}`;}
+const br=iso=>iso?iso.split("-").reverse().join("."):"";
+const pad2=n=>String(n).padStart(2,"0");
+const slug=s=>(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/&/g," e ").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").replace(/-+/g,"-").slice(0,60);
+
+// Modos: FILE (file:// duplo-clique) · LOCALSRV (localhost via server.mjs, auto-save)
+// · público (Railway) = somente leitura (sem edição, sem chave exposta).
+const FILE = location.protocol==="file:";
+const LOCALSRV = (location.protocol==="http:"||location.protocol==="https:") && (location.hostname==="localhost"||location.hostname==="127.0.0.1");
+const EDITABLE = FILE || LOCALSRV;   // mostra a UI de edição
+const SERVER = LOCALSRV;             // salva direto no refs-data.js via /api/save
+
+// recategorização por drag (overlays em localStorage só no modo FILE)
+const OKEY="refs-overrides";
+const overrides=FILE?JSON.parse(localStorage.getItem(OKEY)||"{}"):{};
+const saveOv=()=>localStorage.setItem(OKEY,JSON.stringify(overrides));
+if(FILE)REFS.forEach(r=>{const o=overrides[slug(r.title)]; if(o){ if(o.cat&&CATS[o.cat])r.cat=o.cat; if(Array.isArray(o.types))r.types=o.types; }});
+
+// refs criadas pela ferramenta (Gemini)
+const ADDKEY="refs-added";
+const added=FILE?JSON.parse(localStorage.getItem(ADDKEY)||"[]"):[];
+const saveAdded=()=>localStorage.setItem(ADDKEY,JSON.stringify(added));
+if(FILE)added.forEach(a=>{ if(!REFS.some(r=>slug(r.title)===slug(a.title))) REFS.push(a); });
+
+// persistência
+function cleanRef(r){const o={title:r.title,url:r.url||"",cat:r.cat,src:r.src||"link",types:r.types||[]};if(r.items)o.items=r.items;o.desc=r.desc||"";o.date=r.date||SCAN_DATE;return o;}
+function buildData(){const meta=window.REFS_DATA||{};return{scanDate:SCAN_DATE,firstScan:meta.firstScan||SCAN_DATE,generated:new Date().toISOString().slice(0,10),sources:meta.sources||{videos:0,images:0},refs:REFS.filter(live).map(cleanRef)};}
+async function saveToServer(){const res=await fetch("/api/save",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(buildData())});if(!res.ok)throw new Error("HTTP "+res.status);}
+function persist(){if(SERVER)saveToServer().catch(e=>toast("Erro ao salvar no arquivo: "+e.message));}
+
+REFS.forEach(r=>{r._s=norm([r.title,r.desc,(r.items||[]).join(" "),CATS[r.cat]&&CATS[r.cat].label,(r.types||[]).map(t=>TTAG[t]).join(" "),r.url].join(" "));});
+
+document.getElementById("pubdate").textContent=fmtDate(SCAN_DATE);
+document.getElementById("total").textContent=REFS.length;
+
+const content=document.getElementById("content");
+const catbar=document.getElementById("catbar");
+const typebar=document.getElementById("typebar");
+const searchEl=document.getElementById("search");
+const searchBox=document.getElementById("searchbox");
+const clearBtn=document.getElementById("clear");
+const resultCount=document.getElementById("resultCount");
+
+const activeCats=new Set();
+const activeTypes=new Set();
+let query="";
+
+// exclusão de cards (persistida por navegador via localStorage)
+const DKEY="refs-deleted";
+const deleted=new Set(FILE?JSON.parse(localStorage.getItem(DKEY)||"[]"):[]);
+const saveDel=()=>localStorage.setItem(DKEY,JSON.stringify([...deleted]));
+const live=r=>!deleted.has(slug(r.title));
+const delinfo=document.getElementById("delinfo");
+function renderDelInfo(){
+  if(!delinfo)return;
+  if(deleted.size){
+    delinfo.innerHTML=`<b>${deleted.size}</b> oculta${deleted.size>1?'s':''} · <a class="restore" id="restoreAll">restaurar</a>`;
+    const ra=document.getElementById("restoreAll"); if(ra)ra.onclick=()=>{deleted.clear();saveDel();buildFilters();render();};
+  } else delinfo.innerHTML="";
+}
+let toastT;
+function toast(msg,undoFn){
+  const el=document.getElementById("toast"); if(!el)return;
+  el.innerHTML=`<span>${msg}</span>`+(undoFn?`<button id="undoBtn">Desfazer</button>`:"");
+  el.classList.add("show");
+  if(undoFn){const u=document.getElementById("undoBtn"); if(u)u.onclick=()=>{undoFn();el.classList.remove("show");};}
+  clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove("show"),6000);
+}
+
+const mCat=r=>activeCats.size===0||activeCats.has(r.cat);
+const mType=r=>activeTypes.size===0||(r.types||[]).some(t=>activeTypes.has(t));
+const mSearch=r=>query===""||r._s.includes(query);
+const visible=r=>mCat(r)&&mType(r)&&mSearch(r)&&live(r);
+
+function buildFilters(){
+  const cc=k=>REFS.filter(r=>(k==="all"||r.cat===k)&&mType(r)&&mSearch(r)&&live(r)).length;
+  const catActive=k=>k==="all"?activeCats.size===0:activeCats.has(k);
+  let html=`<button class="chip${catActive("all")?' active':''}" data-cat="all">Tudo<span class="n">${cc("all")}</span></button>`;
+  CATKEYS.forEach(k=>{html+=`<button class="chip cat${activeCats.has(k)?' active':''}" data-cat="${k}" style="--cc:${CATS[k].c}"><span class="swatch"></span>${CATS[k].label}<span class="n">${cc(k)}</span></button>`;});
+  catbar.innerHTML=html;
+  catbar.querySelectorAll(".chip").forEach(b=>b.onclick=(e)=>{
+    const k=b.dataset.cat;
+    if(k==="all"){activeCats.clear();}
+    else if(e.shiftKey){activeCats.has(k)?activeCats.delete(k):activeCats.add(k);}
+    else{if(activeCats.size===1&&activeCats.has(k))activeCats.clear();else{activeCats.clear();activeCats.add(k);}}
+    buildFilters();render();
+  });
+
+  const tc=t=>REFS.filter(r=>mCat(r)&&mSearch(r)&&live(r)&&(r.types||[]).includes(t)).length;
+  typebar.innerHTML=Object.entries(TYPES).map(([t,v])=>`<button class="chip${activeTypes.has(t)?' active':''}" data-type="${t}">${v}<span class="n">${tc(t)}</span></button>`).join("");
+  typebar.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{const t=b.dataset.type;activeTypes.has(t)?activeTypes.delete(t):activeTypes.add(t);buildFilters();render();});
+}
+
+function card(r){
+  const cat=CATS[r.cat]||{label:r.cat,c:"var(--ink)"};
+  const body=r.items
+    ? `<p>${r.desc||""}</p><ul class="list">${r.items.map(x=>`<li>${x}</li>`).join("")}</ul>`
+    : `<p>${r.desc||""}</p>`;
+  const tags=(r.types||[]).filter(t=>TTAG[t]).map(t=>`<span class="ttag">${TTAG[t]}</span>`).join("");
+  const foot=r.url
+    ? `<a class="go" href="${r.url}" target="_blank" rel="noopener" draggable="false">Acessar <span class="arw">→</span></a>`
+    : `<span class="local">${(r.types||[]).includes('installed')?'Skill instalada':'Mídia local'}</span>`;
+  return `<article class="card" id="c-${slug(r.title)}" data-slug="${slug(r.title)}" draggable="${EDITABLE?'true':'false'}" style="--cc:${cat.c}">
+    <div class="bar"></div>
+    <div class="pad">
+      <div class="card-top">
+        <h3>${r.url?`<a href="${r.url}" target="_blank" rel="noopener" draggable="false">${r.title}</a>`:r.title}</h3>
+        <div class="card-tags"><span class="tag">${cat.label}</span>${tags}</div>
+      </div>
+      ${body}
+      <div class="card-foot">
+        <span class="date mono">${br(r.date||SCAN_DATE)}</span>
+        <span class="foot-right">${foot}${EDITABLE?`<button class="del" data-del="${slug(r.title)}" title="Remover do catálogo" aria-label="Remover">×</button>`:""}</span>
+      </div>
+    </div>
+  </article>`;
+}
+
+function render(){
+  document.getElementById("total").textContent=REFS.filter(live).length;
+  renderDelInfo();
+  const total=REFS.filter(visible).length;
+  resultCount.textContent=(query||activeTypes.size||activeCats.size)?`${total} ${total===1?'resultado':'resultados'}`:"";
+  if(!REFS.length){content.innerHTML=`<p class="empty">Sem dados — refs-data.js ausente ou vazio.</p>`;return;}
+  const groups=CATKEYS.filter(k=>activeCats.size===0||activeCats.has(k));
+  let html="",n=0;
+  groups.forEach(k=>{
+    const items=REFS.filter(r=>r.cat===k&&mType(r)&&mSearch(r)&&live(r));
+    if(!items.length)return;
+    n++;
+    html+=`<section class="section" style="--cc:${CATS[k].c}">
+      <div class="section-head">
+        <span class="ix">${pad2(CATKEYS.indexOf(k)+1)}</span>
+        <h2>${CATS[k].label}</h2>
+        <span class="count">${pad2(items.length)} ${items.length===1?'entrada':'entradas'}</span>
+      </div>
+      <div class="grid">${items.map(card).join("")}</div>
+    </section>`;
+  });
+  content.innerHTML=html||`<p class="empty">Nada encontrado.</p>`;
+}
+
+let deb;
+searchEl.addEventListener("input",()=>{clearTimeout(deb);deb=setTimeout(()=>{query=norm(searchEl.value.trim());searchBox.classList.toggle("has",searchEl.value.length>0);buildFilters();render();},120);});
+clearBtn.addEventListener("click",()=>{searchEl.value="";query="";searchBox.classList.remove("has");searchEl.focus();buildFilters();render();});
+
+// clique no × remove a referência (SERVER: apaga do arquivo · file://: oculta no navegador)
+content.addEventListener("click",e=>{
+  const b=e.target.closest(".del"); if(!b)return;
+  e.preventDefault(); e.stopPropagation();
+  const sl=b.dataset.del; if(!sl)return;
+  if(SERVER){
+    const i=REFS.findIndex(r=>slug(r.title)===sl); if(i<0)return;
+    const removed=REFS.splice(i,1)[0]; buildFilters(); render(); persist();
+    toast("Referência removida.",()=>{REFS.splice(Math.min(i,REFS.length),0,removed);buildFilters();render();persist();});
+  } else {
+    deleted.add(sl); saveDel(); buildFilters(); render();
+    toast("Referência removida.",()=>{deleted.delete(sl);saveDel();buildFilters();render();});
+  }
+});
+
+// ---- arrastar card para um chip de Categoria ou Tipo → recategoriza ----
+let dragSlug=null;
+content.addEventListener("dragstart",e=>{
+  const c=e.target.closest(".card"); if(!c)return;
+  dragSlug=c.dataset.slug; c.classList.add("dragging");
+  try{e.dataTransfer.setData("text/plain",dragSlug);e.dataTransfer.effectAllowed="move";}catch(_){}
+});
+content.addEventListener("dragend",e=>{
+  const c=e.target.closest(".card"); if(c)c.classList.remove("dragging");
+  dragSlug=null; document.querySelectorAll(".chip.drop-hover").forEach(x=>x.classList.remove("drop-hover"));
+});
+function applyMove(kind,val){
+  if(!dragSlug)return;
+  const r=REFS.find(x=>slug(x.title)===dragSlug); if(!r)return;
+  if(kind==="cat"){ if(r.cat===val)return; r.cat=val; toast("Movido para "+((CATS[val]&&CATS[val].label)||val)+"."); }
+  else{ r.types=[val]; toast("Tipo alterado para "+(TYPES[val]||val)+"."); }
+  r._s=norm([r.title,r.desc,CATS[r.cat]&&CATS[r.cat].label,(r.types||[]).join(" "),r.url].join(" "));
+  if(SERVER){ persist(); } else { const o=overrides[dragSlug]||(overrides[dragSlug]={}); if(kind==="cat")o.cat=val; else o.types=[val]; saveOv(); }
+  buildFilters(); render();
+}
+function setupDrop(bar,kind){
+  const sel=kind==="cat"?".chip.cat[data-cat]":".chip[data-type]";
+  bar.addEventListener("dragover",e=>{
+    if(!dragSlug)return; const chip=e.target.closest(sel); if(!chip)return;
+    e.preventDefault(); try{e.dataTransfer.dropEffect="move";}catch(_){}
+    bar.querySelectorAll(".drop-hover").forEach(x=>{if(x!==chip)x.classList.remove("drop-hover");});
+    chip.classList.add("drop-hover");
+  });
+  bar.addEventListener("dragleave",e=>{const chip=e.target.closest(".chip"); if(chip)chip.classList.remove("drop-hover");});
+  bar.addEventListener("drop",e=>{
+    if(!dragSlug)return; const chip=e.target.closest(sel); if(!chip)return;
+    e.preventDefault(); chip.classList.remove("drop-hover");
+    applyMove(kind, kind==="cat"?chip.dataset.cat:chip.dataset.type);
+  });
+}
+setupDrop(catbar,"cat"); setupDrop(typebar,"type");
+
+// ---------- Adicionar referência via Gemini (imagem ou URL) ----------
+const GMODEL="gemini-2.5-flash";
+let GKEY=(window.GEMINI_API_KEY||localStorage.getItem("gemini-key")||"").trim();
+const addUrl=document.getElementById("addUrl"),addUrlBtn=document.getElementById("addUrlBtn");
+const addImg=document.getElementById("addImg"),dropZone=document.getElementById("dropZone");
+const addStatus=document.getElementById("addStatus"),keyRow=document.getElementById("keyRow");
+const gkey=document.getElementById("gkey"),gkeyBtn=document.getElementById("gkeyBtn");
+function gstat(msg,load){addStatus.innerHTML=(load?'<span class="spin"></span>':"")+msg;}
+function needKey(){ if(!GKEY){keyRow.style.display="flex"; gstat("Cole a chave do Gemini abaixo para começar."); return true;} return false; }
+gkeyBtn.onclick=()=>{const v=gkey.value.trim(); if(v){GKEY=v; localStorage.setItem("gemini-key",v); keyRow.style.display="none"; gstat("Chave salva. Pode analisar uma URL ou imagem.");}};
+const CATLIST=Object.entries(CATS).map(([k,v])=>`${k} (${v.label})`).join(", ");
+const GPROMPT=`Você cataloga ferramentas, sites e recursos para um catálogo, em PORTUGUÊS. Produza UM objeto JSON com EXATAMENTE estes campos: "title" (nome curto oficial, ex.: "remove.bg"), "url" (URL oficial https; se for imagem, infira a URL oficial), "cat" (use EXATAMENTE uma destas CHAVES em minúsculo e nada além: ${Object.keys(CATS).join(", ")} — significados: ${CATLIST}), "types" (array só com valores exatos entre "site","repo","skill": github=repo, skill do Claude=skill, caso contrário "site"), "desc" (2 a 3 frases em português, analítico, sobre o que é e para que serve, sem copiar marketing). Responda SOMENTE com o objeto JSON válido, sem markdown e sem texto ao redor.`;
+async function gemini(body){
+  if(!GKEY)throw new Error("nokey");
+  const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GMODEL}:generateContent?key=${encodeURIComponent(GKEY)}`,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)});
+  if(!res.ok){let t="";try{t=await res.text();}catch(_){} throw new Error("HTTP "+res.status+(t?" · "+t.slice(0,160):""));}
+  const data=await res.json();
+  const parts=(((data.candidates||[])[0]||{}).content||{}).parts||[];
+  const text=parts.map(p=>p.text).filter(Boolean).join("").trim();
+  if(!text)throw new Error("resposta vazia do modelo");
+  return text;
+}
+function parseJSON(s){s=s.replace(/^```(?:json)?/i,"").replace(/```$/,"").trim();const a=s.indexOf("{"),b=s.lastIndexOf("}");if(a>=0&&b>a)s=s.slice(a,b+1);return JSON.parse(s);}
+const normCat=c=>CATS[c]?c:"self";
+const normTypes=t=>{const ok=["site","repo","skill"];const arr=(Array.isArray(t)?t:[t]).filter(x=>ok.includes(x));return arr.length?arr:["site"];};
+const cleanUrl=u=>(u||"").replace(/^https?:\/\//i,"").replace(/\/+$/,"").toLowerCase();
+async function createFromResult(raw){
+  let j; try{j=parseJSON(raw);}catch(e){gstat("Não consegui interpretar a resposta do modelo.");return;}
+  const url=(j.url||"").trim();
+  if(url&&REFS.some(r=>cleanUrl(r.url)===cleanUrl(url)&&cleanUrl(url))){gstat("Já existe no catálogo: <b>"+(j.title||url)+"</b>.");return;}
+  const ref={title:(j.title||url||"Sem título").slice(0,120),url,cat:normCat(j.cat),src:"upload",types:normTypes(j.types),desc:(j.desc||"").slice(0,700),date:new Date().toISOString().slice(0,10),added:true};
+  REFS.push(ref);
+  ref._s=norm([ref.title,ref.desc,CATS[ref.cat]&&CATS[ref.cat].label,(ref.types||[]).join(" "),ref.url].join(" "));
+  if(SERVER){ persist(); } else { added.push(ref); saveAdded(); }
+  buildFilters();render();
+  gstat("Card criado: <b>"+ref.title+"</b> · "+CATS[ref.cat].label+".");
+  const el=document.getElementById("c-"+slug(ref.title));if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800);}
+  toast("Referência adicionada.",()=>{const k=REFS.indexOf(ref);if(k>=0)REFS.splice(k,1);if(SERVER){persist();}else{const i=added.indexOf(ref);if(i>=0)added.splice(i,1);saveAdded();}buildFilters();render();gstat("");});
+}
+function gerr(e){ if(e.message==="nokey"){needKey();} else gstat("Erro: "+e.message); }
+async function analyzeUrl(u){
+  if(needKey())return; if(!/^https?:\/\//i.test(u))u="https://"+u;
+  gstat("Lendo o site com o Gemini…",1);
+  try{const raw=await gemini({contents:[{parts:[{text:GPROMPT+"\n\nURL para analisar (leia o conteúdo do site): "+u}]}],tools:[{url_context:{}}],generationConfig:{temperature:0.3,maxOutputTokens:900}});await createFromResult(raw);}
+  catch(e){gerr(e);}
+}
+async function analyzeImage(file){
+  if(needKey())return; if(!file||!/^image\//.test(file.type||"")){gstat("Selecione um arquivo de imagem.");return;}
+  gstat("Analisando a imagem com o Gemini…",1);
+  try{
+    const b64=await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(String(fr.result).split(",")[1]);fr.onerror=rej;fr.readAsDataURL(file);});
+    const raw=await gemini({contents:[{parts:[{inline_data:{mime_type:file.type,data:b64}},{text:GPROMPT+"\n\nA imagem acima é uma referência (print de um site ou ferramenta). Identifique e catalogue."}]}],generationConfig:{temperature:0.3,maxOutputTokens:900,responseMimeType:"application/json"}});
+    await createFromResult(raw);
+  }catch(e){gerr(e);}
+}
+addUrlBtn.onclick=()=>{const u=addUrl.value.trim();if(u){analyzeUrl(u);addUrl.value="";}};
+addUrl.addEventListener("keydown",e=>{if(e.key==="Enter"){const u=addUrl.value.trim();if(u){analyzeUrl(u);addUrl.value="";}}});
+addImg.addEventListener("change",()=>{if(addImg.files[0]){analyzeImage(addImg.files[0]);addImg.value="";}});
+["dragover","dragenter"].forEach(ev=>dropZone.addEventListener(ev,e=>{e.preventDefault();e.stopPropagation();dropZone.classList.add("over");}));
+["dragleave","dragend"].forEach(ev=>dropZone.addEventListener(ev,e=>{dropZone.classList.remove("over");}));
+dropZone.addEventListener("drop",e=>{e.preventDefault();e.stopPropagation();dropZone.classList.remove("over");const f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];if(f)analyzeImage(f);});
+if(!GKEY)keyRow.style.display="flex";
+
+// ---------- Exportar refs-data.js (só no modo file://; no servidor salva sozinho) ----------
+function exportData(){
+  const out=buildData();
+  const js="/* Gerado pela exportação do catálogo — substitui refs-data.js. */\nwindow.REFS_DATA = "+JSON.stringify(out,null,2)+";\n";
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([js],{type:"text/javascript"})); a.download="refs-data.js";
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+  gstat(`refs-data.js baixado (${out.refs.length} refs). Substitua o arquivo em refs-catalog/ e recarregue. <a id="clrLocal" style="text-decoration:underline;cursor:pointer">limpar alterações locais</a>`);
+  const cl=document.getElementById("clrLocal"); if(cl)cl.onclick=()=>{["refs-deleted","refs-overrides","refs-added"].forEach(k=>localStorage.removeItem(k));location.reload();};
+}
+const exportBtn=document.getElementById("exportBtn");
+exportBtn.onclick=exportData;
+if(!FILE)exportBtn.style.display="none";
+if(LOCALSRV){ const sub=document.querySelector(".adder-sub"); if(sub)sub.textContent="imagem ou URL — salvo automaticamente no refs-data.js"; }
+if(!EDITABLE){ const ad=document.querySelector(".adder"); if(ad)ad.style.display="none"; }
+
+buildFilters();render();
+</script>
+</body>
+</html>

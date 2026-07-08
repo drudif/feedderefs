@@ -1,0 +1,24 @@
+# segredos — NUNCA commitar
+gemini-config.js
+.env
+.env.*
+!.env.example
+
+# dependências
+/node_modules
+
+# dados locais / pipeline / inbox de mídia (não vão pro deploy)
+/_sources
+/_pipeline
+/logs
+/refs-md
+*.png
+*.jpg
+*.jpeg
+*.mp4
+*.mov
+.refs-data.tmp.js
+
+# sistema
+.DS_Store
+npm-debug.log*

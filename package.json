@@ -1,0 +1,13 @@
+{
+  "name": "feedderefs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Catálogo de referências (site estático + servidor de auto-save).",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
