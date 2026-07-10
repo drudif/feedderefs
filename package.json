@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Catálogo de referências (site + servidor: auto-save, proxy Gemini, edição com senha no deploy).",
   "scripts": {
-    "start": "node --env-file-if-exists=.env server.mjs"
+    "start": "node server.mjs"
   },
   "engines": {
     "node": ">=20.12"

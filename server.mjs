@@ -13,6 +13,22 @@ import { fileURLToPath } from "node:url";
 import { exec } from "node:child_process";
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
+
+// carrega .env local (se existir), sem depender de flag do Node (compat. c/ qualquer versão)
+try {
+  const envPath = path.join(DIR, ".env");
+  if (fs.existsSync(envPath)) {
+    for (const line of fs.readFileSync(envPath, "utf8").split("\n")) {
+      const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)$/);
+      if (m && process.env[m[1]] === undefined) {
+        let v = m[2].trim();
+        if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) v = v.slice(1, -1);
+        process.env[m[1]] = v;
+      }
+    }
+  }
+} catch { /* ignore */ }
+
 const PORT = process.env.PORT || 4177;
 const HOST = process.env.PORT ? "0.0.0.0" : "127.0.0.1";
 const RAILWAY = !!process.env.PORT;                       // plataforma define PORT
