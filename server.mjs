@@ -66,6 +66,9 @@ function serveStatic(req, res) {
 
 const server = http.createServer(async (req, res) => {
   try {
+    if (req.method === "GET" && req.url === "/api/health") {
+      return json(res, 200, { ok: true, railway: RAILWAY, hasEditToken: !!EDIT_TOKEN, hasGeminiKey: !!GEMINI_API_KEY, usingVolume: DATA_DIR !== DIR, dataDir: DATA_DIR });
+    }
     if (req.method === "POST" && req.url === "/api/auth") {
       const { token } = JSON.parse((await readBody(req)) || "{}");
       return json(res, 200, { ok: !RAILWAY || (!!EDIT_TOKEN && token === EDIT_TOKEN) });
