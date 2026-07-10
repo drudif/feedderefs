@@ -142,7 +142,7 @@
   .chip.drop-hover{outline:2px dashed var(--ink);outline-offset:3px;background:var(--paper-2)}
 
   /* adicionar referência (Gemini) */
-  .adder{border-bottom:1.5px solid var(--line);background:var(--paper)}
+  .adder{border-bottom:1.5px solid var(--line);background:var(--paper);display:none}
   .adder .wrap{padding:clamp(20px,2.6vw,30px) clamp(20px,4vw,44px)}
   .adder-head{font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.4vw,30px);letter-spacing:-.02em;
     margin-bottom:14px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
@@ -192,9 +192,9 @@
       <button id="addUrlBtn" class="add-btn">Analisar URL</button>
       <label id="dropZone" class="dropzone"><input type="file" id="addImg" accept="image/*" hidden><span>Solte uma imagem ou clique</span></label>
     </div>
-    <div id="keyRow" class="key-row" style="display:none">
-      <input id="gkey" class="add-input" type="password" placeholder="Cole sua GEMINI_API_KEY (a mesma do portal-inputs) — fica só no seu navegador">
-      <button id="gkeyBtn" class="add-btn ghost">Salvar chave</button>
+    <div id="unlockRow" class="key-row" style="display:none">
+      <input id="etoken" class="add-input" type="password" placeholder="Senha de edição" autocomplete="off">
+      <button id="etokenBtn" class="add-btn">Desbloquear edição</button>
     </div>
     <div id="addStatus" class="adder-status"></div>
   </div>
@@ -223,7 +223,6 @@
   <div class="wrap">Catálogo curado de sites, repositórios, skills e ferramentas. Dados em <b>refs-data.js</b>. Funciona offline — abra o <b>index.html</b> direto.</div>
 </footer>
 
-<script src="gemini-config.js" onerror="window.__noGemCfg=1"></script>
 <script src="refs-data.js"></script>
 <script>
 /* ============================================================
@@ -254,12 +253,17 @@ const br=iso=>iso?iso.split("-").reverse().join("."):"";
 const pad2=n=>String(n).padStart(2,"0");
 const slug=s=>(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/&/g," e ").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").replace(/-+/g,"-").slice(0,60);
 
-// Modos: FILE (file:// duplo-clique) · LOCALSRV (localhost via server.mjs, auto-save)
-// · público (Railway) = somente leitura (sem edição, sem chave exposta).
+// Modos: FILE (file://) · LOCALSRV (localhost) · DEPLOY (público, edição por senha).
 const FILE = location.protocol==="file:";
-const LOCALSRV = (location.protocol==="http:"||location.protocol==="https:") && (location.hostname==="localhost"||location.hostname==="127.0.0.1");
-const EDITABLE = FILE || LOCALSRV;   // mostra a UI de edição
-const SERVER = LOCALSRV;             // salva direto no refs-data.js via /api/save
+const HTTP = location.protocol==="http:"||location.protocol==="https:";
+const LOCALSRV = HTTP && (location.hostname==="localhost"||location.hostname==="127.0.0.1");
+const DEPLOY = HTTP && !LOCALSRV;
+const SERVER = HTTP;                  // salva/analisa via API do servidor
+let EDIT_TOKEN = DEPLOY ? (sessionStorage.getItem("edit-token")||"") : "";
+let unlocked = !DEPLOY || !!EDIT_TOKEN;               // local/file: livre; deploy: precisa senha
+const canEdit = ()=> FILE || LOCALSRV || (DEPLOY && unlocked);   // deletar/arrastar
+const canAdd  = ()=> LOCALSRV || (DEPLOY && unlocked);           // adder (Gemini precisa do servidor)
+const tokenHdr = ()=> EDIT_TOKEN ? {"x-edit-token":EDIT_TOKEN} : {};
 
 // recategorização por drag (overlays em localStorage só no modo FILE)
 const OKEY="refs-overrides";
@@ -276,8 +280,8 @@ if(FILE)added.forEach(a=>{ if(!REFS.some(r=>slug(r.title)===slug(a.title))) REFS
 // persistência
 function cleanRef(r){const o={title:r.title,url:r.url||"",cat:r.cat,src:r.src||"link",types:r.types||[]};if(r.items)o.items=r.items;o.desc=r.desc||"";o.date=r.date||SCAN_DATE;return o;}
 function buildData(){const meta=window.REFS_DATA||{};return{scanDate:SCAN_DATE,firstScan:meta.firstScan||SCAN_DATE,generated:new Date().toISOString().slice(0,10),sources:meta.sources||{videos:0,images:0},refs:REFS.filter(live).map(cleanRef)};}
-async function saveToServer(){const res=await fetch("/api/save",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(buildData())});if(!res.ok)throw new Error("HTTP "+res.status);}
-function persist(){if(SERVER)saveToServer().catch(e=>toast("Erro ao salvar no arquivo: "+e.message));}
+async function saveToServer(){const res=await fetch("/api/save",{method:"POST",headers:{"content-type":"application/json",...tokenHdr()},body:JSON.stringify(buildData())});if(!res.ok)throw new Error("HTTP "+res.status);}
+function persist(){if(SERVER)saveToServer().catch(e=>toast("Erro ao salvar: "+e.message));}
 
 REFS.forEach(r=>{r._s=norm([r.title,r.desc,(r.items||[]).join(" "),CATS[r.cat]&&CATS[r.cat].label,(r.types||[]).map(t=>TTAG[t]).join(" "),r.url].join(" "));});
 
@@ -351,7 +355,7 @@ function card(r){
   const foot=r.url
     ? `<a class="go" href="${r.url}" target="_blank" rel="noopener" draggable="false">Acessar <span class="arw">→</span></a>`
     : `<span class="local">${(r.types||[]).includes('installed')?'Skill instalada':'Mídia local'}</span>`;
-  return `<article class="card" id="c-${slug(r.title)}" data-slug="${slug(r.title)}" draggable="${EDITABLE?'true':'false'}" style="--cc:${cat.c}">
+  return `<article class="card" id="c-${slug(r.title)}" data-slug="${slug(r.title)}" draggable="${canEdit()?'true':'false'}" style="--cc:${cat.c}">
     <div class="bar"></div>
     <div class="pad">
       <div class="card-top">
@@ -361,7 +365,7 @@ function card(r){
       ${body}
       <div class="card-foot">
         <span class="date mono">${br(r.date||SCAN_DATE)}</span>
-        <span class="foot-right">${foot}${EDITABLE?`<button class="del" data-del="${slug(r.title)}" title="Remover do catálogo" aria-label="Remover">×</button>`:""}</span>
+        <span class="foot-right">${foot}${canEdit()?`<button class="del" data-del="${slug(r.title)}" title="Remover do catálogo" aria-label="Remover">×</button>`:""}</span>
       </div>
     </div>
   </article>`;
@@ -447,22 +451,18 @@ function setupDrop(bar,kind){
 }
 setupDrop(catbar,"cat"); setupDrop(typebar,"type");
 
-// ---------- Adicionar referência via Gemini (imagem ou URL) ----------
-const GMODEL="gemini-2.5-flash";
-let GKEY=(window.GEMINI_API_KEY||localStorage.getItem("gemini-key")||"").trim();
+// ---------- Adicionar referência (Gemini via servidor /api/analyze) ----------
 const addUrl=document.getElementById("addUrl"),addUrlBtn=document.getElementById("addUrlBtn");
 const addImg=document.getElementById("addImg"),dropZone=document.getElementById("dropZone");
-const addStatus=document.getElementById("addStatus"),keyRow=document.getElementById("keyRow");
-const gkey=document.getElementById("gkey"),gkeyBtn=document.getElementById("gkeyBtn");
+const addStatus=document.getElementById("addStatus");
+const unlockRow=document.getElementById("unlockRow"),etoken=document.getElementById("etoken"),etokenBtn=document.getElementById("etokenBtn");
+const exportBtn=document.getElementById("exportBtn");
 function gstat(msg,load){addStatus.innerHTML=(load?'<span class="spin"></span>':"")+msg;}
-function needKey(){ if(!GKEY){keyRow.style.display="flex"; gstat("Cole a chave do Gemini abaixo para começar."); return true;} return false; }
-gkeyBtn.onclick=()=>{const v=gkey.value.trim(); if(v){GKEY=v; localStorage.setItem("gemini-key",v); keyRow.style.display="none"; gstat("Chave salva. Pode analisar uma URL ou imagem.");}};
 const CATLIST=Object.entries(CATS).map(([k,v])=>`${k} (${v.label})`).join(", ");
 const GPROMPT=`Você cataloga ferramentas, sites e recursos para um catálogo, em PORTUGUÊS. Produza UM objeto JSON com EXATAMENTE estes campos: "title" (nome curto oficial, ex.: "remove.bg"), "url" (URL oficial https; se for imagem, infira a URL oficial), "cat" (use EXATAMENTE uma destas CHAVES em minúsculo e nada além: ${Object.keys(CATS).join(", ")} — significados: ${CATLIST}), "types" (array só com valores exatos entre "site","repo","skill": github=repo, skill do Claude=skill, caso contrário "site"), "desc" (2 a 3 frases em português, analítico, sobre o que é e para que serve, sem copiar marketing). Responda SOMENTE com o objeto JSON válido, sem markdown e sem texto ao redor.`;
 async function gemini(body){
-  if(!GKEY)throw new Error("nokey");
-  const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GMODEL}:generateContent?key=${encodeURIComponent(GKEY)}`,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)});
-  if(!res.ok){let t="";try{t=await res.text();}catch(_){} throw new Error("HTTP "+res.status+(t?" · "+t.slice(0,160):""));}
+  const res=await fetch("/api/analyze",{method:"POST",headers:{"content-type":"application/json",...tokenHdr()},body:JSON.stringify(body)});
+  if(!res.ok){let t="";try{t=(await res.json()).error||"";}catch(_){} throw new Error("HTTP "+res.status+(t?" · "+t:""));}
   const data=await res.json();
   const parts=(((data.candidates||[])[0]||{}).content||{}).parts||[];
   const text=parts.map(p=>p.text).filter(Boolean).join("").trim();
@@ -486,21 +486,20 @@ async function createFromResult(raw){
   const el=document.getElementById("c-"+slug(ref.title));if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800);}
   toast("Referência adicionada.",()=>{const k=REFS.indexOf(ref);if(k>=0)REFS.splice(k,1);if(SERVER){persist();}else{const i=added.indexOf(ref);if(i>=0)added.splice(i,1);saveAdded();}buildFilters();render();gstat("");});
 }
-function gerr(e){ if(e.message==="nokey"){needKey();} else gstat("Erro: "+e.message); }
 async function analyzeUrl(u){
-  if(needKey())return; if(!/^https?:\/\//i.test(u))u="https://"+u;
+  if(!canAdd())return; if(!/^https?:\/\//i.test(u))u="https://"+u;
   gstat("Lendo o site com o Gemini…",1);
   try{const raw=await gemini({contents:[{parts:[{text:GPROMPT+"\n\nURL para analisar (leia o conteúdo do site): "+u}]}],tools:[{url_context:{}}],generationConfig:{temperature:0.3,maxOutputTokens:900}});await createFromResult(raw);}
-  catch(e){gerr(e);}
+  catch(e){gstat("Erro: "+e.message);}
 }
 async function analyzeImage(file){
-  if(needKey())return; if(!file||!/^image\//.test(file.type||"")){gstat("Selecione um arquivo de imagem.");return;}
+  if(!canAdd())return; if(!file||!/^image\//.test(file.type||"")){gstat("Selecione um arquivo de imagem.");return;}
   gstat("Analisando a imagem com o Gemini…",1);
   try{
     const b64=await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(String(fr.result).split(",")[1]);fr.onerror=rej;fr.readAsDataURL(file);});
     const raw=await gemini({contents:[{parts:[{inline_data:{mime_type:file.type,data:b64}},{text:GPROMPT+"\n\nA imagem acima é uma referência (print de um site ou ferramenta). Identifique e catalogue."}]}],generationConfig:{temperature:0.3,maxOutputTokens:900,responseMimeType:"application/json"}});
     await createFromResult(raw);
-  }catch(e){gerr(e);}
+  }catch(e){gstat("Erro: "+e.message);}
 }
 addUrlBtn.onclick=()=>{const u=addUrl.value.trim();if(u){analyzeUrl(u);addUrl.value="";}};
 addUrl.addEventListener("keydown",e=>{if(e.key==="Enter"){const u=addUrl.value.trim();if(u){analyzeUrl(u);addUrl.value="";}}});
@@ -508,23 +507,34 @@ addImg.addEventListener("change",()=>{if(addImg.files[0]){analyzeImage(addImg.fi
 ["dragover","dragenter"].forEach(ev=>dropZone.addEventListener(ev,e=>{e.preventDefault();e.stopPropagation();dropZone.classList.add("over");}));
 ["dragleave","dragend"].forEach(ev=>dropZone.addEventListener(ev,e=>{dropZone.classList.remove("over");}));
 dropZone.addEventListener("drop",e=>{e.preventDefault();e.stopPropagation();dropZone.classList.remove("over");const f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];if(f)analyzeImage(f);});
-if(!GKEY)keyRow.style.display="flex";
+// ---------- desbloqueio de edição no deploy (senha → /api/auth) ----------
+async function tryUnlock(tok){ try{const res=await fetch("/api/auth",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({token:tok})});return !!(await res.json()).ok;}catch(_){return false;} }
+etokenBtn.onclick=async()=>{ const v=etoken.value.trim(); if(!v)return; gstat("Verificando…",1);
+  if(await tryUnlock(v)){ EDIT_TOKEN=v; unlocked=true; sessionStorage.setItem("edit-token",v); syncAdder(); buildFilters(); render(); gstat("Edição desbloqueada."); }
+  else gstat("Senha incorreta."); };
+etoken.addEventListener("keydown",e=>{if(e.key==="Enter")etokenBtn.onclick();});
 
-// ---------- Exportar refs-data.js (só no modo file://; no servidor salva sozinho) ----------
+// ---------- Exportar (só no modo file://) ----------
 function exportData(){
   const out=buildData();
   const js="/* Gerado pela exportação do catálogo — substitui refs-data.js. */\nwindow.REFS_DATA = "+JSON.stringify(out,null,2)+";\n";
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(new Blob([js],{type:"text/javascript"})); a.download="refs-data.js";
+  const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([js],{type:"text/javascript"})); a.download="refs-data.js";
   document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1500);
-  gstat(`refs-data.js baixado (${out.refs.length} refs). Substitua o arquivo em refs-catalog/ e recarregue. <a id="clrLocal" style="text-decoration:underline;cursor:pointer">limpar alterações locais</a>`);
+  gstat(`refs-data.js baixado (${out.refs.length} refs). Substitua o arquivo e recarregue. <a id="clrLocal" style="text-decoration:underline;cursor:pointer">limpar alterações locais</a>`);
   const cl=document.getElementById("clrLocal"); if(cl)cl.onclick=()=>{["refs-deleted","refs-overrides","refs-added"].forEach(k=>localStorage.removeItem(k));location.reload();};
 }
-const exportBtn=document.getElementById("exportBtn");
 exportBtn.onclick=exportData;
-if(!FILE)exportBtn.style.display="none";
-if(LOCALSRV){ const sub=document.querySelector(".adder-sub"); if(sub)sub.textContent="imagem ou URL — salvo automaticamente no refs-data.js"; }
-if(!EDITABLE){ const ad=document.querySelector(".adder"); if(ad)ad.style.display="none"; }
+
+// visibilidade do painel (o .adder começa oculto no CSS → sem flash)
+function syncAdder(){
+  const ad=document.querySelector(".adder"), row=document.querySelector(".adder-row"), sub=document.querySelector(".adder-sub");
+  exportBtn.style.display = FILE ? "" : "none";
+  if(FILE){ ad.style.display="none"; return; }
+  ad.style.display="block";
+  if(canAdd()){ row.style.display="flex"; unlockRow.style.display="none"; if(sub)sub.textContent="imagem ou URL — o Gemini lê, categoriza e salva o card"; }
+  else{ row.style.display="none"; unlockRow.style.display="flex"; if(sub)sub.textContent="site publicado — desbloqueie com a senha para editar"; }
+}
+syncAdder();
 
 buildFilters();render();
 </script>

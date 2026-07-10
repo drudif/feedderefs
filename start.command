@@ -1,3 +1,3 @@
 #!/bin/zsh
 cd "$(dirname "$0")"
-exec node server.mjs
+exec node --env-file-if-exists=.env server.mjs

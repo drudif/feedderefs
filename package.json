@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Catálogo de referências (site estático + servidor de auto-save).",
+  "description": "Catálogo de referências (site + servidor: auto-save, proxy Gemini, edição com senha no deploy).",
   "scripts": {
-    "start": "node server.mjs"
+    "start": "node --env-file-if-exists=.env server.mjs"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=20.12"
   }
 }
