@@ -19,6 +19,7 @@ const RAILWAY = !!process.env.PORT;                       // plataforma define P
 const DATA_DIR = process.env.DATA_DIR || DIR;             // volume persistente no deploy
 const EDIT_TOKEN = process.env.EDIT_TOKEN || "";
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "";
+const DEPLOY_URL = (process.env.DEPLOY_URL || "").replace(/\/+$/, ""); // p/ sync local↔deploy
 const GMODEL = "gemini-2.5-flash";
 const DATA_FILE = path.join(DATA_DIR, "refs-data.js");
 
@@ -88,6 +89,28 @@ const server = http.createServer(async (req, res) => {
       const text = await gres.text();
       res.writeHead(gres.status, { "content-type": "application/json" });
       return res.end(text);
+    }
+    // ---- sync local ↔ deploy (só no local) ----
+    if (req.method === "POST" && (req.url === "/api/pull" || req.url === "/api/push")) {
+      if (RAILWAY) return json(res, 403, { ok: false, error: "sync só funciona no servidor local" });
+      if (!DEPLOY_URL) return json(res, 400, { ok: false, error: "DEPLOY_URL não configurada no .env" });
+      if (req.url === "/api/pull") {
+        const r = await fetch(DEPLOY_URL + "/refs-data.js", { headers: { "cache-control": "no-store" } });
+        if (!r.ok) return json(res, 502, { ok: false, error: "deploy respondeu HTTP " + r.status });
+        const txt = await r.text();
+        const w = {}; new Function("window", txt)(w);
+        if (!w.REFS_DATA || !Array.isArray(w.REFS_DATA.refs)) return json(res, 502, { ok: false, error: "refs-data.js inválido no deploy" });
+        const tmp = path.join(DATA_DIR, ".refs-data.tmp.js"); fs.writeFileSync(tmp, txt); fs.renameSync(tmp, DATA_FILE);
+        return json(res, 200, { ok: true, count: w.REFS_DATA.refs.length });
+      } else { // push
+        const token = (JSON.parse((await readBody(req)) || "{}").token) || EDIT_TOKEN;
+        if (!token) return json(res, 400, { ok: false, error: "informe a senha de edição do deploy" });
+        const local = fs.readFileSync(DATA_FILE, "utf8");
+        const w = {}; new Function("window", local)(w);
+        const r = await fetch(DEPLOY_URL + "/api/save", { method: "POST", headers: { "content-type": "application/json", "x-edit-token": token }, body: JSON.stringify(w.REFS_DATA) });
+        const rt = await r.text();
+        res.writeHead(r.status, { "content-type": "application/json" }); return res.end(rt);
+      }
     }
     serveStatic(req, res);
   } catch (err) {

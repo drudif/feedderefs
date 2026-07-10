@@ -149,6 +149,7 @@
   .adder-sub{font-family:var(--sans);font-weight:500;font-size:12px;letter-spacing:0;color:var(--ink-3)}
   .adder-head .add-btn{font-size:11px;padding:8px 15px;flex-shrink:0}
   .adder-row,.key-row{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
+  .sync-lbl{font-size:12px;color:var(--ink-3);align-self:center;margin-right:2px;text-transform:uppercase;letter-spacing:.04em}
   .key-row{margin-top:10px}
   .add-input{flex:1;min-width:220px;border:1.5px solid var(--line);border-radius:999px;padding:11px 20px;background:transparent;
     font-family:var(--sans);font-weight:500;font-size:14px;letter-spacing:-.01em;color:var(--ink);outline:none}
@@ -195,6 +196,11 @@
     <div id="unlockRow" class="key-row" style="display:none">
       <input id="etoken" class="add-input" type="password" placeholder="Senha de edição" autocomplete="off">
       <button id="etokenBtn" class="add-btn">Desbloquear edição</button>
+    </div>
+    <div id="syncRow" class="key-row" style="display:none">
+      <span class="sync-lbl">Sincronizar com o deploy:</span>
+      <button id="pullBtn" class="add-btn ghost">↓ Puxar do deploy</button>
+      <button id="pushBtn" class="add-btn ghost">↑ Enviar pro deploy</button>
     </div>
     <div id="addStatus" class="adder-status"></div>
   </div>
@@ -456,6 +462,7 @@ const addUrl=document.getElementById("addUrl"),addUrlBtn=document.getElementById
 const addImg=document.getElementById("addImg"),dropZone=document.getElementById("dropZone");
 const addStatus=document.getElementById("addStatus");
 const unlockRow=document.getElementById("unlockRow"),etoken=document.getElementById("etoken"),etokenBtn=document.getElementById("etokenBtn");
+const syncRow=document.getElementById("syncRow"),pullBtn=document.getElementById("pullBtn"),pushBtn=document.getElementById("pushBtn");
 const exportBtn=document.getElementById("exportBtn");
 function gstat(msg,load){addStatus.innerHTML=(load?'<span class="spin"></span>':"")+msg;}
 const CATLIST=Object.entries(CATS).map(([k,v])=>`${k} (${v.label})`).join(", ");
@@ -514,6 +521,26 @@ etokenBtn.onclick=async()=>{ const v=etoken.value.trim(); if(!v)return; gstat("V
   else gstat("Senha incorreta."); };
 etoken.addEventListener("keydown",e=>{if(e.key==="Enter")etokenBtn.onclick();});
 
+// ---------- sync local ↔ deploy (só no servidor local) ----------
+pullBtn.onclick=async()=>{
+  if(!confirm("Puxar os dados do deploy e sobrescrever o refs-data.js local?"))return;
+  gstat("Puxando do deploy…",1);
+  try{const r=await fetch("/api/pull",{method:"POST"});const j=await r.json();
+    if(j.ok){gstat("Puxado: "+j.count+" refs. Recarregando…");setTimeout(()=>location.reload(),700);}
+    else gstat("Erro: "+j.error);}catch(e){gstat("Erro: "+e.message);}
+};
+pushBtn.onclick=async()=>{
+  let tok=localStorage.getItem("sync-token")||"";
+  if(!tok){tok=(prompt("Senha de edição do deploy (EDIT_TOKEN):")||"").trim(); if(!tok)return; localStorage.setItem("sync-token",tok);}
+  if(!confirm("Enviar o refs-data.js local para o deploy (sobrescreve o que está online)?"))return;
+  gstat("Enviando pro deploy…",1);
+  try{const r=await fetch("/api/push",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({token:tok})});const j=await r.json().catch(()=>({}));
+    if(r.ok&&j.ok){gstat("Enviado ao deploy: "+(j.count||"?")+" refs.");}
+    else if(r.status===401){localStorage.removeItem("sync-token");gstat("Senha incorreta — clique de novo pra tentar.");}
+    else gstat("Erro: "+(j.error||("HTTP "+r.status)));}
+  catch(e){gstat("Erro: "+e.message);}
+};
+
 // ---------- Exportar (só no modo file://) ----------
 function exportData(){
   const out=buildData();
@@ -531,6 +558,7 @@ function syncAdder(){
   exportBtn.style.display = FILE ? "" : "none";
   if(FILE){ ad.style.display="none"; return; }
   ad.style.display="block";
+  syncRow.style.display = LOCALSRV ? "flex" : "none";
   if(canAdd()){ row.style.display="flex"; unlockRow.style.display="none"; if(sub)sub.textContent="imagem ou URL — o Gemini lê, categoriza e salva o card"; }
   else{ row.style.display="none"; unlockRow.style.display="flex"; if(sub)sub.textContent="site publicado — desbloqueie com a senha para editar"; }
 }
