@@ -1,8 +1,8 @@
-/* Atualizado automaticamente pelo catálogo (server.mjs). */
+/* Catálogo. */
 window.REFS_DATA = {
   "scanDate": "2026-07-04",
   "firstScan": "2026-07-03",
-  "generated": "2026-07-04",
+  "generated": "2026-07-18",
   "sources": {
     "videos": 3,
     "images": 35
@@ -16,8 +16,8 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-03",
-      "desc": "Projeto Python (UI Streamlit + API) que automatiza vídeos curtos verticais de ponta a ponta: um LLM escreve o roteiro, o sistema busca imagens de bancos gratuitos, narra por TTS, sincroniza legendas e trilha e renderiza o MP4. Suporta OpenAI, Gemini, DeepSeek, Ollama e roda local. Cerca de 80k estrelas."
+      "desc": "Projeto Python (UI Streamlit + API) que automatiza vídeos curtos verticais de ponta a ponta: um LLM escreve o roteiro, o sistema busca imagens de bancos gratuitos, narra por TTS, sincroniza legendas e trilha e renderiza o MP4. Suporta OpenAI, Gemini, DeepSeek, Ollama e roda local. Cerca de 80k estrelas.",
+      "date": "2026-07-03"
     },
     {
       "title": "VoxCPM",
@@ -27,8 +27,8 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-03",
-      "desc": "TTS open-source da OpenBMB sobre o MiniCPM, tokenizer-free (difusão autorregressiva) para prosódia mais natural. Faz fala multilíngue, voice design e clonagem de voz fiel com poucos segundos de referência. Cerca de 27k estrelas."
+      "desc": "TTS open-source da OpenBMB sobre o MiniCPM, tokenizer-free (difusão autorregressiva) para prosódia mais natural. Faz fala multilíngue, voice design e clonagem de voz fiel com poucos segundos de referência. Cerca de 27k estrelas.",
+      "date": "2026-07-03"
     },
     {
       "title": "agent-skills",
@@ -39,8 +39,8 @@ window.REFS_DATA = {
         "repo",
         "skill"
       ],
-      "date": "2026-07-03",
-      "desc": "Coleção de skills de engenharia de nível produção para agentes de código (Define, Plan, Build, Verify, Review, Ship), instalando slash commands que impõem boas práticas. Por Addy Osmani. Cerca de 48k estrelas."
+      "desc": "Coleção de skills de engenharia de nível produção para agentes de código (Define, Plan, Build, Verify, Review, Ship), instalando slash commands que impõem boas práticas. Por Addy Osmani. Cerca de 48k estrelas.",
+      "date": "2026-07-03"
     },
     {
       "title": "Krea",
@@ -50,8 +50,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Editor de imagem com IA que faz upscale e enhancement em tempo real: você vê o resultado enquanto ajusta. Reconstrói detalhe em fotos pequenas ou borradas, com plano gratuito por tokens diários e uma suíte de geração de imagem e vídeo."
+      "desc": "Editor de imagem com IA que faz upscale e enhancement em tempo real: você vê o resultado enquanto ajusta. Reconstrói detalhe em fotos pequenas ou borradas, com plano gratuito por tokens diários e uma suíte de geração de imagem e vídeo.",
+      "date": "2026-07-03"
     },
     {
       "title": "Claude Skills for Design",
@@ -59,14 +59,14 @@ window.REFS_DATA = {
       "cat": "ai",
       "src": "video",
       "types": [],
-      "date": "2026-07-03",
-      "desc": "Vídeo ranqueando skills do Claude Code voltadas a design:",
       "items": [
         "<b>UI/UX Pro Max</b> — inteligência de design para web e mobile",
         "<b>Audit Weak Design</b> — audita o código contra as regras de design da Vercel",
         "<b>Extract Design System</b> — extrai tokens e sistema de design de uma referência",
         "<b>Image To Code</b> — transforma uma referência visual em site codado"
-      ]
+      ],
+      "desc": "Vídeo ranqueando skills do Claude Code voltadas a design:",
+      "date": "2026-07-03"
     },
     {
       "title": "taste-skill",
@@ -77,8 +77,8 @@ window.REFS_DATA = {
         "repo",
         "skill"
       ],
-      "date": "2026-07-03",
-      "desc": "Skill anti-slop de frontend para agentes de IA: lê o brief, infere a direção de design e aplica sistemas reais, com checklist de qualidade antes de entregar. Eleva o gosto visual da IA (tipografia, hierarquia, cor) e evita o visual de template."
+      "desc": "Skill anti-slop de frontend para agentes de IA: lê o brief, infere a direção de design e aplica sistemas reais, com checklist de qualidade antes de entregar. Eleva o gosto visual da IA (tipografia, hierarquia, cor) e evita o visual de template.",
+      "date": "2026-07-03"
     },
     {
       "title": "Firecrawl",
@@ -88,8 +88,8 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-03",
-      "desc": "Serviço e lib open-source que faz crawl e scrape de sites e devolve Markdown/JSON limpo para LLMs, lidando com JavaScript, PDFs e imagens. Camada de ingestão para RAG, agentes de pesquisa e pipelines que leem a web."
+      "desc": "Serviço e lib open-source que faz crawl e scrape de sites e devolve Markdown/JSON limpo para LLMs, lidando com JavaScript, PDFs e imagens. Camada de ingestão para RAG, agentes de pesquisa e pipelines que leem a web.",
+      "date": "2026-07-03"
     },
     {
       "title": "KARIMO (Open Session)",
@@ -100,8 +100,8 @@ window.REFS_DATA = {
         "repo",
         "skill"
       ],
-      "date": "2026-07-03",
-      "desc": "Plugin de orquestração de agentes para Claude Code que turbina o plan mode: entrevista você para gerar um PRD, executa cada task em git worktree isolado com agent teams, detecta loops travados e faz code review. Para tocar features maiores de forma estruturada."
+      "desc": "Plugin de orquestração de agentes para Claude Code que turbina o plan mode: entrevista você para gerar um PRD, executa cada task em git worktree isolado com agent teams, detecta loops travados e faz code review. Para tocar features maiores de forma estruturada.",
+      "date": "2026-07-03"
     },
     {
       "title": "interface-design (Dammyjay93)",
@@ -112,8 +112,8 @@ window.REFS_DATA = {
         "repo",
         "skill"
       ],
-      "date": "2026-07-03",
-      "desc": "Skill de design engineering para Claude Code com três pilares: craft (qualidade visual), memória (lembra decisões de design) e enforcement (impede o agente de destoar do sistema). Mantém a UI coerente conforme o projeto cresce."
+      "desc": "Skill de design engineering para Claude Code com três pilares: craft (qualidade visual), memória (lembra decisões de design) e enforcement (impede o agente de destoar do sistema). Mantém a UI coerente conforme o projeto cresce.",
+      "date": "2026-07-03"
     },
     {
       "title": "claude-blog (Agrici Daniel)",
@@ -124,8 +124,8 @@ window.REFS_DATA = {
         "repo",
         "skill"
       ],
-      "date": "2026-07-03",
-      "desc": "Suíte de skills do Claude Code para blog: ~30 sub-skills e 5 agentes que pesquisam, escrevem, pontuam qualidade, verificam fatos e injetam schema, dual-otimizados para Google e citação por IAs. Detecta a plataforma (Next.js, Astro, WordPress) e ajusta o output."
+      "desc": "Suíte de skills do Claude Code para blog: ~30 sub-skills e 5 agentes que pesquisam, escrevem, pontuam qualidade, verificam fatos e injetam schema, dual-otimizados para Google e citação por IAs. Detecta a plataforma (Next.js, Astro, WordPress) e ajusta o output.",
+      "date": "2026-07-03"
     },
     {
       "title": "anthropics/skills",
@@ -136,8 +136,8 @@ window.REFS_DATA = {
         "repo",
         "skill"
       ],
-      "date": "2026-07-03",
-      "desc": "Repositório oficial de Agent Skills da Anthropic: pastas com SKILL.md que ensinam o Claude a executar tarefas especializadas sob demanda, carregando contexto só quando preciso. Fonte canônica do formato de skills, inclui a frontend-design."
+      "desc": "Repositório oficial de Agent Skills da Anthropic: pastas com SKILL.md que ensinam o Claude a executar tarefas especializadas sob demanda, carregando contexto só quando preciso. Fonte canônica do formato de skills, inclui a frontend-design.",
+      "date": "2026-07-03"
     },
     {
       "title": "skills.sh — frontend-design",
@@ -147,8 +147,8 @@ window.REFS_DATA = {
       "types": [
         "skill"
       ],
-      "date": "2026-07-03",
-      "desc": "Índice e instalador web de Agent Skills; esta é a página da skill oficial frontend-design, que orienta o Claude a construir interfaces distintivas guiadas por filosofias de estética. Mostra o que faz e o comando de instalação."
+      "desc": "Índice e instalador web de Agent Skills; esta é a página da skill oficial frontend-design, que orienta o Claude a construir interfaces distintivas guiadas por filosofias de estética. Mostra o que faz e o comando de instalação.",
+      "date": "2026-07-03"
     },
     {
       "title": "Claude Skills Directory",
@@ -158,8 +158,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Diretório com mais de 21.600 skills para Claude Code, navegável por categoria (frontend, backend, testing, security, DevOps) e instalável por um comando. Bom para descobrir skills prontas em vez de reinventar."
+      "desc": "Diretório com mais de 21.600 skills para Claude Code, navegável por categoria (frontend, backend, testing, security, DevOps) e instalável por um comando. Bom para descobrir skills prontas em vez de reinventar.",
+      "date": "2026-07-03"
     },
     {
       "title": "Efecto",
@@ -169,8 +169,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Ferramenta de design com IA e servidor MCP (dezenas de tools): cria e gerencia brand systems (cor, tipografia, ícones), audita compliance da marca e exporta para CSS, Tailwind, Style Dictionary, Figma ou v0. Para agentes e humanos manterem a mesma identidade."
+      "desc": "Ferramenta de design com IA e servidor MCP (dezenas de tools): cria e gerencia brand systems (cor, tipografia, ícones), audita compliance da marca e exporta para CSS, Tailwind, Style Dictionary, Figma ou v0. Para agentes e humanos manterem a mesma identidade.",
+      "date": "2026-07-03"
     },
     {
       "title": "Swishy",
@@ -180,8 +180,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Motion designer com IA: gera motion graphics, kinetic typography e animações de logo a partir de prompts, exportando MP4, MOV ou GIF, sem After Effects. Para peças curtas de social e vídeo."
+      "desc": "Motion designer com IA: gera motion graphics, kinetic typography e animações de logo a partir de prompts, exportando MP4, MOV ou GIF, sem After Effects. Para peças curtas de social e vídeo.",
+      "date": "2026-07-03"
     },
     {
       "title": "Claude Cookbook — Frontend Aesthetics",
@@ -191,8 +191,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Página do cookbook oficial da Anthropic com técnicas de prompting para estética de frontend: como pedir ao Claude interfaces mais refinadas, com direção visual e hierarquia, evitando o resultado genérico."
+      "desc": "Página do cookbook oficial da Anthropic com técnicas de prompting para estética de frontend: como pedir ao Claude interfaces mais refinadas, com direção visual e hierarquia, evitando o resultado genérico.",
+      "date": "2026-07-03"
     },
     {
       "title": "OpenCode",
@@ -202,8 +202,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Agente de código de IA open-source que roda no terminal e é agnóstico de provedor (use o modelo que quiser). Alternativa aberta ao Claude Code e Cursor para automação de programação."
+      "desc": "Agente de código de IA open-source que roda no terminal e é agnóstico de provedor (use o modelo que quiser). Alternativa aberta ao Claude Code e Cursor para automação de programação.",
+      "date": "2026-07-04"
     },
     {
       "title": "Dyad",
@@ -213,8 +213,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Construtor de apps com IA local e open-source (alternativa ao Lovable e v0) que roda na sua máquina com sua própria chave: gera e edita apps sem lock-in de nuvem."
+      "desc": "Construtor de apps com IA local e open-source (alternativa ao Lovable e v0) que roda na sua máquina com sua própria chave: gera e edita apps sem lock-in de nuvem.",
+      "date": "2026-07-04"
     },
     {
       "title": "KikiVoice",
@@ -224,8 +224,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Clonagem de voz com IA online e gratuita, com mais de 75 idiomas, sem cadastro e sem limite declarado. Rápida para dublagem, narração e protótipos de voz."
+      "desc": "Clonagem de voz com IA online e gratuita, com mais de 75 idiomas, sem cadastro e sem limite declarado. Rápida para dublagem, narração e protótipos de voz.",
+      "date": "2026-07-04"
     },
     {
       "title": "tldraw",
@@ -235,8 +235,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Canvas infinito open-source distribuído como SDK: um whiteboard programável que você embute no próprio produto, com colaboração em tempo real e API extensível. Criado por Steve Ruiz, roda dentro de Vercel, Linear e Microsoft."
+      "desc": "Canvas infinito open-source distribuído como SDK: um whiteboard programável que você embute no próprio produto, com colaboração em tempo real e API extensível. Criado por Steve Ruiz, roda dentro de Vercel, Linear e Microsoft.",
+      "date": "2026-07-03"
     },
     {
       "title": "SHRTCTS",
@@ -246,8 +246,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Referência interativa de atalhos de teclado dos apps de design (Figma, Photoshop, Blender, Framer): escolha o software e um teclado 3D acende as teclas conforme você navega. Para acelerar o fluxo e depender menos do mouse."
+      "desc": "Referência interativa de atalhos de teclado dos apps de design (Figma, Photoshop, Blender, Framer): escolha o software e um teclado 3D acende as teclas conforme você navega. Para acelerar o fluxo e depender menos do mouse.",
+      "date": "2026-07-03"
     },
     {
       "title": "Coleções Awesome de Design",
@@ -257,14 +257,14 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-03",
-      "desc": "Awesome lists no GitHub que agregam com curadoria da comunidade os melhores recursos de um tema (ferramentas, libs, artigos). Ponto de partida confiável sem cair em SEO. Cobrem creative coding, tipografia, fontes, Figma e recursos para devs.",
       "items": [
         "<b>Awesome Creative Coding</b> · <b>Design Resources for Developers</b>",
         "<b>Awesome Design Tools</b> · <b>Awesome Design</b>",
         "<b>Awesome Typography</b> · <b>Awesome Fonts</b>",
         "<b>Awesome Figma</b> · <b>Awesome Design Resources List</b>"
-      ]
+      ],
+      "desc": "Awesome lists no GitHub que agregam com curadoria da comunidade os melhores recursos de um tema (ferramentas, libs, artigos). Ponto de partida confiável sem cair em SEO. Cobrem creative coding, tipografia, fontes, Figma e recursos para devs.",
+      "date": "2026-07-03"
     },
     {
       "title": "React Bits",
@@ -274,8 +274,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Biblioteca open-source de componentes React animados e interativos (backgrounds, efeitos de texto, distorções como Grid Distortion e Balatro), copy-paste. Isolados e customizáveis, ótimos para heros e microinterações. Compatível com Tailwind e shadcn."
+      "desc": "Biblioteca open-source de componentes React animados e interativos (backgrounds, efeitos de texto, distorções como Grid Distortion e Balatro), copy-paste. Isolados e customizáveis, ótimos para heros e microinterações. Compatível com Tailwind e shadcn.",
+      "date": "2026-07-03"
     },
     {
       "title": "21st.dev",
@@ -285,8 +285,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Marketplace e comunidade de componentes React + Tailwind compatíveis com shadcn (shaders, dot patterns, blocos de marketing), com busca, preview e instalação via CLI. Um npm visual de UI de alta qualidade."
+      "desc": "Marketplace e comunidade de componentes React + Tailwind compatíveis com shadcn (shaders, dot patterns, blocos de marketing), com busca, preview e instalação via CLI. Um npm visual de UI de alta qualidade.",
+      "date": "2026-07-03"
     },
     {
       "title": "Dot Matrix",
@@ -296,8 +296,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Coleção open-source de mais de 55 loaders no estilo matriz de pontos animada, como componentes React/TypeScript/Tailwind via registry do shadcn. Você instala e fica dono do código local."
+      "desc": "Coleção open-source de mais de 55 loaders no estilo matriz de pontos animada, como componentes React/TypeScript/Tailwind via registry do shadcn. Você instala e fica dono do código local.",
+      "date": "2026-07-03"
     },
     {
       "title": "Aceternity UI",
@@ -307,8 +307,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Componentes e blocos React + Tailwind com animações prontas em Framer Motion (heros, macbook scroll, cards 3D), copy-paste e compatível com shadcn. Muito usado para montar landing pages modernas rápido."
+      "desc": "Componentes e blocos React + Tailwind com animações prontas em Framer Motion (heros, macbook scroll, cards 3D), copy-paste e compatível com shadcn. Muito usado para montar landing pages modernas rápido.",
+      "date": "2026-07-03"
     },
     {
       "title": "Componentry",
@@ -318,8 +318,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Biblioteca React open-source de componentes ricos em animação (Framer Motion + Tailwind), copy-paste: texto com física, card stacks no scroll, acordeões com spring, heros WebGL. Movimento sofisticado sem reescrever a lógica."
+      "desc": "Biblioteca React open-source de componentes ricos em animação (Framer Motion + Tailwind), copy-paste: texto com física, card stacks no scroll, acordeões com spring, heros WebGL. Movimento sofisticado sem reescrever a lógica.",
+      "date": "2026-07-03"
     },
     {
       "title": "Uiverse.io",
@@ -329,8 +329,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Maior galeria open-source de elementos de UI em CSS e Tailwind puro (botões, loaders, cards, toggles), criados pela comunidade, copy-paste e gratuitos. Para achar aquele microcomponente com personalidade sem depender de uma lib."
+      "desc": "Maior galeria open-source de elementos de UI em CSS e Tailwind puro (botões, loaders, cards, toggles), criados pela comunidade, copy-paste e gratuitos. Para achar aquele microcomponente com personalidade sem depender de uma lib.",
+      "date": "2026-07-03"
     },
     {
       "title": "Material Design 3",
@@ -340,8 +340,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Site oficial do design system do Google (M3): guidelines, tokens, componentes, cor dinâmica e acessibilidade para Android e Web. Fonte canônica para implementar Material de forma consistente."
+      "desc": "Site oficial do design system do Google (M3): guidelines, tokens, componentes, cor dinâmica e acessibilidade para Android e Web. Fonte canônica para implementar Material de forma consistente.",
+      "date": "2026-07-03"
     },
     {
       "title": "material-web",
@@ -351,8 +351,8 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-03",
-      "desc": "Web Components oficiais que implementam o Material Design 3, mantidos pelo time do Material Components. Como custom elements padrão, funcionam em qualquer stack ou sem framework, já com theming via tokens do M3 e foco em acessibilidade."
+      "desc": "Web Components oficiais que implementam o Material Design 3, mantidos pelo time do Material Components. Como custom elements padrão, funcionam em qualquer stack ou sem framework, já com theming via tokens do M3 e foco em acessibilidade.",
+      "date": "2026-07-03"
     },
     {
       "title": "Anime.js",
@@ -362,8 +362,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Engine de animação em JavaScript leve e poderosa: anima CSS, SVG, DOM e objetos JS com timelines, easing e controle fino, sem dependências. A aba estava na doc do adapter para Three.js (instanced/batched meshes)."
+      "desc": "Engine de animação em JavaScript leve e poderosa: anima CSS, SVG, DOM e objetos JS com timelines, easing e controle fino, sem dependências. A aba estava na doc do adapter para Three.js (instanced/batched meshes).",
+      "date": "2026-07-03"
     },
     {
       "title": "Refero Styles",
@@ -373,8 +373,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Biblioteca de DESIGN.md de mais de 2.000 produtos reais (cor, tipografia, spacing, componentes) como contexto legível por agentes de IA (Cursor, Claude Code, v0), para projetarem no estilo de um produto. Vem com MCP e 135k+ telas."
+      "desc": "Biblioteca de DESIGN.md de mais de 2.000 produtos reais (cor, tipografia, spacing, componentes) como contexto legível por agentes de IA (Cursor, Claude Code, v0), para projetarem no estilo de um produto. Vem com MCP e 135k+ telas.",
+      "date": "2026-07-03"
     },
     {
       "title": "Open Design (nexu-io)",
@@ -384,8 +384,8 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-03",
-      "desc": "Alternativa open-source e local-first ao Claude Design: um app desktop que transforma seu agente de código (BYOK) numa engine de design, gerando protótipos, landing pages, decks, imagens e vídeo, com export HTML/PDF/PPTX/MP4. 259+ skills e 142+ design systems."
+      "desc": "Alternativa open-source e local-first ao Claude Design: um app desktop que transforma seu agente de código (BYOK) numa engine de design, gerando protótipos, landing pages, decks, imagens e vídeo, com export HTML/PDF/PPTX/MP4. 259+ skills e 142+ design systems.",
+      "date": "2026-07-03"
     },
     {
       "title": "Motion",
@@ -395,8 +395,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Biblioteca de animação para web, evolução do Framer Motion, agora também para JavaScript puro e Vue além de React. A aba estava na galeria de exemplos, com snippets de transições, gestos e scroll. Referência de motion de interface declarativo."
+      "desc": "Biblioteca de animação para web, evolução do Framer Motion, agora também para JavaScript puro e Vue além de React. A aba estava na galeria de exemplos, com snippets de transições, gestos e scroll. Referência de motion de interface declarativo.",
+      "date": "2026-07-03"
     },
     {
       "title": "Design Systems Repo",
@@ -406,8 +406,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Acervo curado de design systems públicos, mais uma seção de ferramentas para construí-los. Reúne os sistemas de empresas de referência num só lugar, útil para estudar padrões, tokens e documentação."
+      "desc": "Acervo curado de design systems públicos, mais uma seção de ferramentas para construí-los. Reúne os sistemas de empresas de referência num só lugar, útil para estudar padrões, tokens e documentação.",
+      "date": "2026-07-03"
     },
     {
       "title": "Laws of UX",
@@ -417,8 +417,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Coleção das principais leis e heurísticas de UX (Hick, Fitts, Jakob, Miller) explicadas com exemplos e base psicológica, também em cards e livro. Referência rápida para justificar decisões de interface com princípio."
+      "desc": "Coleção das principais leis e heurísticas de UX (Hick, Fitts, Jakob, Miller) explicadas com exemplos e base psicológica, também em cards e livro. Referência rápida para justificar decisões de interface com princípio.",
+      "date": "2026-07-03"
     },
     {
       "title": "Good Design Tools",
@@ -428,8 +428,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Diretório com mais de 400 ferramentas e recursos para designers (UI, UX, branding, inspiração), organizados por categoria e com newsletter semanal. A aba estava na tag de melhores sites de inspiração para web design."
+      "desc": "Diretório com mais de 400 ferramentas e recursos para designers (UI, UX, branding, inspiração), organizados por categoria e com newsletter semanal. A aba estava na tag de melhores sites de inspiração para web design.",
+      "date": "2026-07-03"
     },
     {
       "title": "Designful",
@@ -439,8 +439,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "SDK open-source para construir editores de canvas no estilo Figma: snapping, guias, réguas, histórico, camadas, auto layout, frames e export prontos, com arquitetura para colaboração. Core agnóstico de UI. Para embutir um editor visual no seu produto."
+      "desc": "SDK open-source para construir editores de canvas no estilo Figma: snapping, guias, réguas, histórico, camadas, auto layout, frames e export prontos, com arquitetura para colaboração. Core agnóstico de UI. Para embutir um editor visual no seu produto.",
+      "date": "2026-07-03"
     },
     {
       "title": "OS Design Directory",
@@ -450,8 +450,8 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-03",
-      "desc": "Diretório interativo de recursos de design da Open Session, com busca por IA sobre mais de 150 ferramentas, inspirações e recursos em formatos visuais variados. Open-source no GitHub; ponto de partida curado."
+      "desc": "Diretório interativo de recursos de design da Open Session, com busca por IA sobre mais de 150 ferramentas, inspirações e recursos em formatos visuais variados. Open-source no GitHub; ponto de partida curado.",
+      "date": "2026-07-03"
     },
     {
       "title": "Uiverse Design",
@@ -461,8 +461,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Design systems portáteis no formato DESIGN.md (guia legível por máquina, preview HTML, assets) para dar linguagem visual consistente a agentes de IA (Claude Code, Cursor, Codex) sem traduzir tokens na mão. 42+ sistemas, agnósticos de framework. Braço para IA do Uiverse.io."
+      "desc": "Design systems portáteis no formato DESIGN.md (guia legível por máquina, preview HTML, assets) para dar linguagem visual consistente a agentes de IA (Claude Code, Cursor, Codex) sem traduzir tokens na mão. 42+ sistemas, agnósticos de framework. Braço para IA do Uiverse.io.",
+      "date": "2026-07-03"
     },
     {
       "title": "Excalidraw",
@@ -472,8 +472,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Whiteboard open-source com estética desenhada à mão para diagramas, wireframes e esquemas. Colaborativo, gratuito e sem fricção; virou padrão para rascunhar arquitetura e ideias."
+      "desc": "Whiteboard open-source com estética desenhada à mão para diagramas, wireframes e esquemas. Colaborativo, gratuito e sem fricção; virou padrão para rascunhar arquitetura e ideias.",
+      "date": "2026-07-04"
     },
     {
       "title": "Magic Animator",
@@ -483,8 +483,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Ferramenta que anima ilustrações e gráficos (SVG) automaticamente em segundos, gerando motion pronto para exportar. Atalho para dar vida a assets estáticos sem software de animação."
+      "desc": "Ferramenta que anima ilustrações e gráficos (SVG) automaticamente em segundos, gerando motion pronto para exportar. Atalho para dar vida a assets estáticos sem software de animação.",
+      "date": "2026-07-04"
     },
     {
       "title": "Unicorn Studio",
@@ -494,8 +494,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Editor no-code de animações e efeitos WebGL interativos: você cria cenas com shaders, partículas e parallax e embute no site sem programar. Alternativa acessível a montar WebGL na mão."
+      "desc": "Editor no-code de animações e efeitos WebGL interativos: você cria cenas com shaders, partículas e parallax e embute no site sem programar. Alternativa acessível a montar WebGL na mão.",
+      "date": "2026-07-04"
     },
     {
       "title": "SVG Studio",
@@ -505,8 +505,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Editor web para animar SVGs ('Animate Everything') sem código: importe o vetor e crie animações exportáveis para web. Foca em motion vetorial acessível."
+      "desc": "Editor web para animar SVGs ('Animate Everything') sem código: importe o vetor e crie animações exportáveis para web. Foca em motion vetorial acessível.",
+      "date": "2026-07-04"
     },
     {
       "title": "3dsvg",
@@ -516,8 +516,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Ferramenta que transforma SVGs 2D em objetos 3D com extrusão e materiais, direto no browser. O jeito mais fácil de dar volume a logos e ícones vetoriais."
+      "desc": "Ferramenta que transforma SVGs 2D em objetos 3D com extrusão e materiais, direto no browser. O jeito mais fácil de dar volume a logos e ícones vetoriais.",
+      "date": "2026-07-04"
     },
     {
       "title": "DIA — Tools",
@@ -527,8 +527,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Conjunto de micro-ferramentas de design gratuitas do estúdio DIA (geradores e utilitários visuais experimentais). Para efeitos rápidos e experimentação gráfica."
+      "desc": "Conjunto de micro-ferramentas de design gratuitas do estúdio DIA (geradores e utilitários visuais experimentais). Para efeitos rápidos e experimentação gráfica.",
+      "date": "2026-07-04"
     },
     {
       "title": "Endless Tools",
@@ -538,8 +538,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Editor 3D no navegador para criar objetos, cenas e mockups com estética lúdica, exportáveis como imagem ou animação. No-code, focado em resultado visual rápido."
+      "desc": "Editor 3D no navegador para criar objetos, cenas e mockups com estética lúdica, exportáveis como imagem ou animação. No-code, focado em resultado visual rápido.",
+      "date": "2026-07-04"
     },
     {
       "title": "Fontjoy",
@@ -549,8 +549,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Sugere pares de fontes usando deep learning: trave uma fonte e o modelo propõe combinações que equilibram contraste e harmonia, mostrando o par num layout real. Ponto de partida para a dupla título e corpo de um projeto."
+      "desc": "Sugere pares de fontes usando deep learning: trave uma fonte e o modelo propõe combinações que equilibram contraste e harmonia, mostrando o par num layout real. Ponto de partida para a dupla título e corpo de um projeto.",
+      "date": "2026-07-03"
     },
     {
       "title": "Words of Type",
@@ -560,8 +560,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Enciclopédia multilíngue e colaborativa de tipografia: verbetes ilustrados sobre anatomia da letra, eixos, contraste, conjuntos de caracteres e história. Ligada a Stanford e ao Letterform Archive. Referência séria para falar tipografia com precisão."
+      "desc": "Enciclopédia multilíngue e colaborativa de tipografia: verbetes ilustrados sobre anatomia da letra, eixos, contraste, conjuntos de caracteres e história. Ligada a Stanford e ao Letterform Archive. Referência séria para falar tipografia com precisão.",
+      "date": "2026-07-03"
     },
     {
       "title": "Collletttivo (CLT)",
@@ -571,8 +571,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Coletivo e foundry italiano de tipografia libre: distribui gratuitamente fontes experimentais e de display feitas por designers independentes, sob licenças abertas. Para achar tipos com personalidade fora do mainstream."
+      "desc": "Coletivo e foundry italiano de tipografia libre: distribui gratuitamente fontes experimentais e de display feitas por designers independentes, sob licenças abertas. Para achar tipos com personalidade fora do mainstream.",
+      "date": "2026-07-04"
     },
     {
       "title": "Fontshare",
@@ -582,8 +582,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Serviço gratuito de fontes de qualidade da Indian Type Foundry: famílias completas, livres para uso pessoal e comercial, com bom pareamento. Alternativa curada ao Google Fonts."
+      "desc": "Serviço gratuito de fontes de qualidade da Indian Type Foundry: famílias completas, livres para uso pessoal e comercial, com bom pareamento. Alternativa curada ao Google Fonts.",
+      "date": "2026-07-04"
     },
     {
       "title": "UNCUT.wtf",
@@ -593,8 +593,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Catálogo libre de fontes open-source contemporâneas, com curadoria forte e viés experimental e editorial. Filtra por classificação e baixa direto, tudo com licença aberta."
+      "desc": "Catálogo libre de fontes open-source contemporâneas, com curadoria forte e viés experimental e editorial. Filtra por classificação e baixa direto, tudo com licença aberta.",
+      "date": "2026-07-04"
     },
     {
       "title": "Velvetyne",
@@ -604,8 +604,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Foundry francesa pioneira do type design libre: fontes gratuitas, experimentais e engajadas, feitas por uma comunidade internacional. Referência do movimento de tipografia open-source."
+      "desc": "Foundry francesa pioneira do type design libre: fontes gratuitas, experimentais e engajadas, feitas por uma comunidade internacional. Referência do movimento de tipografia open-source.",
+      "date": "2026-07-04"
     },
     {
       "title": "Etcetera Type Co",
@@ -615,8 +615,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Foundry independente de Ty Finck com fontes variáveis expressivas (como a Sono), misturando rigor técnico e caráter. Tem opções gratuitas e pagas."
+      "desc": "Foundry independente de Ty Finck com fontes variáveis expressivas (como a Sono), misturando rigor técnico e caráter. Tem opções gratuitas e pagas.",
+      "date": "2026-07-04"
     },
     {
       "title": "Atipo Foundry",
@@ -626,8 +626,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Foundry espanhola com famílias refinadas (a aba era a N27). Vende licenças e libera algumas fontes por 'pague o que quiser'. Forte em geométricas e grotescas contemporâneas."
+      "desc": "Foundry espanhola com famílias refinadas (a aba era a N27). Vende licenças e libera algumas fontes por 'pague o que quiser'. Forte em geométricas e grotescas contemporâneas.",
+      "date": "2026-07-04"
     },
     {
       "title": "Bricolage Grotesque",
@@ -637,8 +637,8 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-04",
-      "desc": "Fonte grotesca open-source de Mathieu Triay (Atelier Triay): família variável quente e levemente irregular, pensada para interface e editorial. Código e specimen no GitHub e no site do projeto."
+      "desc": "Fonte grotesca open-source de Mathieu Triay (Atelier Triay): família variável quente e levemente irregular, pensada para interface e editorial. Código e specimen no GitHub e no site do projeto.",
+      "date": "2026-07-04"
     },
     {
       "title": "Noir Blanc Rouge (NBR Type)",
@@ -648,8 +648,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Foundry independente com tipos de display e texto de forte caráter (como Libertine Super e Young Serif). Vende licenças diretas; boa fonte de serifas e displays autorais."
+      "desc": "Foundry independente com tipos de display e texto de forte caráter (como Libertine Super e Young Serif). Vende licenças diretas; boa fonte de serifas e displays autorais.",
+      "date": "2026-07-04"
     },
     {
       "title": "Lokal Container",
@@ -659,8 +659,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Estúdio e foundry com uma coleção autoral de typefaces de display e texto, apresentada num site-portfólio experimental. Para tipos com identidade de estúdio."
+      "desc": "Estúdio e foundry com uma coleção autoral de typefaces de display e texto, apresentada num site-portfólio experimental. Para tipos com identidade de estúdio.",
+      "date": "2026-07-04"
     },
     {
       "title": "MVD Type Foundry",
@@ -670,8 +670,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Foundry ligada ao projeto Flexible Visual Systems: tipos pensados para sistemas visuais flexíveis e identidades modulares. Recurso para quem constrói design systems tipográficos."
+      "desc": "Foundry ligada ao projeto Flexible Visual Systems: tipos pensados para sistemas visuais flexíveis e identidades modulares. Recurso para quem constrói design systems tipográficos.",
+      "date": "2026-07-04"
     },
     {
       "title": "studio muchogusto — TYPEFOUNDRY",
@@ -681,8 +681,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Braço de foundry de um estúdio suíço de design: typefaces autorais com rigor tipográfico suíço e toques contemporâneos, com licenças diretas."
+      "desc": "Braço de foundry de um estúdio suíço de design: typefaces autorais com rigor tipográfico suíço e toques contemporâneos, com licenças diretas.",
+      "date": "2026-07-04"
     },
     {
       "title": "Dotcolon",
@@ -692,8 +692,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Foundry do designer japonês Sora Sagano que distribui fontes gratuitas de alta qualidade (a aba era a Penna). Serifas e displays elegantes, livres para uso."
+      "desc": "Foundry do designer japonês Sora Sagano que distribui fontes gratuitas de alta qualidade (a aba era a Penna). Serifas e displays elegantes, livres para uso.",
+      "date": "2026-07-04"
     },
     {
       "title": "Bad Type Club",
@@ -703,8 +703,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Coletivo e foundry experimental que abraça tipografia bruta e anti-convencional. Fonte de displays com atitude para projetos que fogem do refinamento."
+      "desc": "Coletivo e foundry experimental que abraça tipografia bruta e anti-convencional. Fonte de displays com atitude para projetos que fogem do refinamento.",
+      "date": "2026-07-04"
     },
     {
       "title": "Space Type Generator",
@@ -714,8 +714,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Ferramenta que transforma texto em composições tipográficas 3D interativas no browser, com controles de espaço, material e movimento. Para capas e experimentos de type em 3D."
+      "desc": "Ferramenta que transforma texto em composições tipográficas 3D interativas no browser, com controles de espaço, material e movimento. Para capas e experimentos de type em 3D.",
+      "date": "2026-07-04"
     },
     {
       "title": "Mental Design",
@@ -725,8 +725,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Playground experimental de tipografia e design do estúdio Mentally Designed: demos interativas explorando type, cor e efeitos no navegador. Mais laboratório visual do que ferramenta de produção."
+      "desc": "Playground experimental de tipografia e design do estúdio Mentally Designed: demos interativas explorando type, cor e efeitos no navegador. Mais laboratório visual do que ferramenta de produção.",
+      "date": "2026-07-03"
     },
     {
       "title": "Haikei",
@@ -736,8 +736,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Gerador web de assets SVG orgânicos (blobs, ondas, malhas, padrões, divisores) que você ajusta por parâmetros e exporta em SVG ou PNG. Cada resultado é único e leve, sem depender de packs de stock."
+      "desc": "Gerador web de assets SVG orgânicos (blobs, ondas, malhas, padrões, divisores) que você ajusta por parâmetros e exporta em SVG ou PNG. Cada resultado é único e leve, sem depender de packs de stock.",
+      "date": "2026-07-03"
     },
     {
       "title": "Ditther",
@@ -747,8 +747,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Editor web de dithering, halftone e pixelização: transforma imagens em texturas retrô (jornal, meia-tinta, Game Boy) com presets e controle de escala, cor e algoritmo. Para acabamento gráfico impresso."
+      "desc": "Editor web de dithering, halftone e pixelização: transforma imagens em texturas retrô (jornal, meia-tinta, Game Boy) com presets e controle de escala, cor e algoritmo. Para acabamento gráfico impresso.",
+      "date": "2026-07-03"
     },
     {
       "title": "ARTKIT (freedesigntool.online)",
@@ -758,8 +758,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Suíte de ferramentas criativas grátis no browser: TriggerWave (efeitos na batida), ToneKit (halftone), RetroMan (dithering/pixel) e Scanline (CRT, VHS, glitch). Sobe imagem ou vídeo, aplica o efeito e exporta em um clique."
+      "desc": "Suíte de ferramentas criativas grátis no browser: TriggerWave (efeitos na batida), ToneKit (halftone), RetroMan (dithering/pixel) e Scanline (CRT, VHS, glitch). Sobe imagem ou vídeo, aplica o efeito e exporta em um clique.",
+      "date": "2026-07-03"
     },
     {
       "title": "Texture Fabrik",
@@ -769,8 +769,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Banco de texturas grátis em alta resolução: papel rasgado, grão de filme, riscos, padrões e vetores. Pensados para colar por cima do design em modo de mesclagem e dar acabamento tátil e analógico."
+      "desc": "Banco de texturas grátis em alta resolução: papel rasgado, grão de filme, riscos, padrões e vetores. Pensados para colar por cima do design em modo de mesclagem e dar acabamento tátil e analógico.",
+      "date": "2026-07-03"
     },
     {
       "title": "Coolors",
@@ -780,8 +780,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Gerador de paletas de cor rápido (gera na barra de espaço, trava cores, ajusta HSB, exporta). O Image Picker extrai paleta de uma foto e há uma biblioteca enorme da comunidade. Atalho para sair do branco com paleta coerente."
+      "desc": "Gerador de paletas de cor rápido (gera na barra de espaço, trava cores, ajusta HSB, exporta). O Image Picker extrai paleta de uma foto e há uma biblioteca enorme da comunidade. Atalho para sair do branco com paleta coerente.",
+      "date": "2026-07-03"
     },
     {
       "title": "Physically Based",
@@ -791,19 +791,19 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Base de dados aberta com valores PBR de materiais reais (cor difusa, IOR, metalness, densidade), temperaturas de luz e dados de sensores de câmeras. Mostra os valores nas unidades do seu software 3D. CC0."
+      "desc": "Base de dados aberta com valores PBR de materiais reais (cor difusa, IOR, metalness, densidade), temperaturas de luz e dados de sensores de câmeras. Mostra os valores nas unidades do seu software 3D. CC0.",
+      "date": "2026-07-03"
     },
     {
       "title": "StillsLab",
       "url": "https://stillslab.com",
-      "cat": "assets",
+      "cat": "inspo",
       "src": "carrossel",
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Acervo de frames de filmes e séries em alta resolução, tratados como fotografia e sem marca d'água. Referência de cinematografia (luz, cor, enquadramento) para mood boards e paletas cromáticas."
+      "desc": "Acervo de frames de filmes e séries em alta resolução, tratados como fotografia e sem marca d'água. Referência de cinematografia (luz, cor, enquadramento) para mood boards e paletas cromáticas.",
+      "date": "2026-07-03"
     },
     {
       "title": "Everypixel",
@@ -813,8 +813,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Metabuscador que consulta mais de 50 bancos de imagem (Unsplash, Pixabay, StockSnap e pagos) numa única busca, com filtro por licença, comparação de preço e busca por imagem semelhante."
+      "desc": "Metabuscador que consulta mais de 50 bancos de imagem (Unsplash, Pixabay, StockSnap e pagos) numa única busca, com filtro por licença, comparação de preço e busca por imagem semelhante.",
+      "date": "2026-07-03"
     },
     {
       "title": "Material Design Icons",
@@ -824,8 +824,8 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-03",
-      "desc": "Repositório oficial do Google com Material Symbols e Icons: milhares de ícones em vários estilos e pesos, em SVG e fontes, sob Apache-2.0. Biblioteca consistente para web e Android, fácil de customizar."
+      "desc": "Repositório oficial do Google com Material Symbols e Icons: milhares de ícones em vários estilos e pesos, em SVG e fontes, sob Apache-2.0. Biblioteca consistente para web e Android, fácil de customizar.",
+      "date": "2026-07-03"
     },
     {
       "title": "theSVG",
@@ -835,8 +835,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Biblioteca aberta de assets SVG organizados por categoria e comunidade: ícones, formas e gráficos vetoriais prontos para copiar. Recurso rápido para vetores sem custo."
+      "desc": "Biblioteca aberta de assets SVG organizados por categoria e comunidade: ícones, formas e gráficos vetoriais prontos para copiar. Recurso rápido para vetores sem custo.",
+      "date": "2026-07-04"
     },
     {
       "title": "BDFM",
@@ -846,8 +846,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Ferramenta web (DesignFamilyMarket) que converte qualquer imagem em vetor pixelado com textura retrô 8-bit e dithering, exportando SVG, PNG ou JPG. Para acabamento gráfico bitmap-art."
+      "desc": "Ferramenta web (DesignFamilyMarket) que converte qualquer imagem em vetor pixelado com textura retrô 8-bit e dithering, exportando SVG, PNG ou JPG. Para acabamento gráfico bitmap-art.",
+      "date": "2026-07-04"
     },
     {
       "title": "Fockups",
@@ -857,52 +857,52 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Biblioteca de mockups gratuitos e sem frescura para apresentar trabalhos (embalagens, telas, impressos). Download rápido, com nome e tom irreverentes."
+      "desc": "Biblioteca de mockups gratuitos e sem frescura para apresentar trabalhos (embalagens, telas, impressos). Download rápido, com nome e tom irreverentes.",
+      "date": "2026-07-04"
     },
     {
       "title": "Designspiration",
       "url": "https://www.designspiration.com/",
-      "cat": "assets",
+      "cat": "inspo",
       "src": "dev",
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Galeria de inspiração visual onde designers salvam e descobrem imagens de arte, fotografia, tipografia e branding, com busca por cor e por tema. Um dos acervos mais antigos e curados do tipo."
+      "desc": "Galeria de inspiração visual onde designers salvam e descobrem imagens de arte, fotografia, tipografia e branding, com busca por cor e por tema. Um dos acervos mais antigos e curados do tipo.",
+      "date": "2026-07-03"
     },
     {
       "title": "loadmo.re",
       "url": "https://loadmo.re/",
-      "cat": "assets",
+      "cat": "inspo",
       "src": "dev",
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Arquivo de web design mobile por Kim Boutin: coletânea curada de telas e sites com boas soluções de UI mobile. Referência de padrões e inspiração de interface em telas pequenas."
+      "desc": "Arquivo de web design mobile por Kim Boutin: coletânea curada de telas e sites com boas soluções de UI mobile. Referência de padrões e inspiração de interface em telas pequenas.",
+      "date": "2026-07-04"
     },
     {
       "title": "Soot Spiral",
       "url": "https://spiral.soot.com/",
-      "cat": "assets",
+      "cat": "inspo",
       "src": "dev",
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Experiência do Soot (rede social espacial de imagens) que dispõe um acervo visual numa espiral 3D infinita navegável. Descoberta imersiva, não uma galeria comum."
+      "desc": "Experiência do Soot (rede social espacial de imagens) que dispõe um acervo visual numa espiral 3D infinita navegável. Descoberta imersiva, não uma galeria comum.",
+      "date": "2026-07-04"
     },
     {
       "title": "Visual Journal",
       "url": "https://visualjournal.it/",
-      "cat": "assets",
+      "cat": "inspo",
       "src": "dev",
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Arquivo italiano de design gráfico e editorial: coletânea de capas, layouts e peças com forte curadoria estética. Bom para repertório de graphic design e print."
+      "desc": "Arquivo italiano de design gráfico e editorial: coletânea de capas, layouts e peças com forte curadoria estética. Bom para repertório de graphic design e print.",
+      "date": "2026-07-04"
     },
     {
       "title": "Seedance 2.0",
@@ -912,8 +912,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Modelo de geração de vídeo da ByteDance (SEED) que aceita texto, imagem e áudio e produz vídeo HD com áudio sincronizado, personagens consistentes e movimento de câmera cinematográfico numa única passada. Forte para social, previsualização e conceito de anúncio; a aba era um guia de casos de uso + Claude Skill."
+      "desc": "Modelo de geração de vídeo da ByteDance (SEED) que aceita texto, imagem e áudio e produz vídeo HD com áudio sincronizado, personagens consistentes e movimento de câmera cinematográfico numa única passada. Forte para social, previsualização e conceito de anúncio; a aba era um guia de casos de uso + Claude Skill.",
+      "date": "2026-07-04"
     },
     {
       "title": "StudioBinder — Guia de Planos de Câmera",
@@ -923,8 +923,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Guia visual definitivo de tipos de plano, ângulo e movimento de câmera, com exemplos de cena. Gramática cinematográfica de referência; o StudioBinder também é software de pré-produção (roteiro, shot list, storyboard)."
+      "desc": "Guia visual definitivo de tipos de plano, ângulo e movimento de câmera, com exemplos de cena. Gramática cinematográfica de referência; o StudioBinder também é software de pré-produção (roteiro, shot list, storyboard).",
+      "date": "2026-07-04"
     },
     {
       "title": "Frameset — Visual Reference Search",
@@ -934,8 +934,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Banco comunitário de frames de filme em alta resolução com busca avançada por texto, planos semelhantes, detalhes técnicos e créditos. Ferramenta de referência para diretores, DPs e cinéfilos."
+      "desc": "Banco comunitário de frames de filme em alta resolução com busca avançada por texto, planos semelhantes, detalhes técnicos e créditos. Ferramenta de referência para diretores, DPs e cinéfilos.",
+      "date": "2026-07-04"
     },
     {
       "title": "Film-Grab",
@@ -945,8 +945,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Acervo de stills de filmes organizados por título, ótimo para estudar composição, cor e enquadramento quadro a quadro. Clássico entre diretores de arte e de fotografia."
+      "desc": "Acervo de stills de filmes organizados por título, ótimo para estudar composição, cor e enquadramento quadro a quadro. Clássico entre diretores de arte e de fotografia.",
+      "date": "2026-07-04"
     },
     {
       "title": "ShotDeck",
@@ -956,30 +956,30 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Maior biblioteca de screenshots de filmes e comerciais em HD, criada pelo DP Lawrence Sher, com busca poderosa por cor, lente, locação e mais. Ferramenta de referência de cinematografia profissional."
+      "desc": "Maior biblioteca de screenshots de filmes e comerciais em HD, criada pelo DP Lawrence Sher, com busca poderosa por cor, lente, locação e mais. Ferramenta de referência de cinematografia profissional.",
+      "date": "2026-07-04"
     },
     {
       "title": "Flim",
       "url": "https://flim.ai/",
-      "cat": "av",
+      "cat": "inspo",
       "src": "dev",
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Motor de busca visual para criativos com IA: pesquisa por conceito entre milhões de frames de filmes, clipes e comerciais. Ótimo para achar referência exata de mood e cena."
+      "desc": "Motor de busca visual para criativos com IA: pesquisa por conceito entre milhões de frames de filmes, clipes e comerciais. Ótimo para achar referência exata de mood e cena.",
+      "date": "2026-07-04"
     },
     {
       "title": "Are.na",
       "url": "https://www.are.na/",
-      "cat": "av",
+      "cat": "inspo",
       "src": "dev",
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Ferramenta de pesquisa visual e moodboard colaborativo: você conecta imagens, links e textos em channels, construindo repertório sem algoritmo nem ruído social. Referência para curadoria e pesquisa criativa."
+      "desc": "Ferramenta de pesquisa visual e moodboard colaborativo: você conecta imagens, links e textos em channels, construindo repertório sem algoritmo nem ruído social. Referência para curadoria e pesquisa criativa.",
+      "date": "2026-07-04"
     },
     {
       "title": "B&A — Directors",
@@ -989,8 +989,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Página de diretores da B&A (ex-Bernstein & Andriulli), agência global que representa diretores, fotógrafos e produtoras. Bom para descobrir e referenciar diretores de comercial e cinema."
+      "desc": "Página de diretores da B&A (ex-Bernstein & Andriulli), agência global que representa diretores, fotógrafos e produtoras. Bom para descobrir e referenciar diretores de comercial e cinema.",
+      "date": "2026-07-04"
     },
     {
       "title": "Art + Commerce — Image Archive",
@@ -1000,30 +1000,30 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Arquivo de imagens da Art + Commerce, agência de fotógrafos e diretores de moda de peso. Acervo de referência para fotografia de moda e direção de arte editorial."
+      "desc": "Arquivo de imagens da Art + Commerce, agência de fotógrafos e diretores de moda de peso. Acervo de referência para fotografia de moda e direção de arte editorial.",
+      "date": "2026-07-04"
     },
     {
       "title": "Cosmos",
       "url": "https://www.cosmos.so/",
-      "cat": "av",
+      "cat": "inspo",
       "src": "dev",
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "App de descoberta e curadoria visual sem algoritmo publicitário: você salva e organiza imagens, vídeos e referências em clusters. Alternativa mais estética e focada ao Pinterest."
+      "desc": "App de descoberta e curadoria visual sem algoritmo publicitário: você salva e organiza imagens, vídeos e referências em clusters. Alternativa mais estética e focada ao Pinterest.",
+      "date": "2026-07-04"
     },
     {
       "title": "Pinterest",
       "url": "https://www.pinterest.com/",
-      "cat": "av",
+      "cat": "inspo",
       "src": "dev",
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Rede de descoberta visual por excelência: boards de referência de qualquer tema, de fotografia a direção de arte. Onipresente em pesquisa de mood e pré-produção, apesar do ruído."
+      "desc": "Rede de descoberta visual por excelência: boards de referência de qualquer tema, de fotografia a direção de arte. Onipresente em pesquisa de mood e pré-produção, apesar do ruído.",
+      "date": "2026-07-04"
     },
     {
       "title": "Art of the Title",
@@ -1033,8 +1033,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Publicação dedicada a sequências de abertura de filmes, séries e games, com estudos e entrevistas sobre title design. Referência definitiva de motion e tipografia em vinhetas."
+      "desc": "Publicação dedicada a sequências de abertura de filmes, séries e games, com estudos e entrevistas sobre title design. Referência definitiva de motion e tipografia em vinhetas.",
+      "date": "2026-07-04"
     },
     {
       "title": "Vimeo Staff Picks",
@@ -1044,8 +1044,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Canal curado do Vimeo com o melhor de curtas, videoclipes e experimentos audiovisuais. Termômetro de qualidade e tendências de direção e edição."
+      "desc": "Canal curado do Vimeo com o melhor de curtas, videoclipes e experimentos audiovisuais. Termômetro de qualidade e tendências de direção e edição.",
+      "date": "2026-07-04"
     },
     {
       "title": "Eyecandy",
@@ -1055,8 +1055,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Biblioteca visual de técnicas de filmagem (jump cut, cinemagraph, VHS) com clipes de exemplo e créditos, feita por Jacobi Mehringer sob o lema 'aprenda, não faça gatekeeping'. Ótima para nomear e estudar recursos visuais."
+      "desc": "Biblioteca visual de técnicas de filmagem (jump cut, cinemagraph, VHS) com clipes de exemplo e créditos, feita por Jacobi Mehringer sob o lema 'aprenda, não faça gatekeeping'. Ótima para nomear e estudar recursos visuais.",
+      "date": "2026-07-04"
     },
     {
       "title": "YARN",
@@ -1066,8 +1066,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Motor de busca que acha o trecho exato de filme, série ou música a partir de uma frase e devolve o clipe. Útil para referência, edição e achar aquela fala específica."
+      "desc": "Motor de busca que acha o trecho exato de filme, série ou música a partir de uma frase e devolve o clipe. Útil para referência, edição e achar aquela fala específica.",
+      "date": "2026-07-04"
     },
     {
       "title": "Master Shots (Christopher Kenworthy)",
@@ -1075,8 +1075,8 @@ window.REFS_DATA = {
       "cat": "av",
       "src": "link",
       "types": [],
-      "date": "2026-07-04",
-      "desc": "Série de livros de referência com mais de 100 técnicas avançadas de câmera para dar cara de produção grande a filmes de baixo orçamento (a aba era um PDF). Catálogo prático de blocking, movimento e enquadramento por situação de cena."
+      "desc": "Série de livros de referência com mais de 100 técnicas avançadas de câmera para dar cara de produção grande a filmes de baixo orçamento (a aba era um PDF). Catálogo prático de blocking, movimento e enquadramento por situação de cena.",
+      "date": "2026-07-04"
     },
     {
       "title": "agentic-inbox",
@@ -1086,8 +1086,8 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-03",
-      "desc": "Cliente de e-mail self-hosted com agente de IA rodando na borda da Cloudflare (Workers + Durable Objects + R2 + Email Routing). O agente lê a caixa e rascunha respostas; expõe um MCP server para operar a inbox no Claude Code/Cursor. Cerca de 4k estrelas."
+      "desc": "Cliente de e-mail self-hosted com agente de IA rodando na borda da Cloudflare (Workers + Durable Objects + R2 + Email Routing). O agente lê a caixa e rascunha respostas; expõe um MCP server para operar a inbox no Claude Code/Cursor. Cerca de 4k estrelas.",
+      "date": "2026-07-03"
     },
     {
       "title": "Postiz",
@@ -1097,8 +1097,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Plataforma open-source de gestão de redes sociais (calendário, agendamento multi-canal, analytics, marketplace), posicionada como alternativa self-hostable ao Buffer e Hootsuite. Por Nevo David."
+      "desc": "Plataforma open-source de gestão de redes sociais (calendário, agendamento multi-canal, analytics, marketplace), posicionada como alternativa self-hostable ao Buffer e Hootsuite. Por Nevo David.",
+      "date": "2026-07-03"
     },
     {
       "title": "Inbox Zero",
@@ -1108,8 +1108,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Assistente de e-mail open-source (MIT) que limpa e automatiza a caixa (bloqueio de newsletters, respostas automáticas, análise de atenção) sem vender seus dados. Alternativa gratuita ao SaneBox."
+      "desc": "Assistente de e-mail open-source (MIT) que limpa e automatiza a caixa (bloqueio de newsletters, respostas automáticas, análise de atenção) sem vender seus dados. Alternativa gratuita ao SaneBox.",
+      "date": "2026-07-03"
     },
     {
       "title": "Karakeep",
@@ -1119,8 +1119,8 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-03",
-      "desc": "App open-source de salvar tudo (antigo Hoarder): links, notas, imagens e PDFs num só lugar, com auto-tag por IA e busca full-text. Tem extensão, apps mobile, listas colaborativas e RSS; sobe com Docker. Um Pocket/Raindrop soberano."
+      "desc": "App open-source de salvar tudo (antigo Hoarder): links, notas, imagens e PDFs num só lugar, com auto-tag por IA e busca full-text. Tem extensão, apps mobile, listas colaborativas e RSS; sobe com Docker. Um Pocket/Raindrop soberano.",
+      "date": "2026-07-03"
     },
     {
       "title": "Syncthing",
@@ -1130,8 +1130,8 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-03",
-      "desc": "Sincronização contínua de arquivos open-source, ponto a ponto, sem servidor central. Cada nó tem ID criptográfico e todo tráfego é TLS; funciona em LAN e internet atrás de NAT. Substituto privado do Dropbox/Google Drive."
+      "desc": "Sincronização contínua de arquivos open-source, ponto a ponto, sem servidor central. Cada nó tem ID criptográfico e todo tráfego é TLS; funciona em LAN e internet atrás de NAT. Substituto privado do Dropbox/Google Drive.",
+      "date": "2026-07-03"
     },
     {
       "title": "codeburn (AgentSeal)",
@@ -1141,8 +1141,8 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-03",
-      "desc": "Ferramenta local e gratuita (npx codeburn) que rastreia consumo e custo de tokens de IA em 31 ferramentas (Claude Code, Cursor, Codex, Gemini), por modelo, projeto e task, e correlaciona gasto com commits. Tudo local."
+      "desc": "Ferramenta local e gratuita (npx codeburn) que rastreia consumo e custo de tokens de IA em 31 ferramentas (Claude Code, Cursor, Codex, Gemini), por modelo, projeto e task, e correlaciona gasto com commits. Tudo local.",
+      "date": "2026-07-03"
     },
     {
       "title": "yt-dlp",
@@ -1152,8 +1152,8 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-03",
-      "desc": "Downloader de áudio e vídeo por linha de comando para YouTube e mais de mil sites, fork ativo do youtube-dl. Formato/qualidade, playlists, legendas, extração de áudio e pós-processamento com ffmpeg."
+      "desc": "Downloader de áudio e vídeo por linha de comando para YouTube e mais de mil sites, fork ativo do youtube-dl. Formato/qualidade, playlists, legendas, extração de áudio e pós-processamento com ffmpeg.",
+      "date": "2026-07-03"
     },
     {
       "title": "OpenAlternative",
@@ -1163,8 +1163,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-03",
-      "desc": "Diretório curado e open-source (Piotr Kulpinski) de alternativas open-source a softwares proprietários: busque uma ferramenta comercial e ache substitutos livres, com estrelas do GitHub, licença e notas. Para trocar SaaS pago por algo que você hospeda."
+      "desc": "Diretório curado e open-source (Piotr Kulpinski) de alternativas open-source a softwares proprietários: busque uma ferramenta comercial e ache substitutos livres, com estrelas do GitHub, licença e notas. Para trocar SaaS pago por algo que você hospeda.",
+      "date": "2026-07-03"
     },
     {
       "title": "Cal.com",
@@ -1174,8 +1174,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-04",
-      "desc": "Plataforma de agendamento open-source (alternativa ao Calendly) que você pode hospedar: links de reunião, integrações de calendário e automações, com controle total dos dados."
+      "desc": "Plataforma de agendamento open-source (alternativa ao Calendly) que você pode hospedar: links de reunião, integrações de calendário e automações, com controle total dos dados.",
+      "date": "2026-07-04"
     },
     {
       "title": "flowsint",
@@ -1185,8 +1185,8 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-03",
-      "desc": "Plataforma de investigação OSINT baseada em grafo para times de segurança: parte de uma entidade e mais de 30 enrichers expandem o grafo automaticamente, revelando conexões. Local-first, Neo4j + FastAPI, Apache-2.0. Cerca de 5,5k estrelas."
+      "desc": "Plataforma de investigação OSINT baseada em grafo para times de segurança: parte de uma entidade e mais de 30 enrichers expandem o grafo automaticamente, revelando conexões. Local-first, Neo4j + FastAPI, Apache-2.0. Cerca de 5,5k estrelas.",
+      "date": "2026-07-03"
     },
     {
       "title": "Camoufox",
@@ -1196,8 +1196,8 @@ window.REFS_DATA = {
       "types": [
         "repo"
       ],
-      "date": "2026-07-03",
-      "desc": "Fork do Firefox anti-detecção para scraping e agentes de IA: altera o fingerprint no nível C++ (indetectável via JS) e sandboxa a automação do Playwright. Debloated (~200MB) e com distribuições estatísticas reais. Uso autorizado e dentro da lei."
+      "desc": "Fork do Firefox anti-detecção para scraping e agentes de IA: altera o fingerprint no nível C++ (indetectável via JS) e sandboxa a automação do Playwright. Debloated (~200MB) e com distribuições estatísticas reais. Uso autorizado e dentro da lei.",
+      "date": "2026-07-03"
     },
     {
       "title": "8 TED Talks que valem a pena",
@@ -1205,8 +1205,6 @@ window.REFS_DATA = {
       "cat": "culture",
       "src": "carrossel",
       "types": [],
-      "date": "2026-07-03",
-      "desc": "Carrossel em português com oito palestras recomendadas:",
       "items": [
         "<b>Matt Walker</b> — O sono é seu superpoder",
         "<b>Judson Brewer</b> — Como quebrar um mau hábito",
@@ -1216,7 +1214,9 @@ window.REFS_DATA = {
         "<b>Jocko Willink</b> — Responsabilidade extrema",
         "<b>Rita Carter</b> — Por que ler importa",
         "<b>Vincent Lamé</b> — O poder do fitness"
-      ]
+      ],
+      "desc": "Carrossel em português com oito palestras recomendadas:",
+      "date": "2026-07-03"
     },
     {
       "title": "Tastemaxing Vol.11",
@@ -1224,14 +1224,14 @@ window.REFS_DATA = {
       "cat": "culture",
       "src": "video",
       "types": [],
-      "date": "2026-07-03",
-      "desc": "Vídeo recomendando obras para afiar o repertório visual e cultural:",
       "items": [
         "<b>Logo Modernism</b> — Jens Müller, Taschen (a bíblia dos logos modernistas)",
         "<b>Infinite Jest</b> — David Foster Wallace",
         "<b>Do Androids Dream of Electric Sheep?</b> — Philip K. Dick",
         "Montagem de clipes de filmes como banco de referência visual"
-      ]
+      ],
+      "desc": "Vídeo recomendando obras para afiar o repertório visual e cultural:",
+      "date": "2026-07-03"
     },
     {
       "title": "animejs",
@@ -1241,8 +1241,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Anime.js adapter patterns for HyperFrames. Use when writing Anime.js animations or timelines inside HyperFrames compositions, registering animations on window.__hfAnime, making Anime.js seek-driven and deterministic, or translating Anime.js examples into render-safe HyperFrames HTML."
+      "desc": "Anime.js adapter patterns for HyperFrames. Use when writing Anime.js animations or timelines inside HyperFrames compositions, registering animations on window.__hfAnime, making Anime.js seek-driven and deterministic, or translating Anime.js examples into render-safe HyperFrames HTML.",
+      "date": "2026-07-04"
     },
     {
       "title": "badge-morph",
@@ -1252,8 +1252,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Animated ID card/badge with spring entry and Y-axis flip revealing front and back faces in Remotion"
+      "desc": "Animated ID card/badge with spring entry and Y-axis flip revealing front and back faces in Remotion",
+      "date": "2026-07-04"
     },
     {
       "title": "bencium-innovative-ux-designer",
@@ -1263,8 +1263,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, or applications. Generates creative, polished code that avoids generic AI aesthetics."
+      "desc": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, or applications. Generates creative, polished code that avoids generic AI aesthetics.",
+      "date": "2026-07-04"
     },
     {
       "title": "brandkit",
@@ -1274,8 +1274,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems.…"
+      "desc": "Premium brand-kit image generation skill for creating high-end brand-guidelines boards, logo systems, identity decks, and visual-world presentations. Trained for minimalist, cinematic, editorial, dark-tech, luxury, cultural, security, gaming, developer-tool, and consumer-app brand systems.…",
+      "date": "2026-07-04"
     },
     {
       "title": "convert-design",
@@ -1285,8 +1285,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Use this skill to generate well-branded interfaces and assets for Convert (\"Human Digital Business\"), either for production or throwaway prototypes/mocks/etc. Contains essential design guidelines, colors, type, fonts, assets, and slide templates for prototyping."
+      "desc": "Use this skill to generate well-branded interfaces and assets for Convert (\"Human Digital Business\"), either for production or throwaway prototypes/mocks/etc. Contains essential design guidelines, colors, type, fonts, assets, and slide templates for prototyping.",
+      "date": "2026-07-04"
     },
     {
       "title": "design-for-ai",
@@ -1296,8 +1296,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "| Apply visual design principles when building or reviewing UI/frontend code. Based on Design for Hackers by David Kadavy. Use when: choosing fonts, colors, or layout proportions; reviewing designs for visual issues; establishing visual hierarchy; creating color palettes or type scales; adding…"
+      "desc": "| Apply visual design principles when building or reviewing UI/frontend code. Based on Design for Hackers by David Kadavy. Use when: choosing fonts, colors, or layout proportions; reviewing designs for visual issues; establishing visual hierarchy; creating color palettes or type scales; adding…",
+      "date": "2026-07-04"
     },
     {
       "title": "design-taste-frontend",
@@ -1307,8 +1307,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on redesigns, strict pre-flight check."
+      "desc": "Anti-slop frontend skill for landing pages, portfolios, and redesigns. The agent reads the brief, infers the right design direction, and ships interfaces that do not look templated. Real design systems when applicable, audit-first on redesigns, strict pre-flight check.",
+      "date": "2026-07-04"
     },
     {
       "title": "design-taste-frontend-v1",
@@ -1318,8 +1318,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility."
+      "desc": "The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.",
+      "date": "2026-07-04"
     },
     {
       "title": "flip-morph",
@@ -1329,8 +1329,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "3D card-flip transformation between two images in Remotion — with windup, multi-turn spin, squeeze, and backface architecture"
+      "desc": "3D card-flip transformation between two images in Remotion — with windup, multi-turn spin, squeeze, and backface architecture",
+      "date": "2026-07-04"
     },
     {
       "title": "frontend-design",
@@ -1340,8 +1340,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Build distinctive, production-grade frontend interfaces with high design quality, guided by named aesthetic philosophies. Use when building components, pages, or applications. Generates working code with exceptional attention to aesthetic details and creative choices that avoid generic AI output."
+      "desc": "Build distinctive, production-grade frontend interfaces with high design quality, guided by named aesthetic philosophies. Use when building components, pages, or applications. Generates working code with exceptional attention to aesthetic details and creative choices that avoid generic AI output.",
+      "date": "2026-07-04"
     },
     {
       "title": "gpt-taste",
@@ -1351,8 +1351,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive…"
+      "desc": "Elite UX/UI & Advanced GSAP Motion Engineer. Enforces Python-driven true randomization for layout variance, strict AIDA page structure, wide editorial typography (bans 6-line wraps), gapless bento grids, strict GSAP ScrollTriggers (pinning, stacking, scrubbing), inline micro-images, and massive…",
+      "date": "2026-07-04"
     },
     {
       "title": "high-end-visual-design",
@@ -1362,8 +1362,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic."
+      "desc": "Teaches the AI to design like a high-end agency. Defines the exact fonts, spacing, shadows, card structures, and animations that make a website feel expensive. Blocks all the common defaults that make AI designs look cheap or generic.",
+      "date": "2026-07-04"
     },
     {
       "title": "huashu-design",
@@ -1373,8 +1373,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "花叔Design——用HTML做高保真原型、交互Demo、幻灯片、动画、设计变体探索+设计方向顾问+专家评审。根据任务embody对应专家（UX/动画师/幻灯片设计师/原型师），避免web design tropes。触发词：做原型、交互原型、HTML演示、动画Demo、设计变体、hi-fi设计、UI mockup、prototype、做个HTML页面、做个可视化、app原型、iOS原型、导出MP4/GIF、60fps视频、设计风格、设计方向、配色方案、推荐风格、选个风格、做个好看的、评审、好不好看、review this…"
+      "desc": "花叔Design——用HTML做高保真原型、交互Demo、幻灯片、动画、设计变体探索+设计方向顾问+专家评审。根据任务embody对应专家（UX/动画师/幻灯片设计师/原型师），避免web design tropes。触发词：做原型、交互原型、HTML演示、动画Demo、设计变体、hi-fi设计、UI mockup、prototype、做个HTML页面、做个可视化、app原型、iOS原型、导出MP4/GIF、60fps视频、设计风格、设计方向、配色方案、推荐风格、选个风格、做个好看的、评审、好不好看、review this…",
+      "date": "2026-07-04"
     },
     {
       "title": "image-to-code",
@@ -1384,8 +1384,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny…"
+      "desc": "Elite website image-to-code skill for Codex. For visually important web tasks, it must first generate the design image(s) itself, deeply analyze them, then implement the website to match them as closely as possible. In Codex, it must prefer large, readable, section-specific images instead of tiny…",
+      "date": "2026-07-04"
     },
     {
       "title": "imagegen-frontend-mobile",
@@ -1395,8 +1395,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative…"
+      "desc": "Elite mobile app image-generation skill for creating premium, app-native screen concepts and flows. Designed for iOS, Android, and cross-platform mobile products. Prioritizes clean hierarchy, comfortably readable text, strong multi-screen consistency, controlled color palettes, non-generic creative…",
+      "date": "2026-07-04"
     },
     {
       "title": "imagegen-frontend-web",
@@ -1406,8 +1406,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces…"
+      "desc": "Elite frontend image-direction skill for generating premium, conversion-aware website design references. CRITICAL OUTPUT RULE — generate ONE separate horizontal image FOR EVERY section. A landing page with 8 sections produces 8 images. Never compress multiple sections into one image. Enforces…",
+      "date": "2026-07-04"
     },
     {
       "title": "impeccable",
@@ -1417,8 +1417,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Use when the user wants to design, redesign, shape, critique, audit, polish, clarify, distill, harden, optimize, adapt, animate, colorize, extract, or otherwise improve a frontend interface. Covers websites, landing pages, dashboards, product UI, app shells, components, forms, settings, onboarding,…"
+      "desc": "Use when the user wants to design, redesign, shape, critique, audit, polish, clarify, distill, harden, optimize, adapt, animate, colorize, extract, or otherwise improve a frontend interface. Covers websites, landing pages, dashboards, product UI, app shells, components, forms, settings, onboarding,…",
+      "date": "2026-07-04"
     },
     {
       "title": "industrial-brutalist-ui",
@@ -1428,8 +1428,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints."
+      "desc": "Raw mechanical interfaces fusing Swiss typographic print with military terminal aesthetics. Rigid grids, extreme type scale contrast, utilitarian color, analog degradation effects. For data-heavy dashboards, portfolios, or editorial sites that need to feel like declassified blueprints.",
+      "date": "2026-07-04"
     },
     {
       "title": "minimalist-ui",
@@ -1439,8 +1439,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows."
+      "desc": "Clean editorial-style interfaces. Warm monochrome palette, typographic contrast, flat bento grids, muted pastels. No gradients, no heavy shadows.",
+      "date": "2026-07-04"
     },
     {
       "title": "redesign-existing-projects",
@@ -1450,8 +1450,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS."
+      "desc": "Upgrades existing websites and apps to premium quality. Audits current design, identifies generic AI patterns, and applies high-end design standards without breaking functionality. Works with any CSS framework or vanilla CSS.",
+      "date": "2026-07-04"
     },
     {
       "title": "shadcn",
@@ -1461,8 +1461,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Manages shadcn components and projects — adding, searching, fixing, debugging, styling, and composing UI. Provides project context, component docs, and usage examples. Applies when working with shadcn/ui, component registries, presets, --preset codes, or any project with a components.json file.…"
+      "desc": "Manages shadcn components and projects — adding, searching, fixing, debugging, styling, and composing UI. Provides project context, component docs, and usage examples. Applies when working with shadcn/ui, component registries, presets, --preset codes, or any project with a components.json file.…",
+      "date": "2026-07-04"
     },
     {
       "title": "stitch-design-taste",
@@ -1472,8 +1472,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance."
+      "desc": "Semantic Design System Skill for Google Stitch. Generates agent-friendly DESIGN.md files that enforce premium, anti-generic UI standards — strict typography, calibrated color, asymmetric layouts, perpetual micro-motion, and hardware-accelerated performance.",
+      "date": "2026-07-04"
     },
     {
       "title": "ui-ux-pro-max",
@@ -1483,8 +1483,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "UI/UX design intelligence for web and mobile. Includes 50+ styles, 161 color palettes, 57 font pairings, 161 product types, 99 UX guidelines, and 25 chart types across 10 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind, shadcn/ui, and HTML/CSS). Actions: plan, build,…"
+      "desc": "UI/UX design intelligence for web and mobile. Includes 50+ styles, 161 color palettes, 57 font pairings, 161 product types, 99 UX guidelines, and 25 chart types across 10 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind, shadcn/ui, and HTML/CSS). Actions: plan, build,…",
+      "date": "2026-07-04"
     },
     {
       "title": "audio-censor",
@@ -1494,8 +1494,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Censura palavras ou frases específicas em arquivos de áudio ou vídeo, substituindo cada ocorrência por um bip de censura (tom sine de 900Hz). Use este skill sempre que o usuário quiser silenciar ou censurar palavrões, nomes, termos específicos, ou qualquer palavra em uma gravação, e pedir coisas…"
+      "desc": "Censura palavras ou frases específicas em arquivos de áudio ou vídeo, substituindo cada ocorrência por um bip de censura (tom sine de 900Hz). Use este skill sempre que o usuário quiser silenciar ou censurar palavrões, nomes, termos específicos, ou qualquer palavra em uma gravação, e pedir coisas…",
+      "date": "2026-07-04"
     },
     {
       "title": "audio-silence-cut",
@@ -1505,8 +1505,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Remove silêncios de arquivos de áudio ou vídeo, substituindo cada silêncio por uma pausa curta configurável (padrão 0.15s). Use este skill sempre que o usuário quiser eliminar pausas longas de uma gravação, deixar o áudio mais fluido e contínuo, remover os momentos de silêncio, ou pedir coisas como…"
+      "desc": "Remove silêncios de arquivos de áudio ou vídeo, substituindo cada silêncio por uma pausa curta configurável (padrão 0.15s). Use este skill sempre que o usuário quiser eliminar pausas longas de uma gravação, deixar o áudio mais fluido e contínuo, remover os momentos de silêncio, ou pedir coisas como…",
+      "date": "2026-07-04"
     },
     {
       "title": "audio-speed",
@@ -1516,8 +1516,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Acelera arquivos de áudio ou vídeo sem mudar o tom usando ffmpeg. Use este skill sempre que o usuário quiser aumentar a velocidade de um arquivo de áudio ou vídeo, acelerar uma gravação, deixar um podcast ou aula mais rápido, ou pedir coisas como '1.5x mais rápido', 'acelera esse mp4', 'speed up',…"
+      "desc": "Acelera arquivos de áudio ou vídeo sem mudar o tom usando ffmpeg. Use este skill sempre que o usuário quiser aumentar a velocidade de um arquivo de áudio ou vídeo, acelerar uma gravação, deixar um podcast ou aula mais rápido, ou pedir coisas como '1.5x mais rápido', 'acelera esse mp4', 'speed up',…",
+      "date": "2026-07-04"
     },
     {
       "title": "audio-word-cut",
@@ -1527,8 +1527,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Encontra ocorrências de palavras ou frases em arquivos de áudio/vídeo usando transcrição automática e exporta cada trecho como um clipe separado. Use este skill sempre que o usuário quiser cortar trechos por palavra, encontrar onde uma frase aparece no áudio, exportar momentos específicos de uma…"
+      "desc": "Encontra ocorrências de palavras ou frases em arquivos de áudio/vídeo usando transcrição automática e exporta cada trecho como um clipe separado. Use este skill sempre que o usuário quiser cortar trechos por palavra, encontrar onde uma frase aparece no áudio, exportar momentos específicos de uma…",
+      "date": "2026-07-04"
     },
     {
       "title": "remotion-best-practices",
@@ -1538,8 +1538,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Best practices for Remotion - Video creation in React"
+      "desc": "Best practices for Remotion - Video creation in React",
+      "date": "2026-07-04"
     },
     {
       "title": "audience-growth-tracker-sms",
@@ -1549,8 +1549,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "When the user wants to track follower growth, understand what drives new followers, or analyze audience development. Also use when the user mentions 'follower growth,' 'followers,' 'audience growth,' 'gaining followers,' 'losing followers,' 'who follows me,' or 'grow my audience.' Uses BlackTwist…"
+      "desc": "When the user wants to track follower growth, understand what drives new followers, or analyze audience development. Also use when the user mentions 'follower growth,' 'followers,' 'audience growth,' 'gaining followers,' 'losing followers,' 'who follows me,' or 'grow my audience.' Uses BlackTwist…",
+      "date": "2026-07-04"
     },
     {
       "title": "brainstorming",
@@ -1560,8 +1560,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+      "desc": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+      "date": "2026-07-04"
     },
     {
       "title": "caption-writer-sms",
@@ -1571,8 +1571,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "When the user wants to write a caption for a visual-first social media post on Facebook, Instagram, TikTok, Pinterest, or YouTube. Also use when the user mentions 'caption,' 'Instagram caption,' 'IG caption,' 'Reels caption,' 'TikTok caption,' 'Pinterest description,' 'Pinterest pin caption,'…"
+      "desc": "When the user wants to write a caption for a visual-first social media post on Facebook, Instagram, TikTok, Pinterest, or YouTube. Also use when the user mentions 'caption,' 'Instagram caption,' 'IG caption,' 'Reels caption,' 'TikTok caption,' 'Pinterest description,' 'Pinterest pin caption,'…",
+      "date": "2026-07-04"
     },
     {
       "title": "carousel-writer-sms",
@@ -1582,8 +1582,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "When the user wants to write content for a LinkedIn carousel, Instagram carousel, Facebook carousel, TikTok photo carousel, Pinterest Idea Pin, or any swipeable multi-slide format. Also use when the user mentions 'carousel,' 'slides,' 'LinkedIn carousel,' 'Instagram carousel,' 'IG carousel,' 'photo…"
+      "desc": "When the user wants to write content for a LinkedIn carousel, Instagram carousel, Facebook carousel, TikTok photo carousel, Pinterest Idea Pin, or any swipeable multi-slide format. Also use when the user mentions 'carousel,' 'slides,' 'LinkedIn carousel,' 'Instagram carousel,' 'IG carousel,' 'photo…",
+      "date": "2026-07-04"
     },
     {
       "title": "content-calendar-sms",
@@ -1593,8 +1593,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "When the user wants to plan a posting schedule, create a content calendar, or organize when and what to post. Also use when the user mentions 'content calendar,' 'posting schedule,' 'when should I post,' 'weekly plan,' 'monthly plan,' 'batch content,' 'scheduling,' 'how often should I post,' or…"
+      "desc": "When the user wants to plan a posting schedule, create a content calendar, or organize when and what to post. Also use when the user mentions 'content calendar,' 'posting schedule,' 'when should I post,' 'weekly plan,' 'monthly plan,' 'batch content,' 'scheduling,' 'how often should I post,' or…",
+      "date": "2026-07-04"
     },
     {
       "title": "content-pattern-analyzer-sms",
@@ -1604,8 +1604,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "When the user wants to find patterns in what content works and what doesn't. Also use when the user mentions 'what's working,' 'content patterns,' 'best topics,' 'best format,' 'best time to post,' 'analyze my content,' 'do more of,' 'do less of,' or 'what should I change.' For raw metrics, see…"
+      "desc": "When the user wants to find patterns in what content works and what doesn't. Also use when the user mentions 'what's working,' 'content patterns,' 'best topics,' 'best format,' 'best time to post,' 'analyze my content,' 'do more of,' 'do less of,' or 'what should I change.' For raw metrics, see…",
+      "date": "2026-07-04"
     },
     {
       "title": "content-repurposer-sms",
@@ -1615,8 +1615,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "When the user wants to turn one piece of content into multiple formats or adapt content across text-first and visual-first platforms (LinkedIn, Twitter/X, Threads, Bluesky, Facebook, Instagram, TikTok, Pinterest, YouTube). Also use when the user mentions 'repurpose,' 'turn this into,' 'adapt this…"
+      "desc": "When the user wants to turn one piece of content into multiple formats or adapt content across text-first and visual-first platforms (LinkedIn, Twitter/X, Threads, Bluesky, Facebook, Instagram, TikTok, Pinterest, YouTube). Also use when the user mentions 'repurpose,' 'turn this into,' 'adapt this…",
+      "date": "2026-07-04"
     },
     {
       "title": "content-strategy-sms",
@@ -1626,8 +1626,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "When the user wants to plan a social media content strategy, decide what to post, or figure out topic clusters and content mix. Also use when the user mentions 'content strategy,' 'what should I post,' 'content ideas,' 'topic clusters,' 'content pillars,' 'content planning,' 'content mix,' 'I don't…"
+      "desc": "When the user wants to plan a social media content strategy, decide what to post, or figure out topic clusters and content mix. Also use when the user mentions 'content strategy,' 'what should I post,' 'content ideas,' 'topic clusters,' 'content pillars,' 'content planning,' 'content mix,' 'I don't…",
+      "date": "2026-07-04"
     },
     {
       "title": "do",
@@ -1637,8 +1637,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Execute a phased implementation plan using subagents. Use when asked to execute, run, or carry out a plan — especially one created by make-plan."
+      "desc": "Execute a phased implementation plan using subagents. Use when asked to execute, run, or carry out a plan — especially one created by make-plan.",
+      "date": "2026-07-04"
     },
     {
       "title": "grill-me",
@@ -1648,8 +1648,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\"."
+      "desc": "Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions \"grill me\".",
+      "date": "2026-07-04"
     },
     {
       "title": "grill-with-docs",
@@ -1659,8 +1659,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project's language and documented decisions."
+      "desc": "Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (CONTEXT.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project's language and documented decisions.",
+      "date": "2026-07-04"
     },
     {
       "title": "hook-writer-sms",
@@ -1670,8 +1670,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "When the user wants help writing opening lines, hooks, first sentences, video hooks, thumbnails titles, or pin titles that grab attention. Also use when the user mentions 'hook,' 'opening line,' 'first line,' 'scroll stopper,' 'attention grabber,' 'headline,' 'video hook,' 'on-screen hook,'…"
+      "desc": "When the user wants help writing opening lines, hooks, first sentences, video hooks, thumbnails titles, or pin titles that grab attention. Also use when the user mentions 'hook,' 'opening line,' 'first line,' 'scroll stopper,' 'attention grabber,' 'headline,' 'video hook,' 'on-screen hook,'…",
+      "date": "2026-07-04"
     },
     {
       "title": "how-it-works",
@@ -1681,8 +1681,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Explain how claude-mem captures observations, when memory injection kicks in, and where data lives. Use when the user asks \"how does claude-mem work?\" or \"what is this thing doing?\"."
+      "desc": "Explain how claude-mem captures observations, when memory injection kicks in, and where data lives. Use when the user asks \"how does claude-mem work?\" or \"what is this thing doing?\".",
+      "date": "2026-07-04"
     },
     {
       "title": "knowledge-agent",
@@ -1692,8 +1692,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Build and query AI-powered knowledge bases from claude-mem observations. Use when users want to create focused \"brains\" from their observation history, ask questions about past work patterns, or compile expertise on specific topics."
+      "desc": "Build and query AI-powered knowledge bases from claude-mem observations. Use when users want to create focused \"brains\" from their observation history, ask questions about past work patterns, or compile expertise on specific topics.",
+      "date": "2026-07-04"
     },
     {
       "title": "make-plan",
@@ -1703,8 +1703,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Create a detailed, phased implementation plan with documentation discovery. Use when asked to plan a feature, task, or multi-step implementation — especially before executing with do."
+      "desc": "Create a detailed, phased implementation plan with documentation discovery. Use when asked to plan a feature, task, or multi-step implementation — especially before executing with do.",
+      "date": "2026-07-04"
     },
     {
       "title": "mem-search",
@@ -1714,8 +1714,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Search claude-mem's persistent cross-session memory database. Use when user asks \"did we already solve this?\", \"how did we do X last time?\", or needs work from previous sessions."
+      "desc": "Search claude-mem's persistent cross-session memory database. Use when user asks \"did we already solve this?\", \"how did we do X last time?\", or needs work from previous sessions.",
+      "date": "2026-07-04"
     },
     {
       "title": "optimization-advisor-sms",
@@ -1725,8 +1725,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "When the user wants concrete recommendations on how to improve their social media performance. Also use when the user mentions 'what should I do next,' 'how do I improve,' 'optimize my social media,' 'recommendations,' 'suggestions,' 'next steps,' 'what's my biggest opportunity,' or 'help me grow.'…"
+      "desc": "When the user wants concrete recommendations on how to improve their social media performance. Also use when the user mentions 'what should I do next,' 'how do I improve,' 'optimize my social media,' 'recommendations,' 'suggestions,' 'next steps,' 'what's my biggest opportunity,' or 'help me grow.'…",
+      "date": "2026-07-04"
     },
     {
       "title": "PDF-TO-MARKDOWN-REVISED",
@@ -1736,8 +1736,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs,…"
+      "desc": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs,…",
+      "date": "2026-07-04"
     },
     {
       "title": "performance-analyzer-sms",
@@ -1747,8 +1747,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "When the user wants to analyze how their social media posts are performing. Also use when the user mentions 'analytics,' 'performance,' 'how did my posts do,' 'engagement,' 'impressions,' 'what's working,' 'post metrics,' 'my best posts,' or 'why isn't this post performing.' Uses BlackTwist…"
+      "desc": "When the user wants to analyze how their social media posts are performing. Also use when the user mentions 'analytics,' 'performance,' 'how did my posts do,' 'engagement,' 'impressions,' 'what's working,' 'post metrics,' 'my best posts,' or 'why isn't this post performing.' Uses BlackTwist…",
+      "date": "2026-07-04"
     },
     {
       "title": "platform-strategy-sms",
@@ -1758,8 +1758,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "When the user wants platform-specific tactical guidance for LinkedIn, Twitter/X, Threads, or Bluesky. Also use when the user mentions 'LinkedIn strategy,' 'Twitter strategy,' 'Threads strategy,' 'Bluesky strategy,' 'algorithm,' 'what works on LinkedIn,' 'cross-posting,' 'platform differences,'…"
+      "desc": "When the user wants platform-specific tactical guidance for LinkedIn, Twitter/X, Threads, or Bluesky. Also use when the user mentions 'LinkedIn strategy,' 'Twitter strategy,' 'Threads strategy,' 'Bluesky strategy,' 'algorithm,' 'what works on LinkedIn,' 'cross-posting,' 'platform differences,'…",
+      "date": "2026-07-04"
     },
     {
       "title": "post-writer-sms",
@@ -1769,8 +1769,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "When the user wants to write a social media post for LinkedIn, Twitter/X, Threads, Bluesky, Facebook, Instagram, TikTok, Pinterest, or YouTube. Also use when the user mentions 'write a post,' 'draft a post,' 'LinkedIn post,' 'tweet,' 'Threads post,' 'Bluesky post,' 'Facebook post,' 'Instagram…"
+      "desc": "When the user wants to write a social media post for LinkedIn, Twitter/X, Threads, Bluesky, Facebook, Instagram, TikTok, Pinterest, or YouTube. Also use when the user mentions 'write a post,' 'draft a post,' 'LinkedIn post,' 'tweet,' 'Threads post,' 'Bluesky post,' 'Facebook post,' 'Instagram…",
+      "date": "2026-07-04"
     },
     {
       "title": "social-media-context-sms",
@@ -1780,8 +1780,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "When the user wants to set up or update their social media profile, voice, audience, content pillars, or platform preferences. Also use when the user mentions 'set up context,' 'my voice,' 'my audience,' 'content pillars,' 'brand voice,' 'who I'm writing for,' 'social media profile,' or wants to…"
+      "desc": "When the user wants to set up or update their social media profile, voice, audience, content pillars, or platform preferences. Also use when the user mentions 'set up context,' 'my voice,' 'my audience,' 'content pillars,' 'brand voice,' 'who I'm writing for,' 'social media profile,' or wants to…",
+      "date": "2026-07-04"
     },
     {
       "title": "thread-writer-sms",
@@ -1791,8 +1791,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "When the user wants to write a multi-part thread or content series for Twitter/X, LinkedIn, Threads, Instagram (Reel/carousel/Story series), TikTok (multi-part videos), YouTube (video series, multi-Short series), or Facebook. Also use when the user mentions 'thread,' 'Twitter thread,' 'tweetstorm,'…"
+      "desc": "When the user wants to write a multi-part thread or content series for Twitter/X, LinkedIn, Threads, Instagram (Reel/carousel/Story series), TikTok (multi-part videos), YouTube (video series, multi-Short series), or Facebook. Also use when the user mentions 'thread,' 'Twitter thread,' 'tweetstorm,'…",
+      "date": "2026-07-04"
     },
     {
       "title": "timeline-report",
@@ -1802,8 +1802,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Generate a \"Journey Into [Project]\" narrative report analyzing a project's entire development history from claude-mem's timeline. Use when asked for a timeline report, project history analysis, development journey, or full project report."
+      "desc": "Generate a \"Journey Into [Project]\" narrative report analyzing a project's entire development history from claude-mem's timeline. Use when asked for a timeline report, project history analysis, development journey, or full project report.",
+      "date": "2026-07-04"
     },
     {
       "title": "writing-plans",
@@ -1813,8 +1813,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Use when you have a spec or requirements for a multi-step task, before touching code"
+      "desc": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "date": "2026-07-04"
     },
     {
       "title": "crawl4ai",
@@ -1824,8 +1824,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Complete toolkit for web crawling and data extraction using Crawl4AI. This skill should be used when users need to scrape websites, extract structured data, handle JavaScript-heavy pages, crawl multiple URLs, or build automated web data pipelines. Includes optimized extraction patterns with schema…"
+      "desc": "Complete toolkit for web crawling and data extraction using Crawl4AI. This skill should be used when users need to scrape websites, extract structured data, handle JavaScript-heavy pages, crawl multiple URLs, or build automated web data pipelines. Includes optimized extraction patterns with schema…",
+      "date": "2026-07-04"
     },
     {
       "title": "improve-codebase-architecture",
@@ -1835,8 +1835,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable."
+      "desc": "Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable.",
+      "date": "2026-07-04"
     },
     {
       "title": "knowledge-update",
@@ -1846,8 +1846,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Corrects outdated LLM knowledge about the Vercel platform and introduces new products. Injected at session start."
+      "desc": "Corrects outdated LLM knowledge about the Vercel platform and introduces new products. Injected at session start.",
+      "date": "2026-07-04"
     },
     {
       "title": "learn-codebase",
@@ -1857,8 +1857,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Prime a codebase by reading every source file in full. Use when starting work on a new or unfamiliar project, or when the user asks to \"learn the codebase\", \"read the codebase\", \"prime\", or \"get up to speed\"."
+      "desc": "Prime a codebase by reading every source file in full. Use when starting work on a new or unfamiliar project, or when the user asks to \"learn the codebase\", \"read the codebase\", \"prime\", or \"get up to speed\".",
+      "date": "2026-07-04"
     },
     {
       "title": "pathfinder",
@@ -1868,8 +1868,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Map a codebase into feature-grouped flowcharts, identify duplicated concerns across features, and propose a unified architecture. Use when asked to \"find the ideal path,\" unify duplicated systems, or audit architecture before a refactor. Emits a proposed unified flowchart plus per-system /make-plan…"
+      "desc": "Map a codebase into feature-grouped flowcharts, identify duplicated concerns across features, and propose a unified architecture. Use when asked to \"find the ideal path,\" unify duplicated systems, or audit architecture before a refactor. Emits a proposed unified flowchart plus per-system /make-plan…",
+      "date": "2026-07-04"
     },
     {
       "title": "smart-explore",
@@ -1879,8 +1879,8 @@ window.REFS_DATA = {
       "types": [
         "installed"
       ],
-      "date": "2026-07-04",
-      "desc": "Token-optimized structural code search using tree-sitter AST parsing. Use instead of reading full files when you need to understand code structure, find functions, or explore a codebase efficiently."
+      "desc": "Token-optimized structural code search using tree-sitter AST parsing. Use instead of reading full files when you need to understand code structure, find functions, or explore a codebase efficiently.",
+      "date": "2026-07-04"
     },
     {
       "title": "Cobalt",
@@ -1890,8 +1890,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Baixa vídeos e áudios de redes sociais (YouTube, TikTok, Instagram, X) colando o link — sem anúncios, sem marca d’água e sem tranqueira. Open-source e focado em privacidade."
+      "desc": "Baixa vídeos e áudios de redes sociais (YouTube, TikTok, Instagram, X) colando o link — sem anúncios, sem marca d’água e sem tranqueira. Open-source e focado em privacidade.",
+      "date": "2026-07-06"
     },
     {
       "title": "Photopea",
@@ -1901,8 +1901,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Editor de imagem completo no navegador, praticamente um Photoshop grátis: abre e salva PSD, camadas, máscaras e filtros, sem instalar nada."
+      "desc": "Editor de imagem completo no navegador, praticamente um Photoshop grátis: abre e salva PSD, camadas, máscaras e filtros, sem instalar nada.",
+      "date": "2026-07-06"
     },
     {
       "title": "Temp Mail",
@@ -1912,8 +1912,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Gera um e-mail temporário descartável em um clique, para cadastros que você não quer no inbox real. Recebe mensagens na hora e some depois."
+      "desc": "Gera um e-mail temporário descartável em um clique, para cadastros que você não quer no inbox real. Recebe mensagens na hora e some depois.",
+      "date": "2026-07-06"
     },
     {
       "title": "TinyWow",
@@ -1923,8 +1923,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Reúne mais de 100 ferramentas grátis num só lugar: PDF, imagem, vídeo, escrita e conversões, sem login. Bom canivete para tarefas rápidas."
+      "desc": "Reúne mais de 100 ferramentas grátis num só lugar: PDF, imagem, vídeo, escrita e conversões, sem login. Bom canivete para tarefas rápidas.",
+      "date": "2026-07-06"
     },
     {
       "title": "Internet Archive",
@@ -1934,8 +1934,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "A biblioteca digital da internet: Wayback Machine para ver qualquer página antiga, além de milhões de livros, áudios, vídeos e softwares preservados."
+      "desc": "A biblioteca digital da internet: Wayback Machine para ver qualquer página antiga, além de milhões de livros, áudios, vídeos e softwares preservados.",
+      "date": "2026-07-06"
     },
     {
       "title": "AlternativeTo",
@@ -1945,8 +1945,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Encontra alternativas (grátis e pagas) a qualquer app ou serviço, com recomendações e votos da comunidade. Filtra por licença, plataforma e open-source."
+      "desc": "Encontra alternativas (grátis e pagas) a qualquer app ou serviço, com recomendações e votos da comunidade. Filtra por licença, plataforma e open-source.",
+      "date": "2026-07-06"
     },
     {
       "title": "JustWatch",
@@ -1956,8 +1956,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Descobre em qual streaming (Netflix, Prime, Disney+) está disponível qualquer filme ou série no seu país, com preços de aluguel e compra."
+      "desc": "Descobre em qual streaming (Netflix, Prime, Disney+) está disponível qualquer filme ou série no seu país, com preços de aluguel e compra.",
+      "date": "2026-07-06"
     },
     {
       "title": "Project Gutenberg",
@@ -1967,8 +1967,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Acervo de mais de 70.000 livros clássicos de domínio público, para ler ou baixar de graça em vários formatos (EPUB, Kindle, texto)."
+      "desc": "Acervo de mais de 70.000 livros clássicos de domínio público, para ler ou baixar de graça em vários formatos (EPUB, Kindle, texto).",
+      "date": "2026-07-06"
     },
     {
       "title": "Open Culture",
@@ -1978,8 +1978,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Curadoria de cultura e educação livre: cursos gratuitos de universidades top, audiolivros, filmes, e-books e material didático num só lugar."
+      "desc": "Curadoria de cultura e educação livre: cursos gratuitos de universidades top, audiolivros, filmes, e-books e material didático num só lugar.",
+      "date": "2026-07-06"
     },
     {
       "title": "WolframAlpha",
@@ -1989,8 +1989,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Motor de conhecimento computacional: resolve matemática, física, estatística, conversões e consultas factuais com passos e gráficos — não busca, calcula a resposta."
+      "desc": "Motor de conhecimento computacional: resolve matemática, física, estatística, conversões e consultas factuais com passos e gráficos — não busca, calcula a resposta.",
+      "date": "2026-07-06"
     },
     {
       "title": "remove.bg",
@@ -2000,8 +2000,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Remove o fundo de qualquer foto automaticamente em um clique, com recorte por IA. Ótimo para produtos, retratos e composições rápidas."
+      "desc": "Remove o fundo de qualquer foto automaticamente em um clique, com recorte por IA. Ótimo para produtos, retratos e composições rápidas.",
+      "date": "2026-07-06"
     },
     {
       "title": "Cleanup.pictures",
@@ -2011,8 +2011,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Apaga objetos, pessoas ou marcas d’água de fotos pintando por cima; a IA reconstrói o fundo. Alternativa web grátis ao content-aware fill."
+      "desc": "Apaga objetos, pessoas ou marcas d’água de fotos pintando por cima; a IA reconstrói o fundo. Alternativa web grátis ao content-aware fill.",
+      "date": "2026-07-06"
     },
     {
       "title": "Squoosh",
@@ -2022,8 +2022,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Compressor de imagem do Google no navegador: ajusta formato, qualidade e tamanho com preview lado a lado, reduzindo peso sem perder muita qualidade."
+      "desc": "Compressor de imagem do Google no navegador: ajusta formato, qualidade e tamanho com preview lado a lado, reduzindo peso sem perder muita qualidade.",
+      "date": "2026-07-06"
     },
     {
       "title": "Carbon",
@@ -2033,8 +2033,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Transforma trechos de código em imagens bonitas para compartilhar (temas, fontes, janela estilizada). Padrão para posts e slides com snippets."
+      "desc": "Transforma trechos de código em imagens bonitas para compartilhar (temas, fontes, janela estilizada). Padrão para posts e slides com snippets.",
+      "date": "2026-07-06"
     },
     {
       "title": "Ray.so",
@@ -2044,8 +2044,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Gera screenshots elegantes de código com poucos cliques (gradientes, temas, padding). Do time do Raycast; ótimo para social e documentação."
+      "desc": "Gera screenshots elegantes de código com poucos cliques (gradientes, temas, padding). Do time do Raycast; ótimo para social e documentação.",
+      "date": "2026-07-06"
     },
     {
       "title": "Shots",
@@ -2055,8 +2055,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Cria mockups de dispositivos e produtos com fundos e molduras estilizadas, grátis. Coloca sua tela num iPhone ou browser bonito para apresentar."
+      "desc": "Cria mockups de dispositivos e produtos com fundos e molduras estilizadas, grátis. Coloca sua tela num iPhone ou browser bonito para apresentar.",
+      "date": "2026-07-06"
     },
     {
       "title": "Flightradar24",
@@ -2066,8 +2066,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Rastreamento de voos em tempo real no mapa: qualquer aeronave, rota, altitude e status. Útil para acompanhar chegadas, viagens e curiosidade."
+      "desc": "Rastreamento de voos em tempo real no mapa: qualquer aeronave, rota, altitude e status. Útil para acompanhar chegadas, viagens e curiosidade.",
+      "date": "2026-07-06"
     },
     {
       "title": "CamelCamelCamel",
@@ -2077,8 +2077,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Histórico de preços de produtos da Amazon, com gráficos e alertas de queda. Mostra se a promoção é real antes de você comprar."
+      "desc": "Histórico de preços de produtos da Amazon, com gráficos e alertas de queda. Mostra se a promoção é real antes de você comprar.",
+      "date": "2026-07-06"
     },
     {
       "title": "Have I Been Pwned",
@@ -2088,8 +2088,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Verifica se seu e-mail ou senha apareceu em vazamentos de dados conhecidos. Referência para checar exposição e ativar alertas de novos breaches."
+      "desc": "Verifica se seu e-mail ou senha apareceu em vazamentos de dados conhecidos. Referência para checar exposição e ativar alertas de novos breaches.",
+      "date": "2026-07-06"
     },
     {
       "title": "VirusTotal",
@@ -2099,8 +2099,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Escaneia arquivos, URLs e hashes contra dezenas de antivírus e ferramentas de uma vez. Padrão para triagem rápida de suspeita de malware."
+      "desc": "Escaneia arquivos, URLs e hashes contra dezenas de antivírus e ferramentas de uma vez. Padrão para triagem rápida de suspeita de malware.",
+      "date": "2026-07-06"
     },
     {
       "title": "urlscan.io",
@@ -2110,8 +2110,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Disseca qualquer site: faz um sandbox da página e mostra requests, domínios, tecnologias, screenshots e indicadores. Ótimo para investigar links suspeitos."
+      "desc": "Disseca qualquer site: faz um sandbox da página e mostra requests, domínios, tecnologias, screenshots e indicadores. Ótimo para investigar links suspeitos.",
+      "date": "2026-07-06"
     },
     {
       "title": "CyberChef",
@@ -2121,8 +2121,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "O canivete suíço cyber (feito pelo GCHQ): encode/decode, criptografia, hashes, parsing e centenas de operações encadeáveis no navegador. Open-source."
+      "desc": "O canivete suíço cyber (feito pelo GCHQ): encode/decode, criptografia, hashes, parsing e centenas de operações encadeáveis no navegador. Open-source.",
+      "date": "2026-07-06"
     },
     {
       "title": "WiGLE",
@@ -2132,8 +2132,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Mapa global de redes Wi-Fi coletadas por wardriving, com localização e metadados. Recurso de OSINT para geolocalização e pesquisa de redes."
+      "desc": "Mapa global de redes Wi-Fi coletadas por wardriving, com localização e metadados. Recurso de OSINT para geolocalização e pesquisa de redes.",
+      "date": "2026-07-06"
     },
     {
       "title": "Privnote",
@@ -2143,8 +2143,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Envia notas que se autodestroem após serem lidas uma vez. Para compartilhar senhas e segredos sem deixar rastro em chat ou e-mail."
+      "desc": "Envia notas que se autodestroem após serem lidas uma vez. Para compartilhar senhas e segredos sem deixar rastro em chat ou e-mail.",
+      "date": "2026-07-06"
     },
     {
       "title": "file.io",
@@ -2154,8 +2154,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Compartilha arquivos que se apagam automaticamente após o download ou prazo. Link rápido e efêmero, sem cadastro."
+      "desc": "Compartilha arquivos que se apagam automaticamente após o download ou prazo. Link rápido e efêmero, sem cadastro.",
+      "date": "2026-07-06"
     },
     {
       "title": "archive.today",
@@ -2165,8 +2165,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Salva um snapshot permanente e navegável de qualquer página web (mesmo que ela mude ou saia do ar). Bom para citar, guardar provas e burlar paywalls leves."
+      "desc": "Salva um snapshot permanente e navegável de qualquer página web (mesmo que ela mude ou saia do ar). Bom para citar, guardar provas e burlar paywalls leves.",
+      "date": "2026-07-06"
     },
     {
       "title": "AccountKiller",
@@ -2176,8 +2176,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Guia de como deletar sua conta em centenas de sites, com links diretos e nível de dificuldade. Para reduzir sua pegada digital e sumir de serviços."
+      "desc": "Guia de como deletar sua conta em centenas de sites, com links diretos e nível de dificuldade. Para reduzir sua pegada digital e sumir de serviços.",
+      "date": "2026-07-06"
     },
     {
       "title": "Radio Garden",
@@ -2187,8 +2187,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Gire um globo e ouça estações de rádio ao vivo de qualquer lugar do mundo. Descoberta sonora geográfica, ótima para ambiente e pesquisa."
+      "desc": "Gire um globo e ouça estações de rádio ao vivo de qualquer lugar do mundo. Descoberta sonora geográfica, ótima para ambiente e pesquisa.",
+      "date": "2026-07-06"
     },
     {
       "title": "Tunefind",
@@ -2198,8 +2198,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Descobre as músicas que tocam em filmes, séries e comerciais, cena a cena. Referência para montar playlists e achar aquela trilha."
+      "desc": "Descobre as músicas que tocam em filmes, séries e comerciais, cena a cena. Referência para montar playlists e achar aquela trilha.",
+      "date": "2026-07-06"
     },
     {
       "title": "musicForProgramming();",
@@ -2209,8 +2209,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Mixes longos de música ambiente e eletrônica pensados para foco e código. Curadoria minimalista, sem letra para não distrair."
+      "desc": "Mixes longos de música ambiente e eletrônica pensados para foco e código. Curadoria minimalista, sem letra para não distrair.",
+      "date": "2026-07-06"
     },
     {
       "title": "myNoise",
@@ -2220,8 +2220,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Gerador de soundscapes customizáveis (chuva, café, ruído, ambientes) com equalizador por camada. Para concentração, relaxamento e mascarar barulho."
+      "desc": "Gerador de soundscapes customizáveis (chuva, café, ruído, ambientes) com equalizador por camada. Para concentração, relaxamento e mascarar barulho.",
+      "date": "2026-07-06"
     },
     {
       "title": "Elicit",
@@ -2231,8 +2231,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Assistente de pesquisa com IA: você pergunta em linguagem natural e ele encontra, resume e extrai dados de artigos científicos. Acelera revisão de literatura."
+      "desc": "Assistente de pesquisa com IA: você pergunta em linguagem natural e ele encontra, resume e extrai dados de artigos científicos. Acelera revisão de literatura.",
+      "date": "2026-07-06"
     },
     {
       "title": "Consensus",
@@ -2242,8 +2242,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Motor de busca que responde perguntas científicas agregando o que os papers realmente dizem, com o consenso e citações. Para embasar afirmações."
+      "desc": "Motor de busca que responde perguntas científicas agregando o que os papers realmente dizem, com o consenso e citações. Para embasar afirmações.",
+      "date": "2026-07-06"
     },
     {
       "title": "Connected Papers",
@@ -2253,8 +2253,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Monta um grafo visual de artigos relacionados a um paper, mostrando trabalhos anteriores e derivados. Ótimo para mapear um campo de pesquisa rápido."
+      "desc": "Monta um grafo visual de artigos relacionados a um paper, mostrando trabalhos anteriores e derivados. Ótimo para mapear um campo de pesquisa rápido.",
+      "date": "2026-07-06"
     },
     {
       "title": "Semantic Scholar",
@@ -2264,8 +2264,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Buscador acadêmico gratuito com IA (Allen Institute): resume papers, mostra citações influentes e conexões. Alternativa aberta ao Google Scholar."
+      "desc": "Buscador acadêmico gratuito com IA (Allen Institute): resume papers, mostra citações influentes e conexões. Alternativa aberta ao Google Scholar.",
+      "date": "2026-07-06"
     },
     {
       "title": "SciSpace",
@@ -2275,8 +2275,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "IA que ajuda a ler e entender papers: explica trechos, fórmulas e jargão, e responde perguntas sobre o artigo. Copiloto para leitura científica."
+      "desc": "IA que ajuda a ler e entender papers: explica trechos, fórmulas e jargão, e responde perguntas sobre o artigo. Copiloto para leitura científica.",
+      "date": "2026-07-06"
     },
     {
       "title": "summarize.tech",
@@ -2286,8 +2286,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Resume vídeos longos do YouTube em tópicos com timestamps, usando IA. Bom para decidir se vale assistir e achar o trecho certo."
+      "desc": "Resume vídeos longos do YouTube em tópicos com timestamps, usando IA. Bom para decidir se vale assistir e achar o trecho certo.",
+      "date": "2026-07-06"
     },
     {
       "title": "Phind",
@@ -2297,8 +2297,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Buscador com IA focado em desenvolvedores: responde perguntas técnicas com código e cita fontes. Alternativa ao Google e Stack Overflow para dev."
+      "desc": "Buscador com IA focado em desenvolvedores: responde perguntas técnicas com código e cita fontes. Alternativa ao Google e Stack Overflow para dev.",
+      "date": "2026-07-06"
     },
     {
       "title": "regex101",
@@ -2308,8 +2308,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Playground para escrever e testar expressões regulares com explicação passo a passo, destaque de matches e cheatsheet. Suporta PCRE, JS, Python e mais."
+      "desc": "Playground para escrever e testar expressões regulares com explicação passo a passo, destaque de matches e cheatsheet. Suporta PCRE, JS, Python e mais.",
+      "date": "2026-07-06"
     },
     {
       "title": "Code Beautify",
@@ -2319,8 +2319,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Coleção de formatadores, validadores e conversores de código e dados (JSON, XML, SQL, HTML) direto no navegador. Utilitário rápido para dev."
+      "desc": "Coleção de formatadores, validadores e conversores de código e dados (JSON, XML, SQL, HTML) direto no navegador. Utilitário rápido para dev.",
+      "date": "2026-07-06"
     },
     {
       "title": "explainshell",
@@ -2330,8 +2330,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Cole um comando de terminal e ele explica cada flag e parte, quebrando a linha em pedaços legíveis. Ótimo para entender scripts alheios."
+      "desc": "Cole um comando de terminal e ele explica cada flag e parte, quebrando a linha em pedaços legíveis. Ótimo para entender scripts alheios.",
+      "date": "2026-07-06"
     },
     {
       "title": "Downdetector",
@@ -2341,8 +2341,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Mostra se um site ou serviço está fora do ar, com base em relatos em tempo real e histórico de incidentes. Confirma se o problema é você ou eles."
+      "desc": "Mostra se um site ou serviço está fora do ar, com base em relatos em tempo real e histórico de incidentes. Confirma se o problema é você ou eles.",
+      "date": "2026-07-06"
     },
     {
       "title": "TinEye",
@@ -2352,8 +2352,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Busca reversa de imagem: descobre onde uma imagem aparece na web e acha versões maiores ou a fonte original. Útil para crédito, procedência e OSINT."
+      "desc": "Busca reversa de imagem: descobre onde uma imagem aparece na web e acha versões maiores ou a fonte original. Útil para crédito, procedência e OSINT.",
+      "date": "2026-07-06"
     },
     {
       "title": "Fast.com",
@@ -2363,8 +2363,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Teste de velocidade de internet minimalista da Netflix: abre e já mede seu download (e upload e latência). Rápido e sem distração."
+      "desc": "Teste de velocidade de internet minimalista da Netflix: abre e já mede seu download (e upload e latência). Rápido e sem distração.",
+      "date": "2026-07-06"
     },
     {
       "title": "Smallpdf",
@@ -2374,8 +2374,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Suíte web para editar PDFs: comprimir, converter, assinar, juntar e dividir, com interface simples. Plano grátis para tarefas pontuais."
+      "desc": "Suíte web para editar PDFs: comprimir, converter, assinar, juntar e dividir, com interface simples. Plano grátis para tarefas pontuais.",
+      "date": "2026-07-06"
     },
     {
       "title": "iLovePDF",
@@ -2385,8 +2385,8 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "Ferramentas de PDF grátis: merge, split, compressão, conversão e OCR. Concorrente do Smallpdf, útil para lidar com documentos rápido."
+      "desc": "Ferramentas de PDF grátis: merge, split, compressão, conversão e OCR. Concorrente do Smallpdf, útil para lidar com documentos rápido.",
+      "date": "2026-07-06"
     },
     {
       "title": "10 Minute Mail",
@@ -2396,8 +2396,19 @@ window.REFS_DATA = {
       "types": [
         "site"
       ],
-      "date": "2026-07-06",
-      "desc": "E-mail temporário que dura 10 minutos (extensíveis), para confirmar cadastros sem expor seu endereço real. Descartável e instantâneo."
+      "desc": "E-mail temporário que dura 10 minutos (extensíveis), para confirmar cadastros sem expor seu endereço real. Descartável e instantâneo.",
+      "date": "2026-07-06"
+    },
+    {
+      "title": "Central Type Fonts",
+      "url": "https://centraltype.com/fonts",
+      "cat": "type",
+      "src": "upload",
+      "types": [
+        "site"
+      ],
+      "desc": "Central Type Fonts é um catálogo de fontes digitais criadas e distribuídas pela Central Type, com design de Mark Butchko. O site apresenta diversas famílias de fontes, detalhando o ano de criação, o designer, o número de estilos e a versão. Serve como uma vitrine para tipografias originais, oferecendo opções para uso em projetos de design.",
+      "date": "2026-07-10"
     }
   ]
 };
