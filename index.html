@@ -86,6 +86,7 @@
     position:relative;border-radius:var(--r);overflow:hidden;
     transition:transform .18s cubic-bezier(.2,.9,.3,1),box-shadow .18s,background .18s}
   .card .bar{height:5px;background:var(--cc)}
+  .card-thumb{width:100%;height:150px;object-fit:cover;display:block;border-bottom:1.5px solid var(--hair);filter:saturate(.95)}
   .card .pad{padding:20px 20px 18px;display:flex;flex-direction:column;gap:11px;flex:1}
   .card:hover{background:var(--paper-2);transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--cc)}
   .card-top{display:flex;flex-direction:column;align-items:flex-start;gap:9px}
@@ -285,7 +286,7 @@ const saveAdded=()=>localStorage.setItem(ADDKEY,JSON.stringify(added));
 if(FILE)added.forEach(a=>{ if(!REFS.some(r=>slug(r.title)===slug(a.title))) REFS.push(a); });
 
 // persistência
-function cleanRef(r){const o={title:r.title,url:r.url||"",cat:r.cat,src:r.src||"link",types:r.types||[]};if(r.items)o.items=r.items;o.desc=r.desc||"";o.date=r.date||SCAN_DATE;return o;}
+function cleanRef(r){const o={title:r.title,url:r.url||"",cat:r.cat,src:r.src||"link",types:r.types||[]};if(r.items)o.items=r.items;o.desc=r.desc||"";o.date=r.date||SCAN_DATE;["thumb","source"].forEach(k=>{if(r[k])o[k]=r[k];});return o;}
 function buildData(){const meta=window.REFS_DATA||{};return{scanDate:SCAN_DATE,firstScan:meta.firstScan||SCAN_DATE,generated:new Date().toISOString().slice(0,10),sources:meta.sources||{videos:0,images:0},refs:REFS.filter(live).map(cleanRef)};}
 async function saveToServer(){const res=await fetch("/api/save",{method:"POST",headers:{"content-type":"application/json",...tokenHdr()},body:JSON.stringify(buildData())});if(!res.ok)throw new Error("HTTP "+res.status);}
 function persist(){if(SERVER)saveToServer().catch(e=>toast("Erro ao salvar: "+e.message));}
@@ -362,8 +363,10 @@ function card(r){
   const foot=r.url
     ? `<a class="go" href="${r.url}" target="_blank" rel="noopener" draggable="false">Acessar <span class="arw">→</span></a>`
     : `<span class="local">${(r.types||[]).includes('installed')?'Skill instalada':'Mídia local'}</span>`;
+  const thumb=r.thumb?`<img class="card-thumb" src="${r.thumb}" loading="lazy" alt="" draggable="false" onerror="this.style.display='none'">`:"";
   return `<article class="card" id="c-${slug(r.title)}" data-slug="${slug(r.title)}" draggable="${canEdit()?'true':'false'}" style="--cc:${cat.c}">
     <div class="bar"></div>
+    ${thumb}
     <div class="pad">
       <div class="card-top">
         <h3>${r.url?`<a href="${r.url}" target="_blank" rel="noopener" draggable="false">${r.title}</a>`:r.title}</h3>
@@ -492,11 +495,12 @@ function parseJSON(s){
 const normCat=c=>CATS[c]?c:"self";
 const normTypes=t=>{const ok=["site","repo","skill"];const arr=(Array.isArray(t)?t:[t]).filter(x=>ok.includes(x));return arr.length?arr:["site"];};
 const cleanUrl=u=>(u||"").replace(/^https?:\/\//i,"").replace(/\/+$/,"").toLowerCase();
-async function createFromResult(raw){
+async function createFromResult(raw,extra){
   let j; try{j=parseJSON(raw);}catch(e){console.warn("parseJSON falhou:",e.message,"\nraw:",raw);gstat("Não consegui interpretar a resposta do modelo. <span class='mono' style='opacity:.6'>"+String(raw||"").slice(0,90).replace(/</g,"&lt;")+"…</span>");return;}
-  const url=(j.url||"").trim();
+  const url=(j.url||(extra&&extra.source)||"").trim();
   if(url&&REFS.some(r=>cleanUrl(r.url)===cleanUrl(url)&&cleanUrl(url))){gstat("Já existe no catálogo: <b>"+(j.title||url)+"</b>.");return;}
   const ref={title:(j.title||url||"Sem título").slice(0,120),url,cat:normCat(j.cat),src:"upload",types:normTypes(j.types),desc:(j.desc||"").slice(0,700),date:new Date().toISOString().slice(0,10),added:true};
+  if(extra){ if(extra.thumb)ref.thumb=extra.thumb; if(extra.source)ref.source=extra.source; }
   REFS.push(ref);
   ref._s=norm([ref.title,ref.desc,CATS[ref.cat]&&CATS[ref.cat].label,(ref.types||[]).join(" "),ref.url].join(" "));
   if(SERVER){ persist(); } else { added.push(ref); saveAdded(); }
@@ -505,11 +509,25 @@ async function createFromResult(raw){
   const el=document.getElementById("c-"+slug(ref.title));if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800);}
   toast("Referência adicionada.",()=>{const k=REFS.indexOf(ref);if(k>=0)REFS.splice(k,1);if(SERVER){persist();}else{const i=added.indexOf(ref);if(i>=0)added.splice(i,1);saveAdded();}buildFilters();render();gstat("");});
 }
+const SOCIAL=/(^|\.)(instagram\.com|tiktok\.com|twitter\.com|x\.com|youtube\.com|youtu\.be|facebook\.com|fb\.watch|threads\.net|pinterest\.[a-z.]+|reddit\.com|vimeo\.com|linkedin\.com)$/i;
+function isSocial(u){try{return SOCIAL.test(new URL(u).hostname);}catch{return false;}}
 async function analyzeUrl(u){
   if(!canAdd())return; if(!/^https?:\/\//i.test(u))u="https://"+u;
+  if(isSocial(u))return ingest(u);
   gstat("Lendo o site com o Gemini…",1);
   try{const raw=await gemini({contents:[{parts:[{text:GPROMPT+"\n\nURL para analisar (leia o conteúdo do site): "+u}]}],tools:[{url_context:{}}],generationConfig:{temperature:0.3,maxOutputTokens:900}});await createFromResult(raw);}
   catch(e){gstat("Erro: "+e.message);}
+}
+// link social: o servidor lê a thumbnail (og:image) e o Gemini analisa. Sem baixar mídia.
+async function ingest(u){
+  if(!canAdd())return;
+  gstat("Lendo o post (thumbnail) com o Gemini…",1);
+  try{
+    const res=await fetch("/api/ingest",{method:"POST",headers:{"content-type":"application/json",...tokenHdr()},body:JSON.stringify({url:u,prompt:GPROMPT})});
+    const j=await res.json().catch(()=>({}));
+    if(!res.ok||!j.ok){gstat("Erro: "+((j&&j.error)||("HTTP "+res.status)));return;}
+    await createFromResult(j.raw,{thumb:j.thumb,source:j.source});
+  }catch(e){gstat("Erro: "+e.message);}
 }
 async function analyzeImage(file){
   if(!canAdd())return; if(!file||!/^image\//.test(file.type||"")){gstat("Selecione um arquivo de imagem.");return;}

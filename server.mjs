@@ -68,6 +68,30 @@ function readBody(req, limit = 25e6) {
 }
 function json(res, code, obj) { res.writeHead(code, { "content-type": "application/json" }); res.end(JSON.stringify(obj)); }
 
+// ---- og-scrape: lê meta tags do post (og:image/título/descrição). Não baixa mídia. ----
+function decodeEnt(s) { return (s || "").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#0?39;/g, "'").replace(/&#x27;/gi, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">"); }
+function parseMetas(html) {
+  const m = {};
+  const re = /<meta[^>]+>/gi; let t;
+  while ((t = re.exec(html))) {
+    const tag = t[0];
+    const p = (tag.match(/(?:property|name)\s*=\s*["']([^"']+)["']/i) || [])[1];
+    const c = (tag.match(/content\s*=\s*["']([^"']*)["']/i) || [])[1];
+    if (p && c != null && m[p] == null) m[p] = c;
+  }
+  return m;
+}
+async function ogScrape(url) {
+  const r = await fetch(url, { headers: { "user-agent": "Mozilla/5.0 (compatible; ToolsCatalog/1.0; +https://feedderefs.up.railway.app)" }, redirect: "follow" });
+  const html = await r.text();
+  const m = parseMetas(html);
+  return {
+    image: decodeEnt(m["og:image"] || m["twitter:image"] || m["twitter:image:src"] || ""),
+    title: decodeEnt(m["og:title"] || m["twitter:title"] || ""),
+    desc: decodeEnt(m["og:description"] || m["twitter:description"] || ""),
+  };
+}
+
 function serveStatic(req, res) {
   let p = decodeURIComponent(req.url.split("?")[0]);
   if (p === "/" || p === "") p = "/index.html";
@@ -108,6 +132,25 @@ const server = http.createServer(async (req, res) => {
       const text = await gres.text();
       res.writeHead(gres.status, { "content-type": "application/json" });
       return res.end(text);
+    }
+    // ---- ingerir link social: lê a thumbnail (og:image) e o Gemini analisa. NUNCA baixa mídia. ----
+    if (req.method === "POST" && req.url === "/api/ingest") {
+      if (!authed(req)) return json(res, 401, { ok: false, error: "não autorizado" });
+      if (!GEMINI_API_KEY) return json(res, 500, { ok: false, error: "GEMINI_API_KEY não configurada" });
+      const { url, prompt } = JSON.parse((await readBody(req)) || "{}");
+      if (!url) return json(res, 400, { ok: false, error: "url ausente" });
+      let og; try { og = await ogScrape(url); } catch { return json(res, 502, { ok: false, error: "não consegui abrir o link" }); }
+      if (!og.image) return json(res, 422, { ok: false, error: "sem preview no link (post privado ou a rede bloqueia leitura)" });
+      let imgBuf, mime;
+      try { const ir = await fetch(og.image); if (!ir.ok) throw 0; imgBuf = Buffer.from(await ir.arrayBuffer()); mime = (ir.headers.get("content-type") || "image/jpeg").split(";")[0]; }
+      catch { return json(res, 502, { ok: false, error: "não consegui baixar a thumbnail" }); }
+      const ctx = `\n\nContexto do post (URL: ${url})` + (og.title ? `\nTítulo: ${og.title}` : "") + (og.desc ? `\nDescrição: ${og.desc}` : "") + `\nA imagem é a thumbnail/preview do post. Se o post divulga uma ferramenta/site/recurso, use a URL oficial dela; caso contrário, use a URL do post como "url".`;
+      const gbody = { contents: [{ parts: [{ inline_data: { mime_type: mime, data: imgBuf.toString("base64") } }, { text: (prompt || "Produza um JSON {title,url,cat,types,desc} sobre o conteúdo.") + ctx }] }], generationConfig: { temperature: 0.3, maxOutputTokens: 900, responseMimeType: "application/json" } };
+      const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GMODEL}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(gbody) });
+      const gj = await gr.json().catch(() => ({}));
+      const text = ((((gj.candidates || [])[0] || {}).content || {}).parts || []).map((p) => p.text).filter(Boolean).join("");
+      if (!text) return json(res, 502, { ok: false, error: "Gemini não respondeu (chave/cota?)" });
+      return json(res, 200, { ok: true, raw: text, thumb: og.image, source: url });
     }
     // ---- sync local ↔ deploy (só no local) ----
     if (req.method === "POST" && (req.url === "/api/pull" || req.url === "/api/push")) {
