@@ -277,6 +277,8 @@ let unlocked = !DEPLOY || !!EDIT_TOKEN;               // local/file: livre; depl
 const canEdit = ()=> FILE || LOCALSRV || (DEPLOY && unlocked);   // deletar/arrastar
 const canAdd  = ()=> LOCALSRV || (DEPLOY && unlocked);           // adder (Gemini precisa do servidor)
 const tokenHdr = ()=> EDIT_TOKEN ? {"x-edit-token":EDIT_TOKEN} : {};
+let VIDCAP = false;               // arquivar vídeo (Cobalt+R2) só quando o servidor puder
+if(SERVER){ fetch("/api/health").then(r=>r.json()).then(h=>{ VIDCAP = !!(h.hasCobalt && h.r2Ready); if(VIDCAP) render(); }).catch(()=>{}); }
 
 // recategorização por drag (overlays em localStorage só no modo FILE)
 const OKEY="refs-overrides";
@@ -371,7 +373,7 @@ function card(r){
   const thumb=r.thumb?`<img class="card-thumb" src="${r.thumb}" loading="lazy" alt="" draggable="false" onerror="this.style.display='none'">`:"";
   const vid=r.video
     ? `<a class="vidlink" href="${r.video}" target="_blank" rel="noopener" draggable="false" title="vídeo arquivado no R2">vídeo ↗</a>`
-    : (r.isVideo&&canEdit()?`<button class="dlvid" data-dl="${slug(r.title)}" title="Baixar vídeo (Cobalt → R2)">baixar vídeo</button>`:"");
+    : (r.isVideo&&canEdit()&&VIDCAP?`<button class="dlvid" data-dl="${slug(r.title)}" title="Baixar vídeo (Cobalt → R2)">baixar vídeo</button>`:"");
   const del=canEdit()?`<button class="del" data-del="${slug(r.title)}" title="Remover do catálogo" aria-label="Remover">×</button>`:"";
   return `<article class="card" id="c-${slug(r.title)}" data-slug="${slug(r.title)}" draggable="${canEdit()?'true':'false'}" style="--cc:${cat.c}">
     <div class="bar"></div>
@@ -532,7 +534,7 @@ async function ingest(u){
     const j=await res.json().catch(()=>({}));
     if(!res.ok||!j.ok){gstat("Erro: "+((j&&j.error)||("HTTP "+res.status)));return;}
     const ref=await createFromResult(j.raw,{thumb:j.thumb,source:j.source,isVideo:j.isVideo});
-    if(ref&&j.isVideo&&confirm("É um vídeo. Baixar e arquivar no R2? (senão fica só como referência com a thumbnail)")) await fetchVideoFor(ref);
+    if(ref&&j.isVideo&&VIDCAP&&confirm("É um vídeo. Baixar e arquivar no R2? (senão fica só como referência com a thumbnail)")) await fetchVideoFor(ref);
   }catch(e){gstat("Erro: "+e.message);}
 }
 // download de UM vídeo, só com sua autorização → Cobalt → R2
