@@ -86,7 +86,6 @@
     position:relative;border-radius:var(--r);overflow:hidden;
     transition:transform .18s cubic-bezier(.2,.9,.3,1),box-shadow .18s,background .18s}
   .card .bar{height:5px;background:var(--cc)}
-  .card-thumb{width:100%;height:150px;object-fit:cover;display:block;border-bottom:1.5px solid var(--hair);filter:saturate(.95)}
   .card .pad{padding:20px 20px 18px;display:flex;flex-direction:column;gap:11px;flex:1}
   .card:hover{background:var(--paper-2);transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--cc)}
   .card-top{display:flex;flex-direction:column;align-items:flex-start;gap:9px}
@@ -126,11 +125,6 @@
     padding:0;opacity:0;transition:opacity .15s,color .15s,border-color .15s;font-family:var(--sans);flex-shrink:0}
   .card:hover .del{opacity:.65}
   .del:hover{opacity:1;color:#d61f2b;border-color:#d61f2b}
-  .vidlink{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--cc);font-weight:700}
-  .dlvid{border:1.5px solid var(--cc);background:transparent;color:var(--cc);font-size:9.5px;letter-spacing:.07em;
-    text-transform:uppercase;font-weight:700;padding:4px 8px;border-radius:999px;cursor:pointer;font-family:var(--sans);
-    line-height:1;flex-shrink:0}
-  .dlvid:hover{background:var(--cc);color:var(--paper)}
   #delinfo{color:var(--ink-3)}
   #delinfo b{color:var(--ink)}
   .restore{color:var(--ink);text-decoration:underline;cursor:pointer}
@@ -277,8 +271,6 @@ let unlocked = !DEPLOY || !!EDIT_TOKEN;               // local/file: livre; depl
 const canEdit = ()=> FILE || LOCALSRV || (DEPLOY && unlocked);   // deletar/arrastar
 const canAdd  = ()=> LOCALSRV || (DEPLOY && unlocked);           // adder (Gemini precisa do servidor)
 const tokenHdr = ()=> EDIT_TOKEN ? {"x-edit-token":EDIT_TOKEN} : {};
-let VIDCAP = false;               // arquivar vídeo (Cobalt+R2) só quando o servidor puder
-if(SERVER){ fetch("/api/health").then(r=>r.json()).then(h=>{ VIDCAP = !!(h.hasCobalt && h.r2Ready); if(VIDCAP) render(); }).catch(()=>{}); }
 
 // recategorização por drag (overlays em localStorage só no modo FILE)
 const OKEY="refs-overrides";
@@ -293,7 +285,7 @@ const saveAdded=()=>localStorage.setItem(ADDKEY,JSON.stringify(added));
 if(FILE)added.forEach(a=>{ if(!REFS.some(r=>slug(r.title)===slug(a.title))) REFS.push(a); });
 
 // persistência
-function cleanRef(r){const o={title:r.title,url:r.url||"",cat:r.cat,src:r.src||"link",types:r.types||[]};if(r.items)o.items=r.items;o.desc=r.desc||"";o.date=r.date||SCAN_DATE;["thumb","source","video"].forEach(k=>{if(r[k])o[k]=r[k];});if(r.isVideo)o.isVideo=true;return o;}
+function cleanRef(r){const o={title:r.title,url:r.url||"",cat:r.cat,src:r.src||"link",types:r.types||[]};if(r.items)o.items=r.items;o.desc=r.desc||"";o.date=r.date||SCAN_DATE;return o;}
 function buildData(){const meta=window.REFS_DATA||{};return{scanDate:SCAN_DATE,firstScan:meta.firstScan||SCAN_DATE,generated:new Date().toISOString().slice(0,10),sources:meta.sources||{videos:0,images:0},refs:REFS.filter(live).map(cleanRef)};}
 async function saveToServer(){const res=await fetch("/api/save",{method:"POST",headers:{"content-type":"application/json",...tokenHdr()},body:JSON.stringify(buildData())});if(!res.ok)throw new Error("HTTP "+res.status);}
 function persist(){if(SERVER)saveToServer().catch(e=>toast("Erro ao salvar: "+e.message));}
@@ -370,14 +362,8 @@ function card(r){
   const foot=r.url
     ? `<a class="go" href="${r.url}" target="_blank" rel="noopener" draggable="false">Acessar <span class="arw">→</span></a>`
     : `<span class="local">${(r.types||[]).includes('installed')?'Skill instalada':'Mídia local'}</span>`;
-  const thumb=r.thumb?`<img class="card-thumb" src="${r.thumb}" loading="lazy" alt="" draggable="false" onerror="this.style.display='none'">`:"";
-  const vid=r.video
-    ? `<a class="vidlink" href="${r.video}" target="_blank" rel="noopener" draggable="false" title="vídeo arquivado no R2">vídeo ↗</a>`
-    : (r.isVideo&&canEdit()&&VIDCAP?`<button class="dlvid" data-dl="${slug(r.title)}" title="Baixar vídeo (Cobalt → R2)">baixar vídeo</button>`:"");
-  const del=canEdit()?`<button class="del" data-del="${slug(r.title)}" title="Remover do catálogo" aria-label="Remover">×</button>`:"";
   return `<article class="card" id="c-${slug(r.title)}" data-slug="${slug(r.title)}" draggable="${canEdit()?'true':'false'}" style="--cc:${cat.c}">
     <div class="bar"></div>
-    ${thumb}
     <div class="pad">
       <div class="card-top">
         <h3>${r.url?`<a href="${r.url}" target="_blank" rel="noopener" draggable="false">${r.title}</a>`:r.title}</h3>
@@ -386,7 +372,7 @@ function card(r){
       ${body}
       <div class="card-foot">
         <span class="date mono">${br(r.date||SCAN_DATE)}</span>
-        <span class="foot-right">${vid}${foot}${del}</span>
+        <span class="foot-right">${foot}${canEdit()?`<button class="del" data-del="${slug(r.title)}" title="Remover do catálogo" aria-label="Remover">×</button>`:""}</span>
       </div>
     </div>
   </article>`;
@@ -422,12 +408,6 @@ clearBtn.addEventListener("click",()=>{searchEl.value="";query="";searchBox.clas
 
 // clique no × remove a referência (SERVER: apaga do arquivo · file://: oculta no navegador)
 content.addEventListener("click",e=>{
-  const dv=e.target.closest(".dlvid");
-  if(dv){ e.preventDefault(); e.stopPropagation();
-    const sl=dv.dataset.dl; const ref=REFS.find(r=>slug(r.title)===sl);
-    if(ref&&confirm("Baixar este vídeo e arquivar no R2?")) fetchVideoFor(ref);
-    return;
-  }
   const b=e.target.closest(".del"); if(!b)return;
   e.preventDefault(); e.stopPropagation();
   const sl=b.dataset.del; if(!sl)return;
@@ -512,12 +492,11 @@ function parseJSON(s){
 const normCat=c=>CATS[c]?c:"self";
 const normTypes=t=>{const ok=["site","repo","skill"];const arr=(Array.isArray(t)?t:[t]).filter(x=>ok.includes(x));return arr.length?arr:["site"];};
 const cleanUrl=u=>(u||"").replace(/^https?:\/\//i,"").replace(/\/+$/,"").toLowerCase();
-async function createFromResult(raw,extra){
-  let j; try{j=parseJSON(raw);}catch(e){console.warn("parseJSON falhou:",e.message,"\nraw:",raw);gstat("Não consegui interpretar a resposta do modelo. <span class='mono' style='opacity:.6'>"+String(raw||"").slice(0,90).replace(/</g,"&lt;")+"…</span>");return null;}
+async function createFromResult(raw){
+  let j; try{j=parseJSON(raw);}catch(e){console.warn("parseJSON falhou:",e.message,"\nraw:",raw);gstat("Não consegui interpretar a resposta do modelo. <span class='mono' style='opacity:.6'>"+String(raw||"").slice(0,90).replace(/</g,"&lt;")+"…</span>");return;}
   const url=(j.url||"").trim();
-  if(url&&REFS.some(r=>cleanUrl(r.url)===cleanUrl(url)&&cleanUrl(url))){gstat("Já existe no catálogo: <b>"+(j.title||url)+"</b>.");return null;}
+  if(url&&REFS.some(r=>cleanUrl(r.url)===cleanUrl(url)&&cleanUrl(url))){gstat("Já existe no catálogo: <b>"+(j.title||url)+"</b>.");return;}
   const ref={title:(j.title||url||"Sem título").slice(0,120),url,cat:normCat(j.cat),src:"upload",types:normTypes(j.types),desc:(j.desc||"").slice(0,700),date:new Date().toISOString().slice(0,10),added:true};
-  if(extra){ if(extra.thumb)ref.thumb=extra.thumb; if(extra.source)ref.source=extra.source; if(extra.isVideo)ref.isVideo=true; }
   REFS.push(ref);
   ref._s=norm([ref.title,ref.desc,CATS[ref.cat]&&CATS[ref.cat].label,(ref.types||[]).join(" "),ref.url].join(" "));
   if(SERVER){ persist(); } else { added.push(ref); saveAdded(); }
@@ -525,39 +504,12 @@ async function createFromResult(raw,extra){
   gstat("Card criado: <b>"+ref.title+"</b> · "+CATS[ref.cat].label+".");
   const el=document.getElementById("c-"+slug(ref.title));if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800);}
   toast("Referência adicionada.",()=>{const k=REFS.indexOf(ref);if(k>=0)REFS.splice(k,1);if(SERVER){persist();}else{const i=added.indexOf(ref);if(i>=0)added.splice(i,1);saveAdded();}buildFilters();render();gstat("");});
-  return ref;
 }
-const SOCIAL=/(^|\.)(instagram\.com|tiktok\.com|twitter\.com|x\.com|youtube\.com|youtu\.be|facebook\.com|fb\.watch|threads\.net|pinterest\.[a-z.]+|reddit\.com|vimeo\.com)$/i;
-function isSocial(u){try{return SOCIAL.test(new URL(u).hostname);}catch{return false;}}
 async function analyzeUrl(u){
   if(!canAdd())return; if(!/^https?:\/\//i.test(u))u="https://"+u;
-  if(isSocial(u))return ingest(u);
   gstat("Lendo o site com o Gemini…",1);
   try{const raw=await gemini({contents:[{parts:[{text:GPROMPT+"\n\nURL para analisar (leia o conteúdo do site): "+u}]}],tools:[{url_context:{}}],generationConfig:{temperature:0.3,maxOutputTokens:900}});await createFromResult(raw);}
   catch(e){gstat("Erro: "+e.message);}
-}
-// link social: analisa a thumbnail do post (nunca baixa vídeo automaticamente)
-async function ingest(u){
-  if(!canAdd())return;
-  gstat("Lendo o post (thumbnail) com o Gemini…",1);
-  try{
-    const res=await fetch("/api/ingest",{method:"POST",headers:{"content-type":"application/json",...tokenHdr()},body:JSON.stringify({url:u,prompt:GPROMPT})});
-    const j=await res.json().catch(()=>({}));
-    if(!res.ok||!j.ok){gstat("Erro: "+((j&&j.error)||("HTTP "+res.status)));return;}
-    const ref=await createFromResult(j.raw,{thumb:j.thumb,source:j.source,isVideo:j.isVideo});
-    if(ref&&j.isVideo&&VIDCAP&&confirm("É um vídeo. Baixar e arquivar no R2? (senão fica só como referência com a thumbnail)")) await fetchVideoFor(ref);
-  }catch(e){gstat("Erro: "+e.message);}
-}
-// download de UM vídeo, só com sua autorização → Cobalt → R2
-async function fetchVideoFor(ref){
-  const src=ref.source||ref.url; if(!src)return;
-  gstat("Baixando o vídeo (Cobalt) e enviando pro R2…",1);
-  try{
-    const res=await fetch("/api/fetch-video",{method:"POST",headers:{"content-type":"application/json",...tokenHdr()},body:JSON.stringify({url:src})});
-    const j=await res.json().catch(()=>({}));
-    if(res.ok&&j.ok){ ref.video=j.video; persist(); buildFilters(); render(); gstat("Vídeo arquivado no R2 ✓"); }
-    else gstat("Vídeo não baixado: "+((j&&j.error)||("HTTP "+res.status)));
-  }catch(e){gstat("Erro no download: "+e.message);}
 }
 async function analyzeImage(file){
   if(!canAdd())return; if(!file||!/^image\//.test(file.type||"")){gstat("Selecione um arquivo de imagem.");return;}
