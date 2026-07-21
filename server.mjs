@@ -36,6 +36,10 @@ const DATA_DIR = process.env.DATA_DIR || DIR;             // volume persistente 
 const EDIT_TOKEN = process.env.EDIT_TOKEN || "";
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "";
 const DEPLOY_URL = (process.env.DEPLOY_URL || "").replace(/\/+$/, ""); // p/ sync local↔deploy
+const COBALT_API = (process.env.COBALT_API || "").replace(/\/+$/, ""); // instância self-hosted do Cobalt
+const COBALT_KEY = process.env.COBALT_KEY || "";                       // opcional (Api-Key do Cobalt)
+const R2 = { account: process.env.R2_ACCOUNT_ID || "", key: process.env.R2_ACCESS_KEY_ID || "", secret: process.env.R2_SECRET_ACCESS_KEY || "", bucket: process.env.R2_BUCKET || "", publicUrl: (process.env.R2_PUBLIC_URL || "").replace(/\/+$/, "") };
+const r2Ready = !!(R2.account && R2.key && R2.secret && R2.bucket && R2.publicUrl);
 const GMODEL = "gemini-2.5-flash";
 const DATA_FILE = path.join(DATA_DIR, "refs-data.js");
 
@@ -68,6 +72,38 @@ function readBody(req, limit = 25e6) {
 }
 function json(res, code, obj) { res.writeHead(code, { "content-type": "application/json" }); res.end(JSON.stringify(obj)); }
 
+// lê meta tags og:/twitter: de uma página (p/ ingerir posts sociais sem baixar o vídeo)
+function parseMetas(html) {
+  const metas = {}; const re = /<meta\b[^>]*>/gi; let m;
+  while ((m = re.exec(html))) {
+    const p = (m[0].match(/(?:property|name)\s*=\s*["']([^"']+)["']/i) || [])[1];
+    const c = (m[0].match(/content\s*=\s*["']([^"']*)["']/i) || [])[1];
+    if (p && c != null && metas[p] === undefined) metas[p] = c;
+  }
+  return metas;
+}
+function decodeEnt(s) { return (s || "").replace(/&amp;/g, "&").replace(/&#x2F;/gi, "/").replace(/&#0?39;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">"); }
+async function ogScrape(url) {
+  const r = await fetch(url, { headers: { "user-agent": "Mozilla/5.0 (compatible; ToolsCatalog/1.0)" }, redirect: "follow" });
+  const html = await r.text();
+  const m = parseMetas(html);
+  return {
+    image: decodeEnt(m["og:image"] || m["twitter:image"] || m["twitter:image:src"] || ""),
+    video: decodeEnt(m["og:video"] || m["og:video:url"] || m["twitter:player:stream"] || ""),
+    type: m["og:type"] || "",
+    title: decodeEnt(m["og:title"] || m["twitter:title"] || ""),
+    desc: decodeEnt(m["og:description"] || m["twitter:description"] || ""),
+  };
+}
+async function r2Upload(buffer, contentType, ext) {
+  const { S3Client, PutObjectCommand } = await import("@aws-sdk/client-s3");
+  const { randomUUID } = await import("node:crypto");
+  const client = new S3Client({ region: "auto", endpoint: `https://${R2.account}.r2.cloudflarestorage.com`, credentials: { accessKeyId: R2.key, secretAccessKey: R2.secret } });
+  const key = `tools/${randomUUID()}.${ext}`;
+  await client.send(new PutObjectCommand({ Bucket: R2.bucket, Key: key, Body: buffer, ContentType: contentType }));
+  return `${R2.publicUrl}/${key}`;
+}
+
 function serveStatic(req, res) {
   let p = decodeURIComponent(req.url.split("?")[0]);
   if (p === "/" || p === "") p = "/index.html";
@@ -83,7 +119,7 @@ function serveStatic(req, res) {
 const server = http.createServer(async (req, res) => {
   try {
     if (req.method === "GET" && req.url === "/api/health") {
-      return json(res, 200, { ok: true, railway: RAILWAY, hasEditToken: !!EDIT_TOKEN, hasGeminiKey: !!GEMINI_API_KEY, usingVolume: DATA_DIR !== DIR, dataDir: DATA_DIR });
+      return json(res, 200, { ok: true, railway: RAILWAY, hasEditToken: !!EDIT_TOKEN, hasGeminiKey: !!GEMINI_API_KEY, usingVolume: DATA_DIR !== DIR, dataDir: DATA_DIR, hasCobalt: !!COBALT_API, r2Ready });
     }
     if (req.method === "POST" && req.url === "/api/auth") {
       const { token } = JSON.parse((await readBody(req)) || "{}");
@@ -108,6 +144,47 @@ const server = http.createServer(async (req, res) => {
       const text = await gres.text();
       res.writeHead(gres.status, { "content-type": "application/json" });
       return res.end(text);
+    }
+    // ---- ingerir link social: analisa a thumbnail (NUNCA baixa vídeo) ----
+    if (req.method === "POST" && req.url === "/api/ingest") {
+      if (!authed(req)) return json(res, 401, { ok: false, error: "não autorizado" });
+      if (!GEMINI_API_KEY) return json(res, 500, { ok: false, error: "GEMINI_API_KEY não configurada" });
+      const { url, prompt } = JSON.parse((await readBody(req)) || "{}");
+      if (!url) return json(res, 400, { ok: false, error: "url ausente" });
+      let og; try { og = await ogScrape(url); } catch { return json(res, 502, { ok: false, error: "não consegui abrir o link" }); }
+      const isVideo = !!og.video || /video/i.test(og.type || "");
+      if (!og.image) return json(res, 422, { ok: false, error: "sem preview no link (post privado ou serviço bloqueia leitura)" });
+      let imgBuf, mime;
+      try { const ir = await fetch(og.image); if (!ir.ok) throw 0; imgBuf = Buffer.from(await ir.arrayBuffer()); mime = (ir.headers.get("content-type") || "image/jpeg").split(";")[0]; }
+      catch { return json(res, 502, { ok: false, error: "não consegui baixar a thumbnail" }); }
+      const ctx = `\n\nContexto do post (URL: ${url})` + (og.title ? `\nTítulo: ${og.title}` : "") + (og.desc ? `\nDescrição: ${og.desc}` : "") + `\nA imagem é a thumbnail/preview do post. Se o post divulga uma ferramenta/site/recurso, use a URL oficial dela; caso contrário, use a URL do post como "url".`;
+      const gbody = { contents: [{ parts: [{ inline_data: { mime_type: mime, data: imgBuf.toString("base64") } }, { text: (prompt || "Produza um JSON {title,url,cat,types,desc} sobre o conteúdo.") + ctx }] }], generationConfig: { temperature: 0.3, maxOutputTokens: 900, responseMimeType: "application/json" } };
+      const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GMODEL}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(gbody) });
+      const gj = await gr.json().catch(() => ({}));
+      const text = ((((gj.candidates || [])[0] || {}).content || {}).parts || []).map((p) => p.text).filter(Boolean).join("");
+      if (!text) return json(res, 502, { ok: false, error: "Gemini não respondeu (chave/cota?)" });
+      return json(res, 200, { ok: true, raw: text, thumb: og.image, isVideo, source: url });
+    }
+    // ---- baixar UM vídeo (só com autorização explícita) → Cobalt → R2 ----
+    if (req.method === "POST" && req.url === "/api/fetch-video") {
+      if (!authed(req)) return json(res, 401, { ok: false, error: "não autorizado" });
+      if (!COBALT_API) return json(res, 400, { ok: false, error: "COBALT_API não configurada (suba um Cobalt self-hosted)" });
+      if (!r2Ready) return json(res, 400, { ok: false, error: "R2 não configurado" });
+      const { url } = JSON.parse((await readBody(req)) || "{}");
+      if (!url) return json(res, 400, { ok: false, error: "url ausente" });
+      const headers = { accept: "application/json", "content-type": "application/json" };
+      if (COBALT_KEY) headers.authorization = "Api-Key " + COBALT_KEY;
+      let cj; try { const cr = await fetch(COBALT_API + "/", { method: "POST", headers, body: JSON.stringify({ url, videoQuality: "720" }) }); cj = await cr.json(); }
+      catch (e) { return json(res, 502, { ok: false, error: "cobalt inacessível: " + e.message }); }
+      let dl = "";
+      if (cj.status === "tunnel" || cj.status === "redirect") dl = cj.url;
+      else if (cj.status === "picker" && Array.isArray(cj.picker)) dl = ((cj.picker.find((p) => p.type === "video") || cj.picker[0]) || {}).url;
+      if (!dl) return json(res, 502, { ok: false, error: "cobalt: " + ((cj.error && cj.error.code) || cj.status || "sem download") });
+      let vbuf; try { const vr = await fetch(dl); if (!vr.ok) throw 0; vbuf = Buffer.from(await vr.arrayBuffer()); }
+      catch { return json(res, 502, { ok: false, error: "falha ao baixar o vídeo do cobalt" }); }
+      let vurl; try { vurl = await r2Upload(vbuf, "video/mp4", "mp4"); }
+      catch (e) { return json(res, 502, { ok: false, error: "falha no upload R2: " + e.message }); }
+      return json(res, 200, { ok: true, video: vurl, bytes: vbuf.length });
     }
     // ---- sync local ↔ deploy (só no local) ----
     if (req.method === "POST" && (req.url === "/api/pull" || req.url === "/api/push")) {
