@@ -497,12 +497,23 @@ async function gemini(body){
   if(!text)throw new Error("resposta vazia do modelo");
   return text;
 }
-function parseJSON(s){s=s.replace(/^```(?:json)?/i,"").replace(/```$/,"").trim();const a=s.indexOf("{"),b=s.lastIndexOf("}");if(a>=0&&b>a)s=s.slice(a,b+1);return JSON.parse(s);}
+function parseJSON(s){
+  if(typeof s!=="string")throw new Error("sem texto");
+  let t=s.replace(/```(?:json)?/gi,"").trim();
+  const i=t.indexOf("{"); if(i<0)throw new Error("sem objeto JSON");
+  // acha o primeiro objeto {...} balanceado, ignorando chaves dentro de strings
+  let depth=0,inStr=false,esc=false;
+  for(let k=i;k<t.length;k++){const c=t[k];
+    if(inStr){ if(esc)esc=false; else if(c==="\\")esc=true; else if(c==='"')inStr=false; }
+    else { if(c==='"')inStr=true; else if(c==="{")depth++; else if(c==="}"){ if(--depth===0) return JSON.parse(t.slice(i,k+1)); } }
+  }
+  return JSON.parse(t.slice(i)); // fallback
+}
 const normCat=c=>CATS[c]?c:"self";
 const normTypes=t=>{const ok=["site","repo","skill"];const arr=(Array.isArray(t)?t:[t]).filter(x=>ok.includes(x));return arr.length?arr:["site"];};
 const cleanUrl=u=>(u||"").replace(/^https?:\/\//i,"").replace(/\/+$/,"").toLowerCase();
 async function createFromResult(raw,extra){
-  let j; try{j=parseJSON(raw);}catch(e){gstat("Não consegui interpretar a resposta do modelo.");return null;}
+  let j; try{j=parseJSON(raw);}catch(e){console.warn("parseJSON falhou:",e.message,"\nraw:",raw);gstat("Não consegui interpretar a resposta do modelo. <span class='mono' style='opacity:.6'>"+String(raw||"").slice(0,90).replace(/</g,"&lt;")+"…</span>");return null;}
   const url=(j.url||"").trim();
   if(url&&REFS.some(r=>cleanUrl(r.url)===cleanUrl(url)&&cleanUrl(url))){gstat("Já existe no catálogo: <b>"+(j.title||url)+"</b>.");return null;}
   const ref={title:(j.title||url||"Sem título").slice(0,120),url,cat:normCat(j.cat),src:"upload",types:normTypes(j.types),desc:(j.desc||"").slice(0,700),date:new Date().toISOString().slice(0,10),added:true};
