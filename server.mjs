@@ -130,12 +130,15 @@ async function geminiUpload(buf, mime, displayName = "media") {
   if (state !== "ACTIVE") throw new Error("estado " + (state || "?"));
   return uri;
 }
-// uma chamada multimodal ao Gemini que devolve {cards:[...]} (JSON validado no cliente/servidor)
+// uma chamada multimodal ao Gemini que devolve {cards:[...]}. Thinking desligado p/ não comer o orçamento de saída.
 async function geminiCards(parts) {
-  const body = { contents: [{ parts }], generationConfig: { temperature: 0.3, maxOutputTokens: 4000, responseMimeType: "application/json" } };
+  const body = { contents: [{ parts }], generationConfig: { temperature: 0.3, maxOutputTokens: 8192, responseMimeType: "application/json", thinkingConfig: { thinkingBudget: 0 } } };
   const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GMODEL}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
   const gj = await gr.json().catch(() => ({}));
-  const text = ((((gj.candidates || [])[0] || {}).content || {}).parts || []).map((p) => p.text).filter(Boolean).join("");
+  if (gj.error) throw new Error("Gemini " + (gj.error.code || gr.status) + ": " + String(gj.error.message || "").slice(0, 200));
+  const cand = (gj.candidates || [])[0];
+  const text = (((cand || {}).content || {}).parts || []).map((p) => p.text).filter(Boolean).join("");
+  if (!text) throw new Error("Gemini retornou vazio" + (cand && cand.finishReason ? " (finishReason: " + cand.finishReason + ")" : " (sem candidato)"));
   return text;
 }
 
@@ -227,8 +230,7 @@ const server = http.createServer(async (req, res) => {
       } catch (e) { return json(res, 502, { ok: false, error: "falha ao baixar mídia do cobalt: " + e.message }); }
 
       // 3) uma chamada ao Gemini → {cards:[...]}
-      const raw = await geminiCards(parts);
-      if (!raw) return json(res, 502, { ok: false, error: "Gemini não respondeu (chave/cota?)" });
+      let raw; try { raw = await geminiCards(parts); } catch (e) { return json(res, 502, { ok: false, error: e.message }); }
       return json(res, 200, { ok: true, kind, raw, source: url });
     }
     // ---- sync local ↔ deploy (só no local) ----
