@@ -36,6 +36,8 @@ const DATA_DIR = process.env.DATA_DIR || DIR;             // volume persistente 
 const EDIT_TOKEN = process.env.EDIT_TOKEN || "";
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "";
 const DEPLOY_URL = (process.env.DEPLOY_URL || "").replace(/\/+$/, ""); // p/ sync local↔deploy
+const COBALT_API = (process.env.COBALT_API || "").replace(/\/+$/, ""); // instância self-hosted (rede privada)
+const COBALT_KEY = process.env.COBALT_KEY || "";
 const GMODEL = "gemini-2.5-flash";
 const DATA_FILE = path.join(DATA_DIR, "refs-data.js");
 
@@ -91,6 +93,27 @@ async function ogScrape(url) {
     desc: decodeEnt(m["og:description"] || m["twitter:description"] || ""),
   };
 }
+// resolve um link social via Cobalt (self-hosted, rede privada). NÃO armazena nada.
+async function cobalt(url, options = {}) {
+  const headers = { accept: "application/json", "content-type": "application/json" };
+  if (COBALT_KEY) headers.authorization = "Api-Key " + COBALT_KEY;
+  const r = await fetch(COBALT_API + "/", { method: "POST", headers, body: JSON.stringify({ url, ...options }) });
+  return r.json();
+}
+async function fetchBuf(url, cap = 20 * 1024 * 1024) {
+  const r = await fetch(url); if (!r.ok) throw new Error("fetch " + r.status);
+  const buf = Buffer.from(await r.arrayBuffer());
+  if (buf.length > cap) throw new Error("mídia grande demais (" + Math.round(buf.length / 1e6) + "MB)");
+  return { buf, mime: (r.headers.get("content-type") || "application/octet-stream").split(";")[0] };
+}
+// uma chamada multimodal ao Gemini que devolve {cards:[...]} (JSON validado no cliente/servidor)
+async function geminiCards(parts) {
+  const body = { contents: [{ parts }], generationConfig: { temperature: 0.3, maxOutputTokens: 4000, responseMimeType: "application/json" } };
+  const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GMODEL}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+  const gj = await gr.json().catch(() => ({}));
+  const text = ((((gj.candidates || [])[0] || {}).content || {}).parts || []).map((p) => p.text).filter(Boolean).join("");
+  return text;
+}
 
 function serveStatic(req, res) {
   let p = decodeURIComponent(req.url.split("?")[0]);
@@ -107,7 +130,7 @@ function serveStatic(req, res) {
 const server = http.createServer(async (req, res) => {
   try {
     if (req.method === "GET" && req.url === "/api/health") {
-      return json(res, 200, { ok: true, railway: RAILWAY, hasEditToken: !!EDIT_TOKEN, hasGeminiKey: !!GEMINI_API_KEY, usingVolume: DATA_DIR !== DIR, dataDir: DATA_DIR });
+      return json(res, 200, { ok: true, railway: RAILWAY, hasEditToken: !!EDIT_TOKEN, hasGeminiKey: !!GEMINI_API_KEY, usingVolume: DATA_DIR !== DIR, dataDir: DATA_DIR, hasCobalt: !!COBALT_API });
     }
     if (req.method === "POST" && req.url === "/api/auth") {
       const { token } = JSON.parse((await readBody(req)) || "{}");
@@ -133,24 +156,45 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(gres.status, { "content-type": "application/json" });
       return res.end(text);
     }
-    // ---- ingerir link social: lê a thumbnail (og:image) e o Gemini analisa. NUNCA baixa mídia. ----
+    // ---- ingerir link social via Cobalt: carrossel (todos os slides) ou vídeo (áudio→transcrição).
+    //      NÃO armazena mídia. O Gemini devolve {cards:[...]} já filtrado e sem duplicatas. ----
     if (req.method === "POST" && req.url === "/api/ingest") {
       if (!authed(req)) return json(res, 401, { ok: false, error: "não autorizado" });
       if (!GEMINI_API_KEY) return json(res, 500, { ok: false, error: "GEMINI_API_KEY não configurada" });
+      if (!COBALT_API) return json(res, 400, { ok: false, error: "COBALT_API não configurada (Cobalt fora do ar)" });
       const { url, prompt } = JSON.parse((await readBody(req)) || "{}");
       if (!url) return json(res, 400, { ok: false, error: "url ausente" });
-      let og; try { og = await ogScrape(url); } catch { return json(res, 502, { ok: false, error: "não consegui abrir o link" }); }
-      if (!og.image) return json(res, 422, { ok: false, error: "sem preview no link (post privado ou a rede bloqueia leitura)" });
-      let imgBuf, mime;
-      try { const ir = await fetch(og.image); if (!ir.ok) throw 0; imgBuf = Buffer.from(await ir.arrayBuffer()); mime = (ir.headers.get("content-type") || "image/jpeg").split(";")[0]; }
-      catch { return json(res, 502, { ok: false, error: "não consegui baixar a thumbnail" }); }
-      const ctx = `\n\nContexto do post (URL: ${url})` + (og.title ? `\nTítulo: ${og.title}` : "") + (og.desc ? `\nDescrição: ${og.desc}` : "") + `\nA imagem é a thumbnail/preview do post. Se o post divulga uma ferramenta/site/recurso, use a URL oficial dela; caso contrário, use a URL do post como "url".`;
-      const gbody = { contents: [{ parts: [{ inline_data: { mime_type: mime, data: imgBuf.toString("base64") } }, { text: (prompt || "Produza um JSON {title,url,cat,types,desc} sobre o conteúdo.") + ctx }] }], generationConfig: { temperature: 0.3, maxOutputTokens: 900, responseMimeType: "application/json" } };
-      const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GMODEL}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(gbody) });
-      const gj = await gr.json().catch(() => ({}));
-      const text = ((((gj.candidates || [])[0] || {}).content || {}).parts || []).map((p) => p.text).filter(Boolean).join("");
-      if (!text) return json(res, 502, { ok: false, error: "Gemini não respondeu (chave/cota?)" });
-      return json(res, 200, { ok: true, raw: text, thumb: og.image, source: url });
+
+      // 1) resolve o link no Cobalt
+      let cj; try { cj = await cobalt(url); } catch (e) { return json(res, 502, { ok: false, error: "cobalt inacessível: " + e.message }); }
+
+      // 2) monta as partes multimodais + descreve o modo
+      const parts = []; let kind = "image", note = "";
+      try {
+        if (cj.status === "picker" && Array.isArray(cj.picker)) {
+          const photos = cj.picker.filter((p) => p.type === "photo" && p.url).slice(0, 20);
+          if (!photos.length) return json(res, 422, { ok: false, error: "carrossel sem imagens legíveis" });
+          kind = "carousel";
+          for (const p of photos) { const { buf, mime } = await fetchBuf(p.url, 8 * 1024 * 1024); parts.push({ inline_data: { mime_type: mime.startsWith("image/") ? mime : "image/jpeg", data: buf.toString("base64") } }); }
+          parts.push({ text: `${prompt}\n\n== ENTRADA: ${photos.length} SLIDES de um carrossel (na ordem). ==` });
+        } else if (cj.status === "tunnel" || cj.status === "redirect" || (cj.status === "picker" && cj.picker.some((p) => p.type === "video"))) {
+          // vídeo → extrai só o áudio (mp3 leve) pra transcrever; nada é guardado
+          kind = "video";
+          let aj; try { aj = await cobalt(url, { downloadMode: "audio", audioFormat: "mp3", audioBitrate: "96" }); } catch (e) { return json(res, 502, { ok: false, error: "cobalt áudio: " + e.message }); }
+          const aurl = (aj.status === "tunnel" || aj.status === "redirect") ? aj.url : "";
+          if (!aurl) return json(res, 502, { ok: false, error: "não consegui extrair o áudio (" + (aj.error?.code || aj.status || "?") + ")" });
+          let audio; try { audio = await fetchBuf(aurl, 18 * 1024 * 1024); } catch (e) { return json(res, 413, { ok: false, error: "áudio " + e.message + " — vídeo longo demais pra transcrever inline" }); }
+          parts.push({ inline_data: { mime_type: "audio/mp3", data: audio.buf.toString("base64") } });
+          parts.push({ text: `${prompt}\n\n== ENTRADA: o ÁUDIO de um vídeo. Transcreva mentalmente e catalogue a(s) referência(s) faladas/mostradas. ==` });
+        } else {
+          return json(res, 422, { ok: false, error: "cobalt não resolveu o link (" + (cj.error?.code || cj.status || "?") + ")" });
+        }
+      } catch (e) { return json(res, 502, { ok: false, error: "falha ao baixar mídia do cobalt: " + e.message }); }
+
+      // 3) uma chamada ao Gemini → {cards:[...]}
+      const raw = await geminiCards(parts);
+      if (!raw) return json(res, 502, { ok: false, error: "Gemini não respondeu (chave/cota?)" });
+      return json(res, 200, { ok: true, kind, raw, source: url });
     }
     // ---- sync local ↔ deploy (só no local) ----
     if (req.method === "POST" && (req.url === "/api/pull" || req.url === "/api/push")) {

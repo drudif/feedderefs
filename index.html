@@ -495,6 +495,24 @@ function parseJSON(s){
 const normCat=c=>CATS[c]?c:"self";
 const normTypes=t=>{const ok=["site","repo","skill"];const arr=(Array.isArray(t)?t:[t]).filter(x=>ok.includes(x));return arr.length?arr:["site"];};
 const cleanUrl=u=>(u||"").replace(/^https?:\/\//i,"").replace(/\/+$/,"").toLowerCase();
+const urlDupe=url=>!!url&&REFS.some(r=>cleanUrl(r.url)===cleanUrl(url)&&cleanUrl(url));
+function makeRef(j,extra){
+  const url=(j.url||(extra&&extra.source)||"").trim();
+  const ref={title:(j.title||url||"Sem título").slice(0,120),url,cat:normCat(j.cat),src:"upload",types:normTypes(j.types),desc:(j.desc||"").slice(0,700),date:new Date().toISOString().slice(0,10),added:true};
+  if(extra){ if(extra.thumb)ref.thumb=extra.thumb; if(extra.source)ref.source=extra.source; }
+  ref._s=norm([ref.title,ref.desc,CATS[ref.cat]&&CATS[ref.cat].label,(ref.types||[]).join(" "),ref.url].join(" "));
+  return ref;
+}
+// prompt do ingest: catalogar múltiplas referências e evitar duplicatas (dedup semântico feito pelo Gemini)
+function ingestPrompt(){
+  const existing=REFS.filter(live).map(r=>`- ${r.title}${r.url?" — "+r.url:""}`).join("\n");
+  return `Você cataloga ferramentas, sites e recursos, em PORTUGUÊS, a partir de mídia de um post de rede social (slides de um carrossel OU o áudio de um vídeo).
+Para CADA referência DISTINTA e catalogável (um site, ferramenta, repositório, recurso ou ideia com nome/link próprio), produza um objeto com EXATAMENTE: "title" (nome curto oficial), "url" (URL oficial https da referência; se não houver, ""), "cat" (uma destas CHAVES em minúsculo: ${Object.keys(CATS).join(", ")} — significados: ${CATLIST}), "types" (array só entre "site","repo","skill"), "desc" (2 a 3 frases analíticas, sobre o que é e pra que serve).
+IGNORE slides/trechos puramente decorativos, de capa/texto, ou sem referência importante — não gere objeto pra eles. Se vários slides tratam da MESMA referência, gere só um objeto.
+NÃO duplique referências que JÁ existem no catálogo abaixo (se for essencialmente uma destas, ignore):
+${existing||"(catálogo vazio)"}
+Responda SOMENTE com um objeto JSON {"cards":[ ... ]} (array, possivelmente vazio), sem markdown e sem texto ao redor.`;
+}
 async function createFromResult(raw,extra){
   let j; try{j=parseJSON(raw);}catch(e){console.warn("parseJSON falhou:",e.message,"\nraw:",raw);gstat("Não consegui interpretar a resposta do modelo. <span class='mono' style='opacity:.6'>"+String(raw||"").slice(0,90).replace(/</g,"&lt;")+"…</span>");return;}
   const url=(j.url||(extra&&extra.source)||"").trim();
@@ -518,15 +536,25 @@ async function analyzeUrl(u){
   try{const raw=await gemini({contents:[{parts:[{text:GPROMPT+"\n\nURL para analisar (leia o conteúdo do site): "+u}]}],tools:[{url_context:{}}],generationConfig:{temperature:0.3,maxOutputTokens:900}});await createFromResult(raw);}
   catch(e){gstat("Erro: "+e.message);}
 }
-// link social: o servidor lê a thumbnail (og:image) e o Gemini analisa. Sem baixar mídia.
+// link social via Cobalt: carrossel (todos os slides) ou vídeo (áudio→transcrição) → vários cards, sem duplicatas.
 async function ingest(u){
   if(!canAdd())return;
-  gstat("Lendo o post (thumbnail) com o Gemini…",1);
+  gstat("Resolvendo o link (Cobalt) e analisando o conteúdo… pode levar alguns segundos.",1);
   try{
-    const res=await fetch("/api/ingest",{method:"POST",headers:{"content-type":"application/json",...tokenHdr()},body:JSON.stringify({url:u,prompt:GPROMPT})});
+    const res=await fetch("/api/ingest",{method:"POST",headers:{"content-type":"application/json",...tokenHdr()},body:JSON.stringify({url:u,prompt:ingestPrompt()})});
     const j=await res.json().catch(()=>({}));
     if(!res.ok||!j.ok){gstat("Erro: "+((j&&j.error)||("HTTP "+res.status)));return;}
-    await createFromResult(j.raw,{thumb:j.thumb,source:j.source});
+    let parsed; try{parsed=parseJSON(j.raw);}catch(e){console.warn("ingest parseJSON:",e.message,"\nraw:",j.raw);gstat("Não consegui interpretar a resposta do modelo. <span class='mono' style='opacity:.6'>"+String(j.raw||"").slice(0,90).replace(/</g,"&lt;")+"…</span>");return;}
+    const cards=Array.isArray(parsed.cards)?parsed.cards:(parsed.title?[parsed]:[]);
+    const fresh=[];
+    for(const c of cards){ if(!c||!(c.title||c.url))continue; if(urlDupe((c.url||"").trim()))continue; const ref=makeRef(c,{source:u}); REFS.push(ref); if(!SERVER)added.push(ref); fresh.push(ref); }
+    if(!fresh.length){gstat("Nada novo pra catalogar nesse "+(j.kind==="carousel"?"carrossel":j.kind==="video"?"vídeo":"link")+" — sem referência distinta ou já existe no catálogo.");return;}
+    if(SERVER)persist(); else saveAdded();
+    buildFilters();render();
+    const tipo=j.kind==="carousel"?"carrossel":j.kind==="video"?"vídeo (áudio transcrito)":"link";
+    gstat("Adicionado(s) <b>"+fresh.length+"</b> card(s) do "+tipo+".");
+    const first=document.getElementById("c-"+slug(fresh[0].title)); if(first){first.scrollIntoView({behavior:"smooth",block:"center"});first.classList.add("flash");setTimeout(()=>first.classList.remove("flash"),1800);}
+    toast(fresh.length+" referência(s) adicionada(s).",()=>{fresh.forEach(ref=>{const k=REFS.indexOf(ref);if(k>=0)REFS.splice(k,1);if(!SERVER){const i=added.indexOf(ref);if(i>=0)added.splice(i,1);}});if(SERVER)persist();else saveAdded();buildFilters();render();gstat("");});
   }catch(e){gstat("Erro: "+e.message);}
 }
 async function analyzeImage(file){
