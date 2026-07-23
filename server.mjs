@@ -12,6 +12,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { exec, spawn } from "node:child_process";
 import os from "node:os";
+let FFMPEG = "ffmpeg";
+try { const m = await import("ffmpeg-static"); if (m.default) FFMPEG = m.default; } catch { /* usa o do PATH */ }
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 
@@ -123,11 +125,11 @@ async function videoParts(buf) {
   fs.writeFileSync(inp, buf);
   const parts = [];
   try {
-    await run("ffmpeg", ["-nostdin", "-y", "-i", inp, "-vf", "fps=1/2,scale=720:-2", "-frames:v", "14", "-q:v", "4", path.join(dir, "f_%02d.jpg")]);
+    await run(FFMPEG, ["-nostdin", "-y", "-i", inp, "-vf", "fps=1/2,scale=720:-2", "-frames:v", "14", "-q:v", "4", path.join(dir, "f_%02d.jpg")]);
     const frames = fs.readdirSync(dir).filter((f) => f.endsWith(".jpg")).sort();
     for (const f of frames) { const b = fs.readFileSync(path.join(dir, f)); parts.push({ inline_data: { mime_type: "image/jpeg", data: b.toString("base64") } }); }
     try {
-      await run("ffmpeg", ["-nostdin", "-y", "-i", inp, "-vn", "-ac", "1", "-b:a", "96k", path.join(dir, "a.mp3")]);
+      await run(FFMPEG, ["-nostdin", "-y", "-i", inp, "-vn", "-ac", "1", "-b:a", "96k", path.join(dir, "a.mp3")]);
       const a = fs.readFileSync(path.join(dir, "a.mp3"));
       if (a.length > 2000) parts.push({ inline_data: { mime_type: "audio/mp3", data: a.toString("base64") } });
     } catch { /* vídeo sem trilha de áudio */ }
