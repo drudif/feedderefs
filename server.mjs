@@ -130,16 +130,30 @@ async function geminiUpload(buf, mime, displayName = "media") {
   if (state !== "ACTIVE") throw new Error("estado " + (state || "?"));
   return uri;
 }
-// uma chamada multimodal ao Gemini que devolve {cards:[...]}. Thinking desligado p/ não comer o orçamento de saída.
+// uma chamada multimodal ao Gemini que devolve {cards:[...]}. Thinking desligado + retry em erro transitório.
 async function geminiCards(parts) {
   const body = { contents: [{ parts }], generationConfig: { temperature: 0.3, maxOutputTokens: 8192, responseMimeType: "application/json", thinkingConfig: { thinkingBudget: 0 } } };
-  const gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GMODEL}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
-  const gj = await gr.json().catch(() => ({}));
-  if (gj.error) throw new Error("Gemini " + (gj.error.code || gr.status) + ": " + String(gj.error.message || "").slice(0, 200));
-  const cand = (gj.candidates || [])[0];
-  const text = (((cand || {}).content || {}).parts || []).map((p) => p.text).filter(Boolean).join("");
-  if (!text) throw new Error("Gemini retornou vazio" + (cand && cand.finishReason ? " (finishReason: " + cand.finishReason + ")" : " (sem candidato)"));
-  return text;
+  const TRANSIENT = new Set([429, 500, 502, 503, 504]);
+  let lastErr = "";
+  for (let attempt = 0; attempt < 5; attempt++) {
+    if (attempt) await sleep(1500 * attempt); // 1.5s, 3s, 4.5s, 6s
+    let gr, gj;
+    try {
+      gr = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GMODEL}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+      gj = await gr.json().catch(() => ({}));
+    } catch (e) { lastErr = "rede: " + e.message; continue; }
+    if (gj.error) {
+      const code = Number(gj.error.code || gr.status);
+      lastErr = "Gemini " + code + ": " + String(gj.error.message || "").slice(0, 200);
+      if (TRANSIENT.has(code)) continue;        // sobrecarga/cota → tenta de novo
+      throw new Error(lastErr);                 // erro permanente → aborta
+    }
+    const cand = (gj.candidates || [])[0];
+    const text = (((cand || {}).content || {}).parts || []).map((p) => p.text).filter(Boolean).join("");
+    if (text) return text;
+    lastErr = "Gemini retornou vazio" + (cand && cand.finishReason ? " (finishReason: " + cand.finishReason + ")" : " (sem candidato)");
+  }
+  throw new Error(lastErr + " — tente novamente em instantes");
 }
 
 function serveStatic(req, res) {
