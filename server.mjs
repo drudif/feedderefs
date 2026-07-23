@@ -106,6 +106,28 @@ async function fetchBuf(url, cap = 20 * 1024 * 1024) {
   if (buf.length > cap) throw new Error("mídia grande demais (" + Math.round(buf.length / 1e6) + "MB)");
   return { buf, mime: (r.headers.get("content-type") || "application/octet-stream").split(";")[0] };
 }
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// sobe um arquivo (vídeo) via Files API do Gemini e espera ficar ACTIVE. Retorna file_uri.
+async function geminiUpload(buf, mime, displayName = "media") {
+  const base = "https://generativelanguage.googleapis.com";
+  const start = await fetch(`${base}/upload/v1beta/files?key=${encodeURIComponent(GEMINI_API_KEY)}`, {
+    method: "POST",
+    headers: { "X-Goog-Upload-Protocol": "resumable", "X-Goog-Upload-Command": "start", "X-Goog-Upload-Header-Content-Length": String(buf.length), "X-Goog-Upload-Header-Content-Type": mime, "content-type": "application/json" },
+    body: JSON.stringify({ file: { display_name: displayName } }),
+  });
+  const uploadUrl = start.headers.get("x-goog-upload-url");
+  if (!uploadUrl) throw new Error("Files API: sem upload URL");
+  const up = await fetch(uploadUrl, { method: "POST", headers: { "Content-Length": String(buf.length), "X-Goog-Upload-Offset": "0", "X-Goog-Upload-Command": "upload, finalize" }, body: buf });
+  let info = await up.json();
+  let name = info?.file?.name, state = info?.file?.state, uri = info?.file?.uri;
+  for (let i = 0; i < 30 && state === "PROCESSING"; i++) {
+    await sleep(1500);
+    const st = await (await fetch(`${base}/v1beta/${name}?key=${encodeURIComponent(GEMINI_API_KEY)}`)).json();
+    state = st.state; uri = st.uri || uri;
+  }
+  if (state !== "ACTIVE") throw new Error("Files API: estado " + (state || "?"));
+  return uri;
+}
 // uma chamada multimodal ao Gemini que devolve {cards:[...]} (JSON validado no cliente/servidor)
 async function geminiCards(parts) {
   const body = { contents: [{ parts }], generationConfig: { temperature: 0.3, maxOutputTokens: 4000, responseMimeType: "application/json" } };
@@ -178,14 +200,17 @@ const server = http.createServer(async (req, res) => {
           for (const p of photos) { const { buf, mime } = await fetchBuf(p.url, 8 * 1024 * 1024); parts.push({ inline_data: { mime_type: mime.startsWith("image/") ? mime : "image/jpeg", data: buf.toString("base64") } }); }
           parts.push({ text: `${prompt}\n\n== ENTRADA: ${photos.length} SLIDES de um carrossel (na ordem). ==` });
         } else if (cj.status === "tunnel" || cj.status === "redirect" || (cj.status === "picker" && cj.picker.some((p) => p.type === "video"))) {
-          // vídeo → extrai só o áudio (mp3 leve) pra transcrever; nada é guardado
+          // vídeo → manda o VÍDEO inteiro pro Gemini (lê texto na tela + ouve o áudio). Nada é guardado.
           kind = "video";
-          let aj; try { aj = await cobalt(url, { downloadMode: "audio", audioFormat: "mp3", audioBitrate: "96" }); } catch (e) { return json(res, 502, { ok: false, error: "cobalt áudio: " + e.message }); }
-          const aurl = (aj.status === "tunnel" || aj.status === "redirect") ? aj.url : "";
-          if (!aurl) return json(res, 502, { ok: false, error: "não consegui extrair o áudio (" + (aj.error?.code || aj.status || "?") + ")" });
-          let audio; try { audio = await fetchBuf(aurl, 18 * 1024 * 1024); } catch (e) { return json(res, 413, { ok: false, error: "áudio " + e.message + " — vídeo longo demais pra transcrever inline" }); }
-          parts.push({ inline_data: { mime_type: "audio/mp3", data: audio.buf.toString("base64") } });
-          parts.push({ text: `${prompt}\n\n== ENTRADA: o ÁUDIO de um vídeo. Transcreva mentalmente e catalogue a(s) referência(s) faladas/mostradas. ==` });
+          let vurl = (cj.status === "tunnel" || cj.status === "redirect") ? cj.url : (cj.picker.find((p) => p.type === "video") || {}).url;
+          if (!vurl) { const vj = await cobalt(url, { videoQuality: "720" }); vurl = (vj.status === "tunnel" || vj.status === "redirect") ? vj.url : ""; }
+          if (!vurl) return json(res, 502, { ok: false, error: "não consegui obter o vídeo (" + (cj.error?.code || cj.status || "?") + ")" });
+          let vid; try { vid = await fetchBuf(vurl, 120 * 1024 * 1024); } catch (e) { return json(res, 413, { ok: false, error: "vídeo " + e.message }); }
+          let fileUri; try { fileUri = await geminiUpload(vid.buf, vid.mime.startsWith("video/") ? vid.mime : "video/mp4", "reel"); } catch (e) { return json(res, 502, { ok: false, error: "upload do vídeo pro Gemini falhou: " + e.message }); }
+          const og = await ogScrape(url).catch(() => ({}));
+          const cap = [og.title && "Legenda/título: " + og.title, og.desc && "Descrição do post: " + og.desc].filter(Boolean).join("\n");
+          parts.push({ file_data: { mime_type: vid.mime.startsWith("video/") ? vid.mime : "video/mp4", file_uri: fileUri } });
+          parts.push({ text: `${prompt}\n\n== ENTRADA: um VÍDEO curto (Reel/Short). Preste MUITA atenção ao TEXTO QUE APARECE NA TELA (overlays, nomes de sites/ferramentas/URLs exibidos) e TAMBÉM ao que é falado no áudio. Capte TODOS os sites, ferramentas e recursos citados ou mostrados — muitos aparecem só como texto na tela.${cap ? "\n\n" + cap : ""} ==` });
         } else {
           return json(res, 422, { ok: false, error: "cobalt não resolveu o link (" + (cj.error?.code || cj.status || "?") + ")" });
         }
