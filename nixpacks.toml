@@ -1,3 +1,4 @@
-# Instala o ffmpeg no build (extração de frames + áudio de vídeos no /api/ingest).
+# Adiciona o ffmpeg ao ambiente (extração de frames + áudio de vídeos no /api/ingest).
+# "..." mantém os pacotes autodetectados (Node) e acrescenta o ffmpeg ao PATH.
 [phases.setup]
-aptPkgs = ["ffmpeg"]
+nixPkgs = ["...", "ffmpeg"]
