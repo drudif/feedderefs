@@ -1,0 +1,3 @@
+# Instala o ffmpeg no build (extração de frames + áudio de vídeos no /api/ingest).
+[phases.setup]
+aptPkgs = ["ffmpeg"]

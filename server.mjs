@@ -10,7 +10,8 @@ import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { exec } from "node:child_process";
+import { exec, spawn } from "node:child_process";
+import os from "node:os";
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 
@@ -107,6 +108,32 @@ async function fetchBuf(url, cap = 20 * 1024 * 1024) {
   return { buf, mime: (r.headers.get("content-type") || "application/octet-stream").split(";")[0] };
 }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+function run(cmd, args) {
+  return new Promise((resolve, reject) => {
+    const p = spawn(cmd, args); let err = "";
+    p.stderr.on("data", (d) => { err += d; });
+    p.on("error", reject);
+    p.on("close", (code) => (code === 0 ? resolve() : reject(new Error(cmd + " saiu " + code + ": " + err.slice(-180)))));
+  });
+}
+// vídeo → frames (texto na tela) + áudio (transcrição), via ffmpeg. Modalidades confiáveis. Nada é guardado.
+async function videoParts(buf) {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "reel-"));
+  const inp = path.join(dir, "in.mp4");
+  fs.writeFileSync(inp, buf);
+  const parts = [];
+  try {
+    await run("ffmpeg", ["-nostdin", "-y", "-i", inp, "-vf", "fps=1/2,scale=720:-2", "-frames:v", "14", "-q:v", "4", path.join(dir, "f_%02d.jpg")]);
+    const frames = fs.readdirSync(dir).filter((f) => f.endsWith(".jpg")).sort();
+    for (const f of frames) { const b = fs.readFileSync(path.join(dir, f)); parts.push({ inline_data: { mime_type: "image/jpeg", data: b.toString("base64") } }); }
+    try {
+      await run("ffmpeg", ["-nostdin", "-y", "-i", inp, "-vn", "-ac", "1", "-b:a", "96k", path.join(dir, "a.mp3")]);
+      const a = fs.readFileSync(path.join(dir, "a.mp3"));
+      if (a.length > 2000) parts.push({ inline_data: { mime_type: "audio/mp3", data: a.toString("base64") } });
+    } catch { /* vídeo sem trilha de áudio */ }
+  } finally { try { fs.rmSync(dir, { recursive: true, force: true }); } catch { /* ignore */ } }
+  return parts;
+}
 // sobe um arquivo (vídeo) via Files API do Gemini e espera ficar ACTIVE. Retorna file_uri.
 async function geminiUpload(buf, mime, displayName = "media") {
   const base = "https://generativelanguage.googleapis.com";
@@ -219,25 +246,19 @@ const server = http.createServer(async (req, res) => {
           for (const p of photos) { const { buf, mime } = await fetchBuf(p.url, 8 * 1024 * 1024); parts.push({ inline_data: { mime_type: mime.startsWith("image/") ? mime : "image/jpeg", data: buf.toString("base64") } }); }
           parts.push({ text: `${prompt}\n\n== ENTRADA: ${photos.length} SLIDES de um carrossel (na ordem). ==` });
         } else if (cj.status === "tunnel" || cj.status === "redirect" || (cj.status === "picker" && cj.picker.some((p) => p.type === "video"))) {
-          // vídeo → manda o VÍDEO pro Gemini (lê texto na tela + ouve o áudio). 480p p/ ficar leve. Nada é guardado.
+          // vídeo → frames (texto na tela) + áudio (fala) via ffmpeg. 480p p/ baixar leve. Nada é guardado.
           kind = "video";
           let vurl = "";
           try { const vj = await cobalt(url, { videoQuality: "480" }); vurl = (vj.status === "tunnel" || vj.status === "redirect") ? vj.url : ((vj.picker || []).find((p) => p.type === "video") || {}).url || ""; } catch { /* usa o cj abaixo */ }
           if (!vurl) vurl = (cj.status === "tunnel" || cj.status === "redirect") ? cj.url : ((cj.picker || []).find((p) => p.type === "video") || {}).url || "";
           if (!vurl) return json(res, 502, { ok: false, error: "não consegui obter o vídeo (" + (cj.error?.code || cj.status || "?") + ")" });
           let vid; try { vid = await fetchBuf(vurl, 120 * 1024 * 1024); } catch (e) { return json(res, 413, { ok: false, error: "vídeo " + e.message }); }
-          const vmime = vid.mime.startsWith("video/") ? vid.mime : "video/mp4";
-          if (vid.buf.length <= 12 * 1024 * 1024) {
-            // pequeno: manda inline (evita a Files API)
-            parts.push({ inline_data: { mime_type: vmime, data: vid.buf.toString("base64") } });
-          } else {
-            // grande: sobe pela Files API
-            let fileUri; try { fileUri = await geminiUpload(vid.buf, vmime, "reel"); } catch (e) { return json(res, 502, { ok: false, error: "upload do vídeo pro Gemini falhou: " + e.message }); }
-            parts.push({ file_data: { mime_type: vmime, file_uri: fileUri } });
-          }
+          let media; try { media = await videoParts(vid.buf); } catch (e) { return json(res, 502, { ok: false, error: "processamento do vídeo (ffmpeg): " + e.message }); }
+          if (!media.length) return json(res, 502, { ok: false, error: "não consegui extrair frames do vídeo" });
+          for (const m of media) parts.push(m);
           const og = await ogScrape(url).catch(() => ({}));
           const cap = [og.title && "Legenda/título: " + og.title, og.desc && "Descrição do post: " + og.desc].filter(Boolean).join("\n");
-          parts.push({ text: `${prompt}\n\n== ENTRADA: um VÍDEO curto (Reel/Short). Preste MUITA atenção ao TEXTO QUE APARECE NA TELA (overlays, nomes de sites/ferramentas/URLs exibidos) e TAMBÉM ao que é falado no áudio. Capte TODOS os sites, ferramentas e recursos citados ou mostrados — muitos aparecem só como texto na tela.${cap ? "\n\n" + cap : ""} ==` });
+          parts.push({ text: `${prompt}\n\n== ENTRADA: FRAMES (imagens em ordem cronológica) de um VÍDEO curto + o ÁUDIO dele. Leia o TEXTO QUE APARECE NA TELA (overlays, nomes de sites/ferramentas/URLs exibidos) e TAMBÉM ouça a fala. Capte TODOS os sites, ferramentas e recursos citados ou mostrados — muitos aparecem só como texto na tela.${cap ? "\n\n" + cap : ""} ==` });
         } else {
           return json(res, 422, { ok: false, error: "cobalt não resolveu o link (" + (cj.error?.code || cj.status || "?") + ")" });
         }
