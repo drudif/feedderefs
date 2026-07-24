@@ -1,8 +1,8 @@
-/* Catálogo. */
+/* Atualizado automaticamente pelo catálogo (server.mjs). */
 window.REFS_DATA = {
   "scanDate": "2026-07-04",
   "firstScan": "2026-07-03",
-  "generated": "2026-07-18",
+  "generated": "2026-07-21",
   "sources": {
     "videos": 3,
     "images": 35
@@ -2409,6 +2409,366 @@ window.REFS_DATA = {
       ],
       "desc": "Central Type Fonts é um catálogo de fontes digitais criadas e distribuídas pela Central Type, com design de Mark Butchko. O site apresenta diversas famílias de fontes, detalhando o ano de criação, o designer, o número de estilos e a versão. Serve como uma vitrine para tipografias originais, oferecendo opções para uso em projetos de design.",
       "date": "2026-07-10"
+    },
+    {
+      "title": "Image Tool",
+      "url": "https://imagetool.paulsoulhiard.com/",
+      "cat": "av",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Ferramenta de browser que anima imagens estáticas com presets de movimento generativo — esfera, anel, hélice, fluxo. Boa para transformar um still em loop de motion rapidamente, sem After Effects.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Grid Beta",
+      "url": "https://gridbeta.framer.website/",
+      "cat": "design",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Editor de sistema de grid no navegador: define colunas, gutters e margens e exporta o layout. Útil para prototipar a malha de uma página antes de levar pro código ou Figma.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Morflax Studio",
+      "url": "https://studio.morflax.com/",
+      "cat": "av",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Studio de mockups 3D e motion com dispositivos, roupas e elementos de marca, exportando até 4K. Serve para apresentar produtos e identidades em cenas renderizadas sem software 3D pesado.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Scanner Distortion Lab",
+      "url": "https://yhhydesign.github.io/tools/scanner_glitch_Art.html",
+      "cat": "assets",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Aplica efeitos de slit-scan e glitch em imagens com parâmetros de varredura ajustáveis. Gera texturas e distorções para download, no espírito lo-fi/experimental.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Playspace — Instrument",
+      "url": "https://playspace.instrument.com/",
+      "cat": "assets",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Coleção de experimentos de browser do estúdio Instrument (Bitmapper, Typ-o-matic, IMGShfflr). Um playground de micro-ferramentas criativas para gerar gráficos e brincar com imagem e tipo.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Pattern Typo",
+      "url": "https://pattern-typo.vercel.app/",
+      "cat": "type",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Converte letras em padrões texturizados repetidos, com escala e ritmo ajustáveis. Ponte entre tipografia e pattern-making para capas, pôsteres e fundos.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Doodle Fonts",
+      "url": "https://doodlefonts.app/",
+      "cat": "type",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Permite desenhar caracteres à mão e transformá-los numa fonte funcional exportável. Caminho rápido para lettering autoral virar typeface utilizável.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Visu.haus",
+      "url": "https://visu.haus/",
+      "cat": "av",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Reúne experimentos de motion 'jogáveis', pensados para remixar em vez de só configurar. Fonte de sistemas visuais animados para adaptar em projetos.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "brik",
+      "url": "https://brik.space/",
+      "cat": "ai",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Ecossistema de IA que gera ferramentas de browser remixáveis para 3D, WebGL e animação de tipo. Mistura geração por IA com criação de micro-ferramentas criativas.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Arqe",
+      "url": "https://arqe.ai/",
+      "cat": "av",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Templates de motion no navegador com sliders de ajuste e exportação em múltiplas proporções. Acelera peças animadas para social e ads sem timeline tradicional.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Variant",
+      "url": "https://variant.com/",
+      "cat": "ai",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Gera e compara múltiplas variações de UI usando IA. Útil para explorar rapidamente direções de interface e escolher entre alternativas.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Paper",
+      "url": "https://paper.design/",
+      "cat": "design",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Canvas de design conectado que sincroniza tokens, estilos e componentes entre a tela e o código. Aproxima o design do sistema real, reduzindo o drift entre Figma e implementação.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Intl Playground",
+      "url": "https://playground.intl.international/01/",
+      "cat": "type",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Experimentos interativos de tipo e forma do estúdio Intl. Um laboratório para explorar composição tipográfica e sistemas de formas.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Deeo Artifacts",
+      "url": "https://artifacts.deeo.studio/",
+      "cat": "assets",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Máquinas visuais generativas com peças novas regularmente e controles customizáveis. Fonte de artefatos gráficos únicos para usar ou destrinchar.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Lunardi Lab",
+      "url": "https://www.edoardolunardi.dev/lab",
+      "cat": "design",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Laboratório de creative coding com interações experimentais e demos de WebGL. Referência técnica e criativa de efeitos e microinterações feitos no navegador.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Autocutter",
+      "url": "https://stihilus.github.io/autocutter/",
+      "cat": "assets",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Fatia imagens automaticamente em composições de colagem baseadas em grid, prontas para download. Bom para gerar layouts fragmentados e experimentos de recorte.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Code to Form",
+      "url": "https://codetoform.app/",
+      "cat": "assets",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Studio vetorial generativo para ajustar e exportar geometria abstrata algorítmica. Produz formas e composições vetoriais paramétricas para identidade e print.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Tooooools",
+      "url": "https://tooooools.app/",
+      "cat": "assets",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Conjunto de efeitos lo-fi de propósito único — grão, glitch e textura — para imagem e vídeo. Rápido para dar acabamento analógico/imperfeito a assets.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Pixlo",
+      "url": "https://pixlo.me/",
+      "cat": "av",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Transforma coleções de fotos em vídeos-recap animados automaticamente. Útil para montar retrospectivas e reels a partir de um acervo de imagens.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Ladybug",
+      "url": "https://theladybug.app/",
+      "cat": "av",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Studio de efeitos ao vivo que aplica ASCII, halftone, dither e glitch com keyframes e exportação em 4K. Junta o visual lo-fi de dither ao controle de animação por keyframe.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Colir",
+      "url": "https://colir.space/",
+      "cat": "assets",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Criador de gradientes baseado em curvas, para transições finas entre canais de cor. Dá controle mais preciso que geradores de gradiente comuns.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Gradientool",
+      "url": "https://gradientool.com/",
+      "cat": "assets",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Gera gradientes únicos com randomização e exportação em CSS ou imagem. Bom ponto de partida para paletas e fundos com um clique.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Hano",
+      "url": "https://hano.so/",
+      "cat": "av",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Cria mockups de dispositivos em 3D no navegador, com iluminação e exportação em alta resolução. Para apresentar telas e produtos em cenas renderizadas.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Grid Shuffle",
+      "url": "https://www.figma.com/community/plugin/1651975529279734323",
+      "cat": "design",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Plugin de Figma que gera variações de layout em grid automaticamente. Acelera a exploração de composições dentro do próprio fluxo de design.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Animos",
+      "url": "https://animos.app/",
+      "cat": "av",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Produz showcases animados de design a partir de frames estáticos, sem After Effects. Bom para dar vida a apresentações e cases de portfólio.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Best Designs on X",
+      "url": "https://bestdesignsonx.com/",
+      "cat": "inspo",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Feed curado dos melhores trabalhos criativos do X, atualizado de hora em hora. Fonte de inspiração para acompanhar o que está sendo produzido em tempo quase real.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Recent Design",
+      "url": "https://recent.design/",
+      "cat": "inspo",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Referências de design curadas diariamente, apresentadas uma página por vez. Consumo calmo e editorial de inspiração, sem overload de grid infinito.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Buildertools",
+      "url": "https://www.buildertools.sh/",
+      "cat": "inspo",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Diretório categorizado de ferramentas para builders de produto e site. Ponto de consulta para achar a ferramenta certa por necessidade.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Superpowered",
+      "url": "https://superpowered.design/",
+      "cat": "inspo",
+      "src": "toolshelf",
+      "types": [
+        "site"
+      ],
+      "desc": "Arquivo navegável de ferramentas de design organizado por categoria. Catálogo de consulta para descobrir utilitários criativos.",
+      "date": "2026-07-24",
+      "added": true
+    },
+    {
+      "title": "Bézier Inspector",
+      "url": "https://github.com/jmlee9762/bezier-inspector-for-illustrator",
+      "cat": "design",
+      "src": "toolshelf",
+      "types": [
+        "repo"
+      ],
+      "desc": "Extensão gratuita para Illustrator que mostra a geometria das curvas bézier com âncoras e métricas. Ajuda a inspecionar e refinar traçados vetoriais com precisão.",
+      "date": "2026-07-24",
+      "added": true
     }
   ]
 };
