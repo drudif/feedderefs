@@ -86,7 +86,11 @@
     position:relative;border-radius:var(--r);overflow:hidden;
     transition:transform .18s cubic-bezier(.2,.9,.3,1),box-shadow .18s,background .18s}
   .card .bar{height:5px;background:var(--cc)}
-  .card-thumb{width:100%;height:150px;object-fit:cover;display:block;border-bottom:1.5px solid var(--hair);filter:saturate(.95)}
+  .card-thumb{width:100%;height:150px;object-fit:cover;object-position:top;display:block;border-bottom:1.5px solid var(--hair);filter:saturate(.95);background:var(--paper-2)}
+  .shots-toggle{margin-left:auto}
+  .shots-toggle .dotmini{width:7px;height:7px;border-radius:50%;background:var(--ink-3);display:inline-block;transition:background .15s}
+  .shots-toggle.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .shots-toggle.on .dotmini{background:var(--self)}
   .card .pad{padding:20px 20px 18px;display:flex;flex-direction:column;gap:11px;flex:1}
   .card:hover{background:var(--paper-2);transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--cc)}
   .card-top{display:flex;flex-direction:column;align-items:flex-start;gap:9px}
@@ -218,6 +222,7 @@
         <button class="clear" id="clear" aria-label="Limpar">&times;</button>
       </label>
       <span class="rc" id="resultCount"></span>
+      <button class="chip shots-toggle" id="shotsToggle" title="Mostrar print da home nos cards de site (mShots)"><span class="dotmini"></span>Prints</button>
     </div>
   </div>
 </nav>
@@ -354,6 +359,9 @@ function buildFilters(){
   typebar.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{const t=b.dataset.type;activeTypes.has(t)?activeTypes.delete(t):activeTypes.add(t);buildFilters();render();});
 }
 
+// prints da home (mShots do WordPress) — derivados da URL, nada é armazenado; toggle persistido
+let showShots=localStorage.getItem("refs-shots")==="1";
+const shotUrl=u=>"https://s.wordpress.com/mshots/v1/"+encodeURIComponent(u)+"?w=640&h=400";
 function card(r){
   const cat=CATS[r.cat]||{label:r.cat,c:"var(--ink)"};
   const body=r.items
@@ -363,7 +371,9 @@ function card(r){
   const foot=r.url
     ? `<a class="go" href="${r.url}" target="_blank" rel="noopener" draggable="false">Acessar <span class="arw">→</span></a>`
     : `<span class="local">${(r.types||[]).includes('installed')?'Skill instalada':'Mídia local'}</span>`;
-  const thumb=r.thumb?`<img class="card-thumb" src="${r.thumb}" loading="lazy" alt="" draggable="false" onerror="this.style.display='none'">`:"";
+  let thumbSrc=r.thumb||"";
+  if(!thumbSrc&&showShots&&r.url&&/^https?:\/\//i.test(r.url)&&(r.types||[]).includes("site")) thumbSrc=shotUrl(r.url);
+  const thumb=thumbSrc?`<img class="card-thumb" src="${thumbSrc}" loading="lazy" alt="" draggable="false" onerror="this.style.display='none'">`:"";
   return `<article class="card" id="c-${slug(r.title)}" data-slug="${slug(r.title)}" draggable="${canEdit()?'true':'false'}" style="--cc:${cat.c}">
     <div class="bar"></div>
     ${thumb}
@@ -408,6 +418,10 @@ function render(){
 let deb;
 searchEl.addEventListener("input",()=>{clearTimeout(deb);deb=setTimeout(()=>{query=norm(searchEl.value.trim());searchBox.classList.toggle("has",searchEl.value.length>0);buildFilters();render();},120);});
 clearBtn.addEventListener("click",()=>{searchEl.value="";query="";searchBox.classList.remove("has");searchEl.focus();buildFilters();render();});
+const shotsToggle=document.getElementById("shotsToggle");
+const paintShots=()=>shotsToggle.classList.toggle("on",showShots);
+shotsToggle.addEventListener("click",()=>{showShots=!showShots;localStorage.setItem("refs-shots",showShots?"1":"0");paintShots();render();});
+paintShots();
 
 // clique no × remove a referência (SERVER: apaga do arquivo · file://: oculta no navegador)
 content.addEventListener("click",e=>{
